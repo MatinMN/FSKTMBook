@@ -5,6 +5,7 @@
  */
 package fsktmbook;
 
+import fsktmbook.ui.database.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +22,7 @@ public class FSKTMBook extends Application {
     public void start(Stage stage) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
-        
+        Database database = Database.getInstannce();
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

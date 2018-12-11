@@ -31,20 +31,7 @@ public class Database {
     
     public Database(){
         createConnection();
-        // these functions set up the data only need to run it once it is not needed to run if the programm is compiled 
-//        setupBookTable();
-//        setupUsersTable();
- //       setupCategoriesTable();
-//        setupIssuedBooksTable();
-//        setupActivityTable();
-//        setupMemberShipTable();
-        // add the head librarian and librarians here (there is no register so they are added to the system manualy) only need to run once
-//        execAction("INSERT INTO users (username,name,lastname,password,type) VALUES ('admin','admin','admin','admin','head')");
-//        execAction("INSERT INTO users (username,name,lastname,password,type) VALUES ('matin','matin','Mazloom','matin','librarian')");
-//        execAction("INSERT INTO users (username,name,lastname,password,type) VALUES ('ayoob','ayoob','Mohammed Hassan','ayoob','librarian')");
-//        execAction("INSERT INTO users (username,name,lastname,password,type) VALUES ('omar','omar','ABDELMOAMEN AMIN HASSAN','omar','librarian')");
-
-//          
+        setupBookTable();
     }
     
     public static Database getInstannce(){
@@ -79,7 +66,37 @@ public class Database {
         }
     }
     
-     public ResultSet execQuery(String query) {
+    void setupBookTable(){
+        String TABLE_NAME = "users";
+        
+        try {
+            sql = conn.createStatement();
+            
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+            
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                        + "  id varchar(200) primary key,\n"
+                        + "  username varchar(200),\n"
+                        + "  name varchar(200),\n"
+                        + "  lastname varchar(200),\n"
+                        + "  about varchar(255),\n "
+                        + "  password varchar(255),\n"
+                        + "  registerDate Date"
+                        + " )");
+            }
+            
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+    
+    }
+    
+    public ResultSet execQuery(String query) {
         ResultSet result;
         try {
             sql = conn.createStatement();
