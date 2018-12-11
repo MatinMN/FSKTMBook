@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Tue Dec 11 13:38:50 SGT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0167-9bc6-6931-000003321f28 
-on database directory C:\Users\Matin\Documents\NetBeansProjects\FSKTMBook\database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/Matin/Documents/NetBeansProjects/FSKTMBook/dist/run16383849/lib/derby.jar
+Tue Dec 11 15:28:58 SGT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0167-9c2b-3bcc-00000606eb90 
+on database directory C:\Users\USER\Documents\GitHub\FSKTMBook\database with class loader sun.misc.Launcher$AppClassLoader@42a57993 
+Loaded from file:/C:/Users/USER/Documents/GitHub/FSKTMBook/dist/run1856011064/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_171-b11
-user.dir=C:\Users\Matin\Documents\NetBeansProjects\FSKTMBook
+java.runtime.version=1.8.0_111-b14
+user.dir=C:\Users\USER\Documents\GitHub\FSKTMBook
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

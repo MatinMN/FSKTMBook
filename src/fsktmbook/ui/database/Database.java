@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database;
 
+import fsktmbook.helpers.User;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -12,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 //import javax.swing.JOptionPane;
@@ -31,7 +34,9 @@ public class Database {
     
     public Database(){
         createConnection();
-        setupBookTable();
+        setupUsersTable();
+//        System.out.println(checkPassword("omar","12345"));
+        printUsersTable();
     }
     
     public static Database getInstannce(){
@@ -66,7 +71,7 @@ public class Database {
         }
     }
     
-    void setupBookTable(){
+    void setupUsersTable(){
         String TABLE_NAME = "users";
         
         try {
@@ -79,14 +84,15 @@ public class Database {
                 System.out.println("Table " + TABLE_NAME + " already exists");
             }else{
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
-                        + "  id varchar(200) primary key,\n"
-                        + "  username varchar(200),\n"
-                        + "  name varchar(200),\n"
-                        + "  lastname varchar(200),\n"
-                        + "  about varchar(255),\n "
-                        + "  password varchar(255),\n"
-                        + "  registerDate Date"
-                        + " )");
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "username VARCHAR(255),\n" +
+                    "name VARCHAR(255),\n" +
+                    "lastname VARCHAR(255),\n" +
+                    "password VARCHAR(255),\n" +
+                    "about VARCHAR(255),  \n" +
+                    "matricNumber VARCHAR(30),\n" +
+                    "registeredDate VARCHAR(10)" +
+                    " )");
             }
             
         }catch(SQLException e){
@@ -94,6 +100,53 @@ public class Database {
         }finally{
         }
     
+    }
+    public boolean checkPassword(String userName,String password){
+        String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
+        ResultSet rs = this.execQuery(query);
+        try{
+            while(rs.next()){
+                 String pass = rs.getString("password");
+                 if(pass.equals(password)){
+                     return true;
+                 }
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean printUsersTable(String userName){
+        String query = "SELECT id,username,password FROM users WHERE username='"+userName+"'";
+        ResultSet rs = this.execQuery(query);
+        String msg = "";
+        try{
+            while(rs.next()){
+                 msg+="|"+rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("name")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|";
+                 System.out.println(msg);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean printUsersTable(){
+        String query = "SELECT id,username,name,lastname,password FROM users";
+        ResultSet rs = this.execQuery(query);
+        String msg = "";
+        try{
+            while(rs.next()){
+         
+                
+                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("name")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|";
+                 System.out.println(msg);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
     }
     
     public ResultSet execQuery(String query) {
@@ -106,10 +159,37 @@ public class Database {
             return null;
         } finally {
         }
+        
+        return result;
+    }
+    
+    public boolean doesUserExist(String userName){
+        String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
+        ResultSet rs = this.execQuery(query);
+        try {
+            while(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean addUser(User user){
+        
+        // check if user already excist
+        if(doesUserExist(user.getUserName())){
+            return false;
+        }
+        String query = "INSERT INTO users (username,name,lastname) values ('"
+                + user.getUserName() +"'" + user.getName()+  "','about')";
+        
+        boolean result = execAction(query);
+ 
         return result;
     }
 
-    
 
 
 }
