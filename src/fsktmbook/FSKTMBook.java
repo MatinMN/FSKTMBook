@@ -21,7 +21,7 @@ public class FSKTMBook extends Application {
      @Override
     public void start(Stage stage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("RegisterPage.fxml"));
         Database database = Database.getInstannce();
         Scene scene = new Scene(root);
         
