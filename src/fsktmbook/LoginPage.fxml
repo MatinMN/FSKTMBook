@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="fsktmbook.LoginPageController">
-    <children>
-        <Button fx:id="button" layoutX="7.0" layoutY="24.0" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.LoginPageController">
+   <children>
+      <ImageView fitHeight="540.0" fitWidth="960.0" layoutX="6.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@login%20page.jpg" />
+         </image>
+      </ImageView>
+      <PasswordField fx:id="password_field" layoutX="114.0" layoutY="290.0" prefHeight="45.0" prefWidth="295.0" promptText="Password">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="signup_btn" layoutX="648.0" layoutY="374.0" mnemonicParsing="false" onAction="#signup" prefHeight="49.0" prefWidth="186.0" style="-fx-background-color: #4cbf97; -fx-border-color: white; -fx-border-radius: 100;" text="Sign up" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <TextField fx:id="username_field" layoutX="114.0" layoutY="208.0" prefHeight="49.0" prefWidth="295.0" promptText="Username">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button id="signin-button" fx:id="signin_btn" layoutX="149.0" layoutY="381.0" mnemonicParsing="false" onAction="#signin" prefHeight="59.0" prefWidth="226.0" style="-fx-background-color: #4cbf97; -fx-border-color: #4cbf97; -fx-border-radius: 100; -fx-background-radius: 100;" text="Sign in" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>
