@@ -35,7 +35,10 @@ public class Database {
     public Database(){
         createConnection();
         setupUsersTable();
+        User user1 = new User("AyoobMH","Ayoob","Alogaidi","12345","Single","WIF170714","2018-12-11");
 //        System.out.println(checkPassword("omar","12345"));
+        addUser(user1);
+        
         printUsersTable();
     }
     
@@ -180,10 +183,17 @@ public class Database {
         
         // check if user already excist
         if(doesUserExist(user.getUserName())){
+            //System.out.println("User exists already");
             return false;
         }
-        String query = "INSERT INTO users (username,name,lastname) values ('"
-                + user.getUserName() +"'" + user.getName()+  "','about')";
+        String query = "INSERT INTO users (username,name,lastname,password,about,matricNumber,registeredDate) values ('"+ user.getUserName()+"' ,"
+                + "'" + user.getName() +"',"
+                + "'" + user.getLastName()+"',"
+                + "'" + user.getPassword()+"',"
+                + "'" + user.getAbout()+"',"
+                + "'" + user.getMatricNumber()+"',"
+                + "'" + user.getRegisteredDate()+"'"
+                + ")";
         
         boolean result = execAction(query);
  
