@@ -34,8 +34,8 @@ public class Database {
     
     public Database(){
         createConnection();
-        setupUsersTable();
-//        System.out.println(checkPassword("omar","12345"));
+        setupPostsTable();
+        //setupUsersTable();
         printUsersTable();
     }
     
@@ -101,6 +101,37 @@ public class Database {
         }
     
     }
+    
+    // creates the posts table *only run it once 
+    void setupPostsTable(){
+        String TABLE_NAME = "posts";
+        
+        try {
+            sql = conn.createStatement();
+            
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+            
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId VARCHAR(255),\n" +
+                    "title VARCHAR(255),\n" +
+                    "content VARCHAR(255),\n" + // 255 but it's 200 like twitter 
+                    "likes Integer,\n" +
+                    "postDate VARCHAR(10)" + // date the post was posted (LOL)
+                    " )");
+            }
+            
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+    
+    }
+    
     public boolean checkPassword(String userName,String password){
         String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
         ResultSet rs = this.execQuery(query);
