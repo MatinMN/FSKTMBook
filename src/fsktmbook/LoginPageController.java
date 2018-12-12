@@ -5,20 +5,15 @@
  */
 package fsktmbook;
 
-import fsktmbook.helpers.Helper;
-import fsktmbook.ui.database.Database;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -38,58 +33,21 @@ public class LoginPageController implements Initializable {
     private Button signin_btn;
     @FXML
     private Button signup_btn;
-    @FXML
-    private AnchorPane rootPane;
     
-    
-    Database database;
+    private void handleButtonAction(ActionEvent event) {
+        System.out.println("You clicked me!");
+        label.setText("Hello World!");
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        database = Database.getInstannce();
+        // TODO
     }    
 
     @FXML
     private void signin(ActionEvent event) {
-        
-        String username = username_field.getText();
-        String password = password_field.getText();
-        
-        // form validation 
-        boolean validate = validateLoginData(username,password);
-       
-        if(validate){
-            // check if username and password
-            boolean result = database.checkPassword(username, password);
-            
-            if(result){ // username and passwrod is current
-                FSKTMBook.LOGGEDUSER = username;
-                return;
-            }
-            Helper.openAlert("Wrong username or password.");
-        }
-        return;
     }
-    
-    
-    public boolean validateLoginData(String username,String password){
-        
-        if(username.isEmpty() || password.isEmpty()){
-           Helper.openAlert("All input fields are required.");
-           return false; 
-        }
-        if(username.length() > 255){
-          Helper.openAlert("Username cannot be longer than 255 characters.");
-          return false;
-        }
-        if(password.length() > 20){
-           Helper.openAlert("Password cannot be longer than 20 characters.");
-           return false;
-        }
-        
-        return true;
-    }
-    
+
     @FXML
     private void signup(ActionEvent event) {
     }
