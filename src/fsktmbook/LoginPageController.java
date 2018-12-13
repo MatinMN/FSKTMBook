@@ -5,13 +5,21 @@
  */
 package fsktmbook;
 
+
+import java.util.logging.LoggingPermission;
 import fsktmbook.helpers.Helper;
 import fsktmbook.ui.database.Database;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -92,6 +101,25 @@ public class LoginPageController implements Initializable {
     
     @FXML
     private void signup(ActionEvent event) {
+        // switch to register page function.....
+        loadWindow("RegisterPage.fxml","Register page");
     }
+    
+    // A method to switch the scene of the program to different windows....
+    void loadWindow(String location,String title){
+        
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(location));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+            
+        } catch (IOException ex){ 
+            ex.printStackTrace();
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
 }

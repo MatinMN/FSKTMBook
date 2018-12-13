@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database;
 
+import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -36,12 +37,13 @@ public class Database {
         createConnection();
         setupPostsTable();
         //setupUsersTable();
-
         setupUsersTable();
-        User user1 = new User("AyoobMH","Ayoob","Alogaidi","12345","Single","WIF170714","2018-12-11");
+        User user1 = new User("AyoobMH","Alogaidi","12345","WIF170714",Helper.registeredDateTime(),"");
+        User user2 = new User("Ayoob","moh","12345","WIF",Helper.registeredDateTime(),"");
 //        System.out.println(checkPassword("omar","12345"));
         addUser(user1);
-
+        addUser(user2);
+        
         printUsersTable();
     }
     
@@ -92,12 +94,11 @@ public class Database {
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "username VARCHAR(255),\n" +
-                    "name VARCHAR(255),\n" +
                     "lastname VARCHAR(255),\n" +
                     "password VARCHAR(255),\n" +
-                    "about VARCHAR(255),  \n" +
-                    "matricNumber VARCHAR(30),\n" +
-                    "registeredDate VARCHAR(10)" +
+                    "matricNumber VARCHAR(10),\n" +
+                    "registeredDate VARCHAR(30), \n" +
+                    "about VARCHAR(255)" +
                     " )");
             }
             
@@ -170,14 +171,12 @@ public class Database {
     }
     
     public boolean printUsersTable(){
-        String query = "SELECT id,username,name,lastname,password FROM users";
+        String query = "SELECT id,username,lastname,password,matricNumber,registeredDate FROM users";
         ResultSet rs = this.execQuery(query);
         String msg = "";
         try{
             while(rs.next()){
-         
-                
-                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("name")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|";
+                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|"+rs.getString("matricNumber")+"|"+rs.getString("registeredDate");
                  System.out.println(msg);
             }
         }catch(SQLException ex){
@@ -216,24 +215,21 @@ public class Database {
     public boolean addUser(User user){
         
         // check if user already excist
-        if(doesUserExist(user.getUserName())){
+        if(doesUserExist(user.getFirstName())){
             //System.out.println("User exists already");
             return false;
         }
-        String query = "INSERT INTO users (username,name,lastname,password,about,matricNumber,registeredDate) values ('"+ user.getUserName()+"' ,"
-                + "'" + user.getName() +"',"
+        String query = "INSERT INTO users (username,lastname,password,matricNumber,registeredDate) values ('"
+                + user.getFirstName()+"',"
                 + "'" + user.getLastName()+"',"
                 + "'" + user.getPassword()+"',"
-                + "'" + user.getAbout()+"',"
                 + "'" + user.getMatricNumber()+"',"
                 + "'" + user.getRegisteredDate()+"'"
                 + ")";
-        
+        System.out.println(user.getFirstName() + "/" + user.getLastName());
         boolean result = execAction(query);
  
         return result;
     }
-
-
 
 }

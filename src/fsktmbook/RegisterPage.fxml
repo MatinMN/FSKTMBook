@@ -49,12 +49,12 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Button>
-      <PasswordField fx:id="repassword_field" layoutX="201.0" layoutY="238.0" prefHeight="45.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: #49bc98; -fx-prompt-text-fill: #596964;">
+      <PasswordField fx:id="password_field" layoutX="201.0" layoutY="238.0" prefHeight="45.0" prefWidth="295.0" promptText="Password" style="-fx-background-color: #49bc98; -fx-prompt-text-fill: #596964;">
          <font>
             <Font size="20.0" />
          </font>
       </PasswordField>
-      <PasswordField fx:id="password_field1" layoutX="502.0" layoutY="242.0" prefHeight="45.0" prefWidth="295.0" promptText="Re-type password" style="-fx-background-color: #44b89b; -fx-prompt-text-fill: #596964;">
+      <PasswordField fx:id="repassword_field" layoutX="502.0" layoutY="242.0" prefHeight="45.0" prefWidth="295.0" promptText="Re-type password" style="-fx-background-color: #44b89b; -fx-prompt-text-fill: #596964;">
          <font>
             <Font size="20.0" />
          </font>

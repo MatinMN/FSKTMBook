@@ -5,6 +5,9 @@
  */
 package fsktmbook;
 
+import fsktmbook.helpers.Helper;
+import fsktmbook.helpers.User;
+import fsktmbook.ui.database.Database;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -38,21 +41,80 @@ public class RegisterPageController implements Initializable {
     @FXML
     private Button signup_btn;
     
+    Database database;
     
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        database = Database.getInstannce();
     }    
 
+    // This method will take all the inputs from the text fields and insert it in the database....
     @FXML
     private void signup(ActionEvent event) {
+         String firstName = firstname_field.getText();
+         String password = password_field.getText();
+         String rePassword = repassword_field.getText();
+         String matricNumber =  matric_field.getText();
+         String lastName = lastname_field.getText();
+         
+         // validate all the inputs
+         boolean checkInput = validateSignUpData(firstName, password, rePassword, matricNumber, lastName);
+         
+         if(checkInput){
+             User user = new User();
+             user.setFirstName(firstName);
+             user.setLastName(lastName);
+             user.setPassword(password);
+             user.setMatricNumber(matricNumber);
+             user.setRegisteredDate(Helper.registeredDateTime());
+             
+             database.addUser(user);
+             Helper.openAlert("User registered");
+             return;
+         }
+         return;
     }
-
+    
+    
+    // A function to validate all the inputs
+    public boolean validateSignUpData(String firstName, String password, String rePassword, String matricNumber, String lastName){
+        
+        if(firstName.isEmpty() || password.isEmpty() || rePassword.isEmpty() || matricNumber.isEmpty() || lastName.isEmpty()){
+           Helper.openAlert("All input fields are required.");
+           return false; 
+        }
+        // check if user exist, putting the statement here will save running time for program....
+        if(database.doesUserExist(firstName)){
+            Helper.openAlert("User Exists Already!!!");
+            return false;
+        }
+        if(firstName.length() > 255 || firstName.length() < 6){
+          Helper.openAlert("Username cannot be longer than 255 characters or less than 6 characters.");
+          return false;
+        }
+        if(password.length() > 20 || password.length() < 8){
+           Helper.openAlert("Password cannot be longer than 20 characters.");
+           return false;
+        }
+        if(rePassword.length() > 20 || password.length() < 8){
+            Helper.openAlert("Both passwords must be the same length");
+            return false;
+        }
+        if(!(rePassword.equals(password))){
+            Helper.openAlert("Password doesn't match");
+            return false;
+        }
+        if(matricNumber.length() > 20){
+           Helper.openAlert("Matric number cannot be longer than 20 characters.");
+           return false;
+        }
+        if(lastName.length() > 255 || lastName.length() < 6){
+           Helper.openAlert("Last name cannot be longer than 20 characters or less than 6 characters.");
+           return false;
+        }
+        return true;
+    }
    
     
 }

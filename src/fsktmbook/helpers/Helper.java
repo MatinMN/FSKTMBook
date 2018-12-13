@@ -5,6 +5,9 @@
  */
 package fsktmbook.helpers;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import javafx.scene.control.Alert;
 
 /**
@@ -20,5 +23,12 @@ public class Helper {
            alert.setHeaderText(null);
            alert.setContentText(msg);
            alert.showAndWait();
+    }
+    
+    // A function that returns the current date and time in malaysia zone
+    public static String registeredDateTime(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Singapore"));
+        Date currentDate = calendar.getTime();
+        return currentDate.toString();
     }
 }
