@@ -103,7 +103,7 @@ public class LoginPageController implements Initializable {
     @FXML
     private void signup(ActionEvent event) {
         // switch to register page function.....
-        loadWindow("RegisterPage.fxml","Register page");
+        loadWindow("/fsktmbook/pages/register/RegisterPage.fxml","Register page");
     }
     
     // A method to switch the scene of the program to different windows....
