@@ -18,7 +18,7 @@ public class User {
     private String about;
     
     public User(){
-    
+        
     }
     
     public User(String firstName, String lastName, String password, String matricNumber, String registeredDate, String about){

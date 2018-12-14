@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class FSKTMBook extends Application {
     
-    public static String LOGGEDUSER;
+    public static int LOGGEDUSER = -1;
     
      @Override
     public void start(Stage stage) throws Exception {

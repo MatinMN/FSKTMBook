@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database;
 
+import fsktmbook.helpers.Post;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
 import java.sql.Connection;
@@ -36,14 +37,7 @@ public class Database {
     public Database(){
         createConnection();
         setupPostsTable();
-        //setupUsersTable();
         setupUsersTable();
-        User user1 = new User("AyoobMH","Alogaidi","12345","WIF170714",Helper.registeredDateTime(),"");
-        User user2 = new User("Ayoob","moh","12345","WIF",Helper.registeredDateTime(),"");
-//        System.out.println(checkPassword("omar","12345"));
-        addUser(user1);
-        addUser(user2);
-        
         printUsersTable();
     }
     
@@ -97,7 +91,7 @@ public class Database {
                     "lastname VARCHAR(255),\n" +
                     "password VARCHAR(255),\n" +
                     "matricNumber VARCHAR(10),\n" +
-                    "registeredDate VARCHAR(30), \n" +
+                    "registeredDate VARCHAR(30),\n" +
                     "about VARCHAR(255)" +
                     " )");
             }
@@ -124,11 +118,11 @@ public class Database {
             }else{
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
-                    "userId VARCHAR(255),\n" +
+                    "userId Integer,\n" +
                     "title VARCHAR(255),\n" +
-                    "content VARCHAR(255),\n" + // 255 but it's 200 like twitter 
+                    "content TEXT,\n" + // 255 but it's 200 like twitter 
                     "likes Integer,\n" +
-                    "postDate VARCHAR(10)" + // date the post was posted (LOL)
+                    "postDate VARCHAR(30)" + // date the post was posted (LOL)
                     " )");
             }
             
@@ -153,6 +147,19 @@ public class Database {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public int getUserID(String userName){
+        String query = "SELECT id FROM users WHERE username =' " + userName +"'";
+        ResultSet rs = this.execQuery(query);
+        try {
+            while(rs.next()){
+                return rs.getInt("id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
     
     public boolean printUsersTable(String userName){
@@ -215,10 +222,10 @@ public class Database {
     public boolean addUser(User user){
         
         // check if user already excist
-        if(doesUserExist(user.getFirstName())){
-            //System.out.println("User exists already");
+        /*if(doesUserExist(user.getFirstName())){
+            Helper.openAlert("User Exists Already!!");
             return false;
-        }
+        }*/
         String query = "INSERT INTO users (username,lastname,password,matricNumber,registeredDate) values ('"
                 + user.getFirstName()+"',"
                 + "'" + user.getLastName()+"',"
@@ -226,10 +233,34 @@ public class Database {
                 + "'" + user.getMatricNumber()+"',"
                 + "'" + user.getRegisteredDate()+"'"
                 + ")";
-        System.out.println(user.getFirstName() + "/" + user.getLastName());
+        //System.out.println(user.getFirstName() + "/" + user.getLastName());
         boolean result = execAction(query);
  
         return result;
     }
-
+    
+    public boolean addPost(Post post){
+        
+        String query = "INSERT INTO posts(userId, title, content, likes, postDate) values ('"
+                + post.getUserID() + "',"
+                + "'" + post.getTitle() + "',"
+                + "'" + post.getContent() + "',"
+                + "'" + post.getLikes() + "',"
+                + "'" + post.getPostDate() + "'"
+                + ")";
+        
+        boolean result = execAction(query);
+        return result;
+    }
+    
+    public boolean deletePost(Post post){
+        String query = "DELETE FROM posts WHERE id  = '" + post.getId() +"'";
+        
+        boolean result = execAction(query);
+        return result;
+    }
+    
+    
+    
+    
 }
