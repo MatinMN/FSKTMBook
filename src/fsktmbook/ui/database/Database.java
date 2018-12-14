@@ -26,29 +26,39 @@ import javax.swing.JOptionPane;
  * @author Matin
  */
 public class Database {
-    
+
     private static Database handler = null;
 
     private static final String DB_URL = "jdbc:derby:database;create=true";
     private static Connection conn = null;
     private static Statement sql = null;
-    
-    
+
+
     public Database(){
         createConnection();
-        setupPostsTable();
-        setupUsersTable();
+        setupTables();
+        debugTables();
+
+
+    }
+
+    public void debugTables(){
         printUsersTable();
     }
-    
+    public void setupTables(){
+        setupPostsTable();
+        setupUsersTable();
+        setupCommentsTable();
+    }
+
     public static Database getInstannce(){
-    
+
         if(handler ==null){
             handler = new Database();
         }
         return handler;
     }
-    
+
      private static void createConnection() {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -58,7 +68,7 @@ public class Database {
             System.exit(0);
         }
     }
-     
+
 
     public boolean execAction(String qu) {
         try {
@@ -72,16 +82,16 @@ public class Database {
         } finally {
         }
     }
-    
+
     void setupUsersTable(){
         String TABLE_NAME = "users";
-        
+
         try {
             sql = conn.createStatement();
-            
+
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
-            
+
             if(tables.next()){
                 System.out.println("Table " + TABLE_NAME + " already exists");
             }else{
@@ -95,24 +105,24 @@ public class Database {
                     "about VARCHAR(255)" +
                     " )");
             }
-            
+
         }catch(SQLException e){
             System.err.println(e.getMessage());
         }finally{
         }
-    
+
     }
-    
-    // creates the posts table *only run it once 
+
+    // creates the posts table *only run it once
     void setupPostsTable(){
         String TABLE_NAME = "posts";
-        
+
         try {
             sql = conn.createStatement();
-            
+
             DatabaseMetaData dbm = conn.getMetaData();
             ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
-            
+
             if(tables.next()){
                 System.out.println("Table " + TABLE_NAME + " already exists");
             }else{
@@ -120,19 +130,46 @@ public class Database {
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "userId Integer,\n" +
                     "title VARCHAR(255),\n" +
-                    "content TEXT,\n" + // 255 but it's 200 like twitter 
+                    "content TEXT,\n" + // 255 but it's 200 like twitter
                     "likes Integer,\n" +
                     "postDate VARCHAR(30)" + // date the post was posted (LOL)
                     " )");
             }
-            
+
         }catch(SQLException e){
             System.err.println(e.getMessage());
         }finally{
         }
-    
+
     }
-    
+
+    void setupCommentsTable(){
+        String TABLE_NAME = "comments";
+
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "postId Integer,\n" +
+                    "content TEXT,\n" +
+                    "postDate VARCHAR(30)" + // when the comment was posted
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+
+    }
+
     public boolean checkPassword(String userName,String password){
         String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
         ResultSet rs = this.execQuery(query);
@@ -148,7 +185,7 @@ public class Database {
         }
         return false;
     }
-    
+
     public int getUserID(String userName){
         String query = "SELECT id FROM users WHERE username =' " + userName +"'";
         ResultSet rs = this.execQuery(query);
@@ -161,7 +198,7 @@ public class Database {
         }
         return -1;
     }
-    
+
     public boolean printUsersTable(String userName){
         String query = "SELECT id,username,password FROM users WHERE username='"+userName+"'";
         ResultSet rs = this.execQuery(query);
@@ -176,7 +213,7 @@ public class Database {
         }
         return false;
     }
-    
+
     public boolean printUsersTable(){
         String query = "SELECT id,username,lastname,password,matricNumber,registeredDate FROM users";
         ResultSet rs = this.execQuery(query);
@@ -191,7 +228,7 @@ public class Database {
         }
         return false;
     }
-    
+
     public ResultSet execQuery(String query) {
         ResultSet result;
         try {
@@ -202,10 +239,10 @@ public class Database {
             return null;
         } finally {
         }
-        
+
         return result;
     }
-    
+
     public boolean doesUserExist(String userName){
         String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
         ResultSet rs = this.execQuery(query);
@@ -218,9 +255,9 @@ public class Database {
         }
         return false;
     }
-    
+
     public boolean addUser(User user){
-        
+
         // check if user already excist
         /*if(doesUserExist(user.getFirstName())){
             Helper.openAlert("User Exists Already!!");
@@ -235,12 +272,12 @@ public class Database {
                 + ")";
         //System.out.println(user.getFirstName() + "/" + user.getLastName());
         boolean result = execAction(query);
- 
+
         return result;
     }
-    
+
     public boolean addPost(Post post){
-        
+
         String query = "INSERT INTO posts(userId, title, content, likes, postDate) values ('"
                 + post.getUserID() + "',"
                 + "'" + post.getTitle() + "',"
@@ -248,26 +285,44 @@ public class Database {
                 + "'" + post.getLikes() + "',"
                 + "'" + post.getPostDate() + "'"
                 + ")";
-        
+
         boolean result = execAction(query);
         return result;
     }
-    
+
     public boolean deletePost(Post post){
         String query = "DELETE FROM posts WHERE id  = '" + post.getId() +"'";
-        
+
         boolean result = execAction(query);
         return result;
     }
-    
+
+
     public ResultSet searchPost(String searchStatement){
-        
+
         String query = "SELECT FROM posts WHERE title LIKE '%searchStatement%' AND content LIKE '%searchStatement%'";
-        
+
         ResultSet rs = this.execQuery(query);
-        
+
         return rs;
     }
-    
-    
+
+    public boolean postComment(int postId,String comment) throws SQLException{
+        String query = "INSERT INTO comments (postId,content,postDate) VALUES (?,?,?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, postId);
+        stmt.setString(2,comment);
+        stmt.setString(2,Helper.getCurrentTime());
+        return stmt.execute();
+    }
+
+    public boolean deleteComment(int commentId) throws SQLException{
+        String query = "DELETE FROM comments WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, commentId);
+        return stmt.execute();
+    }
+
+
+
 }
