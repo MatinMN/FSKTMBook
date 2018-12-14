@@ -38,8 +38,6 @@ public class Database {
         createConnection();
         setupTables();
         debugTables();
-
-
     }
 
     public void debugTables(){
@@ -130,7 +128,7 @@ public class Database {
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "userId Integer,\n" +
                     "title VARCHAR(255),\n" +
-                    "content TEXT,\n" + // 255 but it's 200 like twitter
+                    "content VARCHAR(5000),\n" + // 255 but it's 200 like twitter
                     "likes Integer,\n" +
                     "postDate VARCHAR(30)" + // date the post was posted (LOL)
                     " )");
@@ -158,7 +156,7 @@ public class Database {
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "postId Integer,\n" +
-                    "content TEXT,\n" +
+                    "content VARCHAR(1000),\n" +
                     "postDate VARCHAR(30)" + // when the comment was posted
                     " )");
             }
@@ -278,11 +276,11 @@ public class Database {
 
     public boolean addPost(Post post){
 
-        String query = "INSERT INTO posts(userId, title, content, likes, postDate) values ('"
-                + post.getUserID() + "',"
+        String query = "INSERT INTO posts (userId, title, content, likes, postDate) values ("
+                + post.getUserID() + ","
                 + "'" + post.getTitle() + "',"
                 + "'" + post.getContent() + "',"
-                + "'" + post.getLikes() + "',"
+                + "" + post.getLikes() + ","
                 + "'" + post.getPostDate() + "'"
                 + ")";
 

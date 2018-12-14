@@ -74,6 +74,7 @@ public class LoginPageController implements Initializable {
             
             if(result){ // username and passwrod is current
                 FSKTMBook.LOGGEDUSER = database.getUserID(username);
+                loadWindow("/fsktmbook/pages/main/mainPage.fxml","Dashboard");
                 return;
             }
             Helper.openAlert("Wrong username or password.");

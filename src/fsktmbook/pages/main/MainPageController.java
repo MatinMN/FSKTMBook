@@ -5,6 +5,10 @@
  */
 package fsktmbook.pages.main;
 
+import fsktmbook.FSKTMBook;
+import fsktmbook.helpers.Helper;
+import fsktmbook.helpers.Post;
+import fsktmbook.ui.database.Database;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -26,16 +30,23 @@ public class MainPageController implements Initializable {
     @FXML
     private Button search_post;
 
-   
+   Database database;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        database = Database.getInstannce();
     }    
 
     @FXML
     private void addPost(ActionEvent event) {
+        Post post = new Post();
+        post.setLikes(0);
+        post.setPostDate(Helper.getCurrentTime());
+        post.setTitle("Whatsaaap");
+        post.setContent("Hello everyone whatsaaaaaaaaap");
+        post.setUserID(FSKTMBook.LOGGEDUSER);
+        database.addPost(post);
     }
 
     @FXML
