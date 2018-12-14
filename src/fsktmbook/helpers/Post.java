@@ -77,7 +77,7 @@ public class Post {
     }
 
     public void setPostDate(String postDate) {
-        this.postDate = Helper.registeredDateTime();
+        this.postDate = Helper.getCurrentTime();
     }
     
     

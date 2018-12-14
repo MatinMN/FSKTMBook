@@ -36,9 +36,19 @@ public class Database {
     
     public Database(){
         createConnection();
+        setupTables();
+        debugTables();
+    
+        
+    }
+    
+    public void debugTables(){
+        printUsersTable();
+    }
+    public void setupTables(){
         setupPostsTable();
         setupUsersTable();
-        printUsersTable();
+        setupCommentsTable();
     }
     
     public static Database getInstannce(){
@@ -123,6 +133,33 @@ public class Database {
                     "content TEXT,\n" + // 255 but it's 200 like twitter 
                     "likes Integer,\n" +
                     "postDate VARCHAR(30)" + // date the post was posted (LOL)
+                    " )");
+            }
+            
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+    
+    }
+    
+    void setupCommentsTable(){
+        String TABLE_NAME = "comments";
+        
+        try {
+            sql = conn.createStatement();
+            
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+            
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "postId Integer,\n" +
+                    "content TEXT,\n" + 
+                    "postDate VARCHAR(30)" + // when the comment was posted
                     " )");
             }
             
@@ -259,6 +296,23 @@ public class Database {
         boolean result = execAction(query);
         return result;
     }
+    
+    public boolean postComment(int postId,String comment) throws SQLException{
+        String query = "INSERT INTO comments (postId,content,postDate) VALUES (?,?,?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, postId);
+        stmt.setString(2,comment);
+        stmt.setString(2,Helper.getCurrentTime());
+        return stmt.execute();
+    }
+    
+    public boolean deleteComment(int commentId) throws SQLException{
+        String query = "DELETE FROM comments WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, commentId);
+        return stmt.execute();
+    }
+    
     
     
     

@@ -26,7 +26,7 @@ public class Helper {
     }
     
     // A function that returns the current date and time in malaysia zone
-    public static String registeredDateTime(){
+    public static String getCurrentTime(){
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Singapore"));
         Date currentDate = calendar.getTime();
         return currentDate.toString();

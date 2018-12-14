@@ -76,7 +76,7 @@ public class RegisterPageController implements Initializable {
              user.setLastName(lastName);
              user.setPassword(password);
              user.setMatricNumber(matricNumber);
-             user.setRegisteredDate(Helper.registeredDateTime());
+             user.setRegisteredDate(Helper.getCurrentTime());
              
              database.addUser(user);
              
