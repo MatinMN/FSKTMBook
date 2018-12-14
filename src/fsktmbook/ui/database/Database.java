@@ -260,7 +260,14 @@ public class Database {
         return result;
     }
     
-    
+    public ResultSet searchPost(String searchStatement){
+        
+        String query = "SELECT FROM posts WHERE title LIKE '%searchStatement%' AND content LIKE '%searchStatement%'";
+        
+        ResultSet rs = this.execQuery(query);
+        
+        return rs;
+    }
     
     
 }
