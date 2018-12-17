@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="fsktmbook.pages.search.SearchPageController">
+    <stylesheets>
+        <URL value="@searchpage.css" />
+    </stylesheets>
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Telegram%20Desktop/photo_2018-12-17_19-20-16.jpg" />
+         </image>
+      </ImageView>
+      <ImageView id="search_image_1" fitHeight="131.0" fitWidth="89.0" layoutX="118.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="search_bar" layoutX="114.0" layoutY="49.0" onAction="#search" opacity="0.55" prefHeight="31.0" prefWidth="393.0" />
+      <ImageView fitHeight="131.0" fitWidth="89.0" layoutX="231.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="514.0" layoutY="49.0" mnemonicParsing="false" opacity="0.0" prefHeight="31.0" prefWidth="30.0" text="Button" />
+      <Button layoutY="100.0" mnemonicParsing="false" opacity="0.0" prefHeight="45.0" prefWidth="63.0" text="Button" />
+      <Button layoutY="148.0" mnemonicParsing="false" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button" />
+      <Button layoutY="200.0" mnemonicParsing="false" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button" />
+      <Button layoutY="340.0" mnemonicParsing="false" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button" />
+   </children>
+</AnchorPane>
