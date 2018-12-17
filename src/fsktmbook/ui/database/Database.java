@@ -277,7 +277,7 @@ public class Database {
             return false;
         }
         
-        String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values (?,?,?,?,?)";
+        String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values (?,?,?,?,?,?)";
         
         PreparedStatement stmt = conn.prepareStatement(query);
         
@@ -294,7 +294,46 @@ public class Database {
 
         return res;
     }
+    
+    public ResultSet searchUser(String searchStatement) throws SQLException{
+        
+        String query = "SELECT FROM users WHERE username LIKE '%?%' OR firstname LIKE '%?%'";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, searchStatement);
+        stmt.setString(2, searchStatement);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        return rs;
+    }
+    
+    public User getUserInformation(int id) throws SQLException{
+        String query = "SELECT FROM users WHERE id = ?";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setInt(1, id);
+        User user = new User();
+        
+        ResultSet rs = stmt.executeQuery();
+        String msg="";
+        try{
+            while(rs.next()){
+                user.setId(rs.getInt("id"));
+                user.setUserName(rs.getString("username"));
+                user.setLastName(rs.getString("lastname"));
+                user.setPassword(rs.getString("password"));
+                user.setMatricNumber(rs.getString("matricNumber"));
+                user.setRegisteredDate(rs.getString("registeredDate"));                
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
 
+        return user;
+    }
     public boolean addPost(Post post) throws SQLException{
 
         String query = "INSERT INTO posts (userId, title, content, likes, postDate) values (?,?,?,?,?)";   
@@ -310,6 +349,7 @@ public class Database {
         boolean res = stmt.execute();
         
         return res;
+        
     }
 
     public boolean deletePost(Post post) throws SQLException{
@@ -338,7 +378,7 @@ public class Database {
 
         return rs;
     }
-
+    
     public boolean postComment(int postId,int userId,String comment) throws SQLException{
         String query = "INSERT INTO comments (postId,userId,content,postDate) VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -376,6 +416,40 @@ public class Database {
         return false;
     }
     
+    
+    void setupGrabVouhers(){
+        
+        String TABLE_NAME = "grabVouchers";
+
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "username VARCHAR(255),\n" +
+                    "firstname VARCHAR(255),\n" +
+                    "lastname VARCHAR(255),\n" +
+                    "password VARCHAR(255),\n" +
+                    "matricNumber VARCHAR(10),\n" +
+                    "registeredDate VARCHAR(30),\n" +
+                    "followers Integer,\n" +
+                    "following Integer, \n" + 
+                    "about VARCHAR(1000)" +
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+        
+    }
     
 
 }

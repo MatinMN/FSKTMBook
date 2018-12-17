@@ -10,6 +10,7 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -137,7 +138,7 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void publish_post(ActionEvent event) {
+    private void publish_post(ActionEvent event) throws SQLException {
         String msg = newpost_text_box.getText();
         
         Post post = new Post();
@@ -150,12 +151,20 @@ public class HomePageController implements Initializable {
         
         
         database = Database.getInstannce();
-        boolean result = database.addPost(post);
+        boolean result;  
         
-        if(result){
-            Helper.openAlert("Post added ");
+        if(validatePostData(msg)){
+            result = database.addPost(post);
+            trimContent(msg);
+            if(result){
+                Helper.openAlert("Post added ");
+            }
+            else{
+                Helper.openAlert("Error: post wasn't added");
+            }            
         }
         else{
+            Helper.openAlert("Post can not be empty OR exceed 5000 characters!");
         }
         
     }
@@ -193,8 +202,6 @@ public class HomePageController implements Initializable {
     String trimContent(String postContent){
         return (postContent.trim());
     }
-    
-    
     
      
 }
