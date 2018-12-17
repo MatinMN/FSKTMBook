@@ -101,7 +101,7 @@ public class RegisterPageController implements Initializable {
            return false; 
         }
         if(firstName.length() > 255 || firstName.length() < 2){
-          Helper.openAlert("Username cannot be longer than 255 characters or less than 6 characters.");
+          Helper.openAlert("Username cannot be longer than 255 characters or less than 2 characters.");
           return false;
         }
         if(password.length() > 20 || password.length() < 8){
@@ -121,7 +121,7 @@ public class RegisterPageController implements Initializable {
            return false;
         }
         if(lastName.length() > 255 || lastName.length() < 2){
-           Helper.openAlert("Last name cannot be longer than 20 characters or less than 6 characters.");
+           Helper.openAlert("Last name cannot be longer than 20 characters or less than 2 characters.");
            return false;
         }
         return true;
