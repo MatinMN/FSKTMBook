@@ -224,5 +224,22 @@ public class HomePageController implements Initializable {
         return true;
     }
     
+    
+    
+    void loadWindow(String location,String title){
+        
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(location));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+            
+        } catch (IOException ex){ 
+            ex.printStackTrace();
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
      
 }
