@@ -169,9 +169,15 @@ public class Database {
 
     }
 
-    public boolean checkPassword(String userName,String password){
-        String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
-        ResultSet rs = this.execQuery(query);
+    public boolean checkPassword(String userName,String password) throws SQLException{
+        String query = "SELECT username,password FROM users WHERE username = ?" ;
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, userName);
+        
+        ResultSet rs = stmt.executeQuery();
+        
         try{
             while(rs.next()){
                  String pass = rs.getString("password");
@@ -242,9 +248,15 @@ public class Database {
         return result;
     }
 
-    public boolean doesUserExist(String userName){
-        String query = "SELECT username,password FROM users WHERE username='"+userName+"'";
-        ResultSet rs = this.execQuery(query);
+    public boolean doesUserExist(String userName) throws SQLException{
+        String query = "SELECT username,password FROM users WHERE username = ?";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, userName);
+        
+        ResultSet rs = stmt.executeQuery();
+        
         try {
             while(rs.next()){
                 return true;
@@ -255,65 +267,83 @@ public class Database {
         return false;
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) throws SQLException{
 
         // check if user already excist
-        if(doesUserExist(user.getFirstName())){
+        if(doesUserExist(user.getUserName())){
             Helper.openAlert("User Exists Already!!");
             return false;
         }
         
-        String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values ('"
-                + user.getUserName()+ "',"
-                + "'" + user.getFirstName()+ "',"
-                + "'" + user.getLastName()+"',"
-                + "'" + user.getPassword()+"',"
-                + "'" + user.getMatricNumber()+"',"
-                + "'" + user.getRegisteredDate()+"'"
-                + ")";
+        String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values (?,?,?,?,?)";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, user.getUserName());
+        stmt.setString(2, user.getFirstName());
+        stmt.setString(3, user.getLastName());
+        stmt.setString(4, user.getPassword());
+        stmt.setString(5, user.getMatricNumber());
+        stmt.setString(6, user.getRegisteredDate());
+        
+        Helper.openAlert("User registered");
         //System.out.println(user.getFirstName() + "/" + user.getLastName());
-        boolean result = execAction(query);
+        boolean res = stmt.execute();
 
+        return res;
+    }
+
+    public boolean addPost(Post post) throws SQLException{
+
+        String query = "INSERT INTO posts (userId, title, content, likes, postDate) values (?,?,?,?,?)";   
+                
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setInt(1, post.getUserID());
+        stmt.setString(2, post.getTitle());
+        stmt.setString(3, post.getContent());
+        stmt.setInt(4, post.getLikes());
+        stmt.setString(5, post.getPostDate());
+        
+        boolean res = stmt.execute();
+        
+        return res;
+    }
+
+    public boolean deletePost(Post post) throws SQLException{
+        String query = "DELETE FROM posts WHERE id  = ? ";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setInt(1, post.getId());
+        
+        boolean result = stmt.execute();
+        
         return result;
     }
 
-    public boolean addPost(Post post){
 
-        String query = "INSERT INTO posts (userId, title, content, likes, postDate) values ("
-                + post.getUserID() + ","
-                + "'" + post.getTitle() + "',"
-                + "'" + post.getContent() + "',"
-                + "" + post.getLikes() + ","
-                + "'" + post.getPostDate() + "'"
-                + ")";
+    public ResultSet searchPost(String searchStatement) throws SQLException{
 
-        boolean result = execAction(query);
-        return result;
-    }
-
-    public boolean deletePost(Post post){
-        String query = "DELETE FROM posts WHERE id  = '" + post.getId() +"'";
-
-        boolean result = execAction(query);
-        return result;
-    }
-
-
-    public ResultSet searchPost(String searchStatement){
-
-        String query = "SELECT FROM posts WHERE title LIKE '%searchStatement%' AND content LIKE '%searchStatement%'";
-
-        ResultSet rs = this.execQuery(query);
+        String query = "SELECT FROM posts WHERE title LIKE '%?%' AND content LIKE '%?%'";
+        
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setString(1, searchStatement);
+        stmt.setString(2, searchStatement);
+        
+        ResultSet rs = stmt.executeQuery();
 
         return rs;
     }
 
-    public boolean postComment(int postId,String comment) throws SQLException{
-        String query = "INSERT INTO comments (postId,content,postDate) VALUES (?,?,?)";
+    public boolean postComment(int postId,int userId,String comment) throws SQLException{
+        String query = "INSERT INTO comments (postId,userId,content,postDate) VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, postId);
-        stmt.setString(2,comment);
-        stmt.setString(2,Helper.getCurrentTime());
+        stmt.setInt(2, userId);
+        stmt.setString(3,comment);
+        stmt.setString(4,Helper.getCurrentTime());
         return stmt.execute();
     }
 
