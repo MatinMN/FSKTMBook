@@ -101,6 +101,8 @@ public class Database {
                     "password VARCHAR(255),\n" +
                     "matricNumber VARCHAR(10),\n" +
                     "registeredDate VARCHAR(30),\n" +
+                    "followers Integer,\n" +
+                    "following Integer, \n" + 
                     "about VARCHAR(1000)" +
                     " )");
             }
@@ -373,5 +375,7 @@ public class Database {
         }
         return false;
     }
+    
+    
 
 }

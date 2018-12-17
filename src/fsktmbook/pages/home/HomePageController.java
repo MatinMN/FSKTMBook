@@ -159,6 +159,19 @@ public class HomePageController implements Initializable {
     }
 
 
+    boolean validatePostData(String postContent){
+        
+        //checks if the post is empty or length is exceeded
+        if((postContent.length() > 5000) || (postContent.isEmpty())){
+            return false;
+        }
+        return true;
+    }
+    
+    String trimContent(String postContent){
+        return (postContent.trim());
+    }
+    
     
     
      

@@ -12,6 +12,7 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.ui.database.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +61,7 @@ public class LoginPageController implements Initializable {
     }    
 
     @FXML
-    private void signin(ActionEvent event) {
+    private void signin(ActionEvent event) throws SQLException {
         
         String username = username_field.getText();
         String password = password_field.getText();

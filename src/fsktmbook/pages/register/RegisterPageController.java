@@ -96,6 +96,10 @@ public class RegisterPageController implements Initializable {
     // A function to validate all the inputs
     public boolean validateSignUpData(String firstName, String password, String rePassword, String matricNumber, String lastName){
         
+        if(firstName.contains(" ") || lastName.contains(" ") || password.contains(" ") || matricNumber.contains(" ") ){
+            Helper.openAlert("You can not include empty space in the user name");
+        } 
+        
         if(firstName.isEmpty() || password.isEmpty() || rePassword.isEmpty() || matricNumber.isEmpty() || lastName.isEmpty()){
            Helper.openAlert("All input fields are required.");
            return false; 

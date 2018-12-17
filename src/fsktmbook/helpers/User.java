@@ -18,6 +18,8 @@ public class User {
     private String matricNumber;
     private String registeredDate;
     private String about;
+    private int followers; 
+    private int following;
     private int id;
     public User(){
         
@@ -31,6 +33,8 @@ public class User {
         this.matricNumber = matricNumber;
         this.registeredDate = registeredDate;
         this.about = about;
+        this.followers =0;
+        this.following =0;
     }
 
     public int getId() {
@@ -98,7 +102,21 @@ public class User {
     public void setRegisteredDate(String registeredDate) {
         this.registeredDate = registeredDate;
     }
-    
-    
-    
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
+
 }
