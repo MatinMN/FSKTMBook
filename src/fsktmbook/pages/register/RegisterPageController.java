@@ -101,7 +101,7 @@ public class RegisterPageController implements Initializable {
            Helper.openAlert("All input fields are required.");
            return false; 
         }
-        if(firstName.length() > 255 || firstName.length() < 6){
+        if(firstName.length() > 255 || firstName.length() < 2){
           Helper.openAlert("Username cannot be longer than 255 characters or less than 6 characters.");
           return false;
         }
