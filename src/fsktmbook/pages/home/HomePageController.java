@@ -139,7 +139,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void publish_post(ActionEvent event) throws SQLException {
-        String msg = newpost_text_box.getText();
+        String msg = newpost_text_box.getText().trim();
         
         Post post = new Post();
         
@@ -155,7 +155,7 @@ public class HomePageController implements Initializable {
         
         if(validatePostData(msg)){
             result = database.addPost(post);
-            trimContent(msg);
+            
             if(result){
                 Helper.openAlert("Post added ");
             }
