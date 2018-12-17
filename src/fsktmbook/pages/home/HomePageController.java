@@ -5,7 +5,9 @@
  */
 package fsktmbook.pages.home;
 
+import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
+import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -136,6 +138,26 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void publish_post(ActionEvent event) {
+        String msg = newpost_text_box.getText();
+        
+        Post post = new Post();
+        
+        post.setContent(msg);
+        post.setLikes(0);
+        post.setPostDate(Helper.getCurrentTime());
+        post.setTitle(msg);
+        post.setUserID(FSKTMBook.LOGGEDUSER);
+        
+        
+        database = Database.getInstannce();
+        boolean result = database.addPost(post);
+        
+        if(result){
+            Helper.openAlert("Post added ");
+        }
+        else{
+        }
+        
     }
 
     @FXML
