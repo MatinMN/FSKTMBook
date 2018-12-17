@@ -42,6 +42,7 @@ public class Database {
 
     public void debugTables(){
         printUsersTable();
+        printPostsTable();
     }
     public void setupTables(){
         setupPostsTable();
@@ -235,7 +236,22 @@ public class Database {
         }
         return false;
     }
-
+    
+    public boolean printPostsTable(){
+        String query = "SELECT * FROM posts";
+        ResultSet rs = this.execQuery(query);
+        String msg = "";
+        try{
+            while(rs.next()){
+                  msg=rs.getInt("id")+"|"+rs.getString("userId")+"|"+rs.getString("content")+"|"+rs.getString("likes");
+                 System.out.println(msg);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
     public ResultSet execQuery(String query) {
         ResultSet result;
         try {
@@ -336,7 +352,7 @@ public class Database {
     }
     public boolean addPost(Post post) throws SQLException{
 
-        String query = "INSERT INTO posts (userId, title, content, likes, postDate) values (?,?,?,?,?)";   
+        String query = "INSERT INTO posts (userId, title, content, likes, postDate) VALUES (?,?,?,?,?)";   
                 
         PreparedStatement stmt = conn.prepareStatement(query);
         

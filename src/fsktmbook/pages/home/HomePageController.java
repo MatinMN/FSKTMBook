@@ -156,12 +156,7 @@ public class HomePageController implements Initializable {
         if(validatePostData(msg)){
             result = database.addPost(post);
             
-            if(result){
-                Helper.openAlert("Post added ");
-            }
-            else{
-                Helper.openAlert("Error: post wasn't added");
-            }            
+            Helper.openAlert("Post added ");    
         }
         else{
             Helper.openAlert("Post can not be empty OR exceed 5000 characters!");
@@ -197,10 +192,6 @@ public class HomePageController implements Initializable {
             return false;
         }
         return true;
-    }
-    
-    String trimContent(String postContent){
-        return (postContent.trim());
     }
     
      
