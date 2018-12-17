@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXMLLoader; 
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -78,7 +78,6 @@ public class RegisterPageController implements Initializable {
              user.setPassword(password);
              user.setMatricNumber(matricNumber);
              user.setRegisteredDate(Helper.getCurrentTime());
-             
              database.addUser(user);
              
              Helper.openAlert("User registered");
