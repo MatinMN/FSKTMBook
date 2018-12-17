@@ -116,7 +116,38 @@ public class Database {
         }
 
     }
+    
+    
+    void setupGrabVouhers(){
+        
+        String TABLE_NAME = "grabVouchers";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId Integer,\n" +
+                    "amount Integer,\n" +
+                    "type VARCHAR(30),\n" +
+                    "releaseDate VARCHAR(30)" +
+                    " )");
+                
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+        
+    }
+    
     // creates the posts table *only run it once
     void setupPostsTable(){
         String TABLE_NAME = "posts";
@@ -173,7 +204,35 @@ public class Database {
         }
 
     }
+    
+     void setupViewsTable(){
+        String TABLE_NAME = "views";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId Integer,\n" +
+                    "viewerId Integer,\n" +
+                    "viewDate VARCHAR(30)" + // when the comment was posted
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+
+    }
+    
+    
     public boolean checkPassword(String userName,String password) throws SQLException{
         String query = "SELECT username,password FROM users WHERE username = ?" ;
         
@@ -437,35 +496,6 @@ public class Database {
     }
     
     
-    void setupGrabVouhers(){
-        
-        String TABLE_NAME = "grabVouchers";
-
-        try {
-            sql = conn.createStatement();
-
-            DatabaseMetaData dbm = conn.getMetaData();
-            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
-
-            if(tables.next()){
-                System.out.println("Table " + TABLE_NAME + " already exists");
-            }else{
-                sql.execute("CREATE TABLE " + TABLE_NAME + "("
-                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
-                    "userId Integer,\n" +
-                    "amount Integer,\n" +
-                    "type VARCHAR(30),\n" +
-                    "releaseDate VARCHAR(30)" +
-                    " )");
-                
-            }
-
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
-        }finally{
-        }
-        
-    }
     
     public boolean addVoucher(Voucher voucher) throws SQLException{
         
