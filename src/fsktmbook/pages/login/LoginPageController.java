@@ -74,7 +74,7 @@ public class LoginPageController implements Initializable {
             
             if(result){ // username and passwrod is current
                 FSKTMBook.LOGGEDUSER = database.getUserID(username);
-                loadWindow("/fsktmbook/pages/main/mainPage.fxml","Dashboard");
+                loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
                 
                 // close the login page 
                 Stage stage =  (Stage) rootPane.getScene().getWindow();

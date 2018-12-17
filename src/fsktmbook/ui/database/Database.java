@@ -258,13 +258,14 @@ public class Database {
     public boolean addUser(User user){
 
         // check if user already excist
-        /*if(doesUserExist(user.getFirstName())){
+        if(doesUserExist(user.getFirstName())){
             Helper.openAlert("User Exists Already!!");
             return false;
-        }*/
+        }
+        
         String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values ('"
                 + user.getUserName()+ "',"
-                + user.getFirstName()+ "',"
+                + "'" + user.getFirstName()+ "',"
                 + "'" + user.getLastName()+"',"
                 + "'" + user.getPassword()+"',"
                 + "'" + user.getMatricNumber()+"',"

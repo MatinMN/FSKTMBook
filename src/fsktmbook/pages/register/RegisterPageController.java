@@ -72,6 +72,7 @@ public class RegisterPageController implements Initializable {
          
          if(checkInput){
              User user = new User();
+             user.setUserName(firstName);
              user.setFirstName(firstName);
              user.setLastName(lastName);
              user.setPassword(password);
