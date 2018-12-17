@@ -96,11 +96,12 @@ public class Database {
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "username VARCHAR(255),\n" +
+                    "firstname VARCHAR(255),\n" +
                     "lastname VARCHAR(255),\n" +
                     "password VARCHAR(255),\n" +
                     "matricNumber VARCHAR(10),\n" +
                     "registeredDate VARCHAR(30),\n" +
-                    "about VARCHAR(255)" +
+                    "about VARCHAR(1000)" +
                     " )");
             }
 
@@ -261,8 +262,9 @@ public class Database {
             Helper.openAlert("User Exists Already!!");
             return false;
         }*/
-        String query = "INSERT INTO users (username,lastname,password,matricNumber,registeredDate) values ('"
-                + user.getFirstName()+"',"
+        String query = "INSERT INTO users (username,firstname,lastname,password,matricNumber,registeredDate) values ('"
+                + user.getUserName()+ "',"
+                + user.getFirstName()+ "',"
                 + "'" + user.getLastName()+"',"
                 + "'" + user.getPassword()+"',"
                 + "'" + user.getMatricNumber()+"',"
@@ -321,6 +323,24 @@ public class Database {
         return stmt.execute();
     }
 
-
+    public boolean updateUser(User user) {
+        try {
+            String update = "UPDATE users SET name=?, lastname=?, about=? , matricNumber = ? , password = ? WHERE id=?";
+            PreparedStatement stmt = conn.prepareStatement(update);
+            stmt.setString(1, user.getFirstName());           
+            stmt.setString(2, user.getLastName()); 
+            stmt.setString(3, user.getAbout());
+            stmt.setString(4, user.getMatricNumber());
+            stmt.setString(5, user.getPassword());
+            stmt.setInt(6, user.getId());
+            int res = stmt.executeUpdate();
+            return (res > 0);
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error:" + ex.getMessage(), "Error Occured", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
+            //return false;
+        }
+        return false;
+    }
 
 }

@@ -10,23 +10,52 @@ package fsktmbook.helpers;
  * @author USER
  */
 public class User {
+        
     private String firstName;
     private String lastName;
+    private String userName;
     private String password;
     private String matricNumber;
     private String registeredDate;
     private String about;
-    
+    private int id;
     public User(){
         
     }
     
-    public User(String firstName, String lastName, String password, String matricNumber, String registeredDate, String about){
+    public User(String username,String firstName, String lastName, String password, String matricNumber, String registeredDate, String about){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = username;
         this.password = password;
         this.matricNumber = matricNumber;
         this.registeredDate = registeredDate;
+        this.about = about;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    
+    
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
         this.about = about;
     }
 

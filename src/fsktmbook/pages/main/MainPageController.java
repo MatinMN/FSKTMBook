@@ -40,13 +40,7 @@ public class MainPageController implements Initializable {
 
     @FXML
     private void addPost(ActionEvent event) {
-        Post post = new Post();
-        post.setLikes(0);
-        post.setPostDate(Helper.getCurrentTime());
-        post.setTitle("Whatsaaap");
-        post.setContent("Hello everyone whatsaaaaaaaaap");
-        post.setUserID(FSKTMBook.LOGGEDUSER);
-        database.addPost(post);
+
     }
 
     @FXML
