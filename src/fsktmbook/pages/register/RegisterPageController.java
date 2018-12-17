@@ -10,6 +10,7 @@ import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +61,7 @@ public class RegisterPageController implements Initializable {
 
     // This method will take all the inputs from the text fields and insert it in the database....
     @FXML
-    private void signup(ActionEvent event) throws IOException {
+    private void signup(ActionEvent event) throws IOException, SQLException {
          String firstName = firstname_field.getText();
          String password = password_field.getText();
          String rePassword = repassword_field.getText();
@@ -78,9 +79,8 @@ public class RegisterPageController implements Initializable {
              user.setPassword(password);
              user.setMatricNumber(matricNumber);
              user.setRegisteredDate(Helper.getCurrentTime());
-             database.addUser(user);
              
-             Helper.openAlert("User registered");
+             database.addUser(user);
              
              Stage stage =  (Stage) rootPane.getScene().getWindow();
              
