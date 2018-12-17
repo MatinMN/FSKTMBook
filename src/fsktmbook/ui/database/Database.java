@@ -404,7 +404,11 @@ public class Database {
                 user.setPassword(rs.getString("password"));
                 user.setMatricNumber(rs.getString("matricNumber"));
                 user.setRegisteredDate(rs.getString("registeredDate"));
+                user.setFollowers(rs.getInt("followers"));
+                user.setFollowing(rs.getInt("following"));
                 user.setOccupation(rs.getString("occupation"));
+                user.setAbout(rs.getString("about"));
+                
             }
         }catch(SQLException ex){
             ex.printStackTrace();
