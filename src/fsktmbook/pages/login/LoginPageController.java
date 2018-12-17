@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -55,9 +56,44 @@ public class LoginPageController implements Initializable {
     
     Database database;
     
-    @Override
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
         database = Database.getInstannce();
+        rootPane.setOnKeyPressed(e -> {
+   
+            if(e.getCode()  == KeyCode.ENTER){
+                          //System.out.println("Key pressed");
+                if(password_field.getText().isEmpty()){
+                    password_field.requestFocus();
+                    
+                }else{
+
+                        
+                            String username = username_field.getText();
+                            String password = password_field.getText();
+                            boolean validate = validateLoginData(username,password);
+                            if(validate){
+                                // check if username and password
+                                boolean result = false;
+                                try {
+                                    result = database.checkPassword(username, password);
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                if(result){ // username and passwrod is current
+                                    FSKTMBook.LOGGEDUSER = database.getUserID(username);
+                                    loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
+                                    // close the login page 
+                                    Stage stage =  (Stage) rootPane.getScene().getWindow();
+                                    stage.close();
+                                    return;
+                                }
+                                Helper.openAlert("Wrong username or password.");
+                            }
+                            return;
+                }
+            }
+        });
     }    
 
     @FXML
