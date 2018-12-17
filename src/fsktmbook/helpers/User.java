@@ -20,12 +20,13 @@ public class User {
     private String about;
     private int followers; 
     private int following;
+    private String occupation;
     private int id;
     public User(){
         
     }
     
-    public User(String username,String firstName, String lastName, String password, String matricNumber, String registeredDate, String about){
+    public User(String username,String firstName, String lastName, String password, String matricNumber, String registeredDate, String about,String occupation){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
@@ -35,6 +36,15 @@ public class User {
         this.about = about;
         this.followers =0;
         this.following =0;
+        this.occupation = occupation;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
     public int getId() {

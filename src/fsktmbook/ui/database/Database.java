@@ -8,6 +8,7 @@ package fsktmbook.ui.database;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
+import fsktmbook.helpers.Voucher;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -42,6 +43,7 @@ public class Database {
 
     public void debugTables(){
         printUsersTable();
+        printPostsTable();
     }
     public void setupTables(){
         setupPostsTable();
@@ -102,7 +104,8 @@ public class Database {
                     "matricNumber VARCHAR(10),\n" +
                     "registeredDate VARCHAR(30),\n" +
                     "followers Integer,\n" +
-                    "following Integer, \n" + 
+                    "following Integer, \n" +
+                    "occupation VARCHAR(20), \n" +
                     "about VARCHAR(1000)" +
                     " )");
             }
@@ -113,7 +116,38 @@ public class Database {
         }
 
     }
+    
+    
+    void setupGrabVouhers(){
+        
+        String TABLE_NAME = "grabVouchers";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId Integer,\n" +
+                    "amount Integer,\n" +
+                    "type VARCHAR(30),\n" +
+                    "releaseDate VARCHAR(30)" +
+                    " )");
+                
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+        
+    }
+    
     // creates the posts table *only run it once
     void setupPostsTable(){
         String TABLE_NAME = "posts";
@@ -170,7 +204,35 @@ public class Database {
         }
 
     }
+    
+     void setupViewsTable(){
+        String TABLE_NAME = "views";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId Integer,\n" +
+                    "viewerId Integer,\n" +
+                    "viewDate VARCHAR(30)" + // when the comment was posted
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+
+    }
+    
+    
     public boolean checkPassword(String userName,String password) throws SQLException{
         String query = "SELECT username,password FROM users WHERE username = ?" ;
         
@@ -235,7 +297,22 @@ public class Database {
         }
         return false;
     }
-
+    
+    public boolean printPostsTable(){
+        String query = "SELECT * FROM posts";
+        ResultSet rs = this.execQuery(query);
+        String msg = "";
+        try{
+            while(rs.next()){
+                  msg=rs.getInt("id")+"|"+rs.getString("userId")+"|"+rs.getString("content")+"|"+rs.getString("likes");
+                 System.out.println(msg);
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
     public ResultSet execQuery(String query) {
         ResultSet result;
         try {
@@ -326,7 +403,12 @@ public class Database {
                 user.setLastName(rs.getString("lastname"));
                 user.setPassword(rs.getString("password"));
                 user.setMatricNumber(rs.getString("matricNumber"));
-                user.setRegisteredDate(rs.getString("registeredDate"));                
+                user.setRegisteredDate(rs.getString("registeredDate"));
+                user.setFollowers(rs.getInt("followers"));
+                user.setFollowing(rs.getInt("following"));
+                user.setOccupation(rs.getString("occupation"));
+                user.setAbout(rs.getString("about"));
+                
             }
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -336,7 +418,7 @@ public class Database {
     }
     public boolean addPost(Post post) throws SQLException{
 
-        String query = "INSERT INTO posts (userId, title, content, likes, postDate) values (?,?,?,?,?)";   
+        String query = "INSERT INTO posts (userId, title, content, likes, postDate) VALUES (?,?,?,?,?)";   
                 
         PreparedStatement stmt = conn.prepareStatement(query);
         
@@ -398,7 +480,7 @@ public class Database {
 
     public boolean updateUser(User user) {
         try {
-            String update = "UPDATE users SET name=?, lastname=?, about=? , matricNumber = ? , password = ? WHERE id=?";
+            String update = "UPDATE users SET name=?, lastname=?, about=? , matricNumber = ? , password = ? , occupation = ? , WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(update);
             stmt.setString(1, user.getFirstName());           
             stmt.setString(2, user.getLastName()); 
@@ -406,6 +488,7 @@ public class Database {
             stmt.setString(4, user.getMatricNumber());
             stmt.setString(5, user.getPassword());
             stmt.setInt(6, user.getId());
+            stmt.setString(7, user.getOccupation());
             int res = stmt.executeUpdate();
             return (res > 0);
         } catch (SQLException ex) {
@@ -417,39 +500,22 @@ public class Database {
     }
     
     
-    void setupGrabVouhers(){
+    
+    public boolean addVoucher(Voucher voucher) throws SQLException{
         
-        String TABLE_NAME = "grabVouchers";
-
-        try {
-            sql = conn.createStatement();
-
-            DatabaseMetaData dbm = conn.getMetaData();
-            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
-
-            if(tables.next()){
-                System.out.println("Table " + TABLE_NAME + " already exists");
-            }else{
-                sql.execute("CREATE TABLE " + TABLE_NAME + "("
-                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
-                    "username VARCHAR(255),\n" +
-                    "firstname VARCHAR(255),\n" +
-                    "lastname VARCHAR(255),\n" +
-                    "password VARCHAR(255),\n" +
-                    "matricNumber VARCHAR(10),\n" +
-                    "registeredDate VARCHAR(30),\n" +
-                    "followers Integer,\n" +
-                    "following Integer, \n" + 
-                    "about VARCHAR(1000)" +
-                    " )");
-            }
-
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
-        }finally{
-        }
+        String query = "INSERT INTO posts (userId, amount, type, releaseDate) values (?,?,?,?)";
         
+        PreparedStatement stmt = conn.prepareStatement(query);
+        
+        stmt.setInt(1, voucher.getUserId());
+        stmt.setInt(2, voucher.getAmount());
+        stmt.setString(3, voucher.getType());
+        stmt.setString(4, voucher.getReleaseDate());
+        
+        boolean rs = stmt.execute();
+        
+        return rs;
     }
     
-
+    
 }
