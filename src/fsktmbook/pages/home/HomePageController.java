@@ -9,14 +9,21 @@ import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
@@ -26,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -131,6 +139,28 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void goSignOut(ActionEvent event) {
+        
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirm Signout");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
+                ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+                alert.getButtonTypes().setAll(okButton, noButton);
+                Optional <ButtonType> action = alert.showAndWait();
+                //alert.showAndWait().ifPresent(type -> {
+                    if (action.get() == okButton) {
+                        loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
+                        // close the home page 
+                        Stage stage =  (Stage) rootPane.getScene().getWindow();
+                        stage.close();
+                        return;
+                    }
+                //});
+                
+                
+        
+        
     }
 
     @FXML
@@ -139,7 +169,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void publish_post(ActionEvent event) throws SQLException {
-        String msg = newpost_text_box.getText();
+        String msg = newpost_text_box.getText().trim();
         
         Post post = new Post();
         
@@ -155,13 +185,8 @@ public class HomePageController implements Initializable {
         
         if(validatePostData(msg)){
             result = database.addPost(post);
-            trimContent(msg);
-            if(result){
-                Helper.openAlert("Post added ");
-            }
-            else{
-                Helper.openAlert("Error: post wasn't added");
-            }            
+            
+            Helper.openAlert("Post added ");    
         }
         else{
             Helper.openAlert("Post can not be empty OR exceed 5000 characters!");
@@ -199,8 +224,21 @@ public class HomePageController implements Initializable {
         return true;
     }
     
-    String trimContent(String postContent){
-        return (postContent.trim());
+    
+    
+    void loadWindow(String location,String title){
+        
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(location));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+            
+        } catch (IOException ex){ 
+            ex.printStackTrace();
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
      
