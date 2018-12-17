@@ -120,7 +120,7 @@ public class RegisterPageController implements Initializable {
            Helper.openAlert("Matric number cannot be longer than 20 characters.");
            return false;
         }
-        if(lastName.length() > 255 || lastName.length() < 6){
+        if(lastName.length() > 255 || lastName.length() < 2){
            Helper.openAlert("Last name cannot be longer than 20 characters or less than 6 characters.");
            return false;
         }
