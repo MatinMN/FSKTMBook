@@ -37,7 +37,7 @@ public class imageUpload {
      * @param date
      * @param postId
      */
-    public void up(int userId, Object postId, String type, String file_path) throws SQLException, FileNotFoundException{
+    public boolean up(int userId, Object postId, String type, String file_path) throws SQLException, FileNotFoundException{
         String query = "INSERT INTO images (userId, postId, postType, image, postDate) VALUES (?,?,?,FILE_READ(?),?";
         String path = null;
         
@@ -65,5 +65,7 @@ public class imageUpload {
         stmt.setString(3, type);
         stmt.setBlob(4, is);
         stmt.setString(4, Helper.getCurrentTime());
+        
+        return stmt.execute();
     }
 }
