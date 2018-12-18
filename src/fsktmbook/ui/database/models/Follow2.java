@@ -23,6 +23,17 @@ public class Follow2 {
         database = Database.getInstannce();
     }
     
+    public boolean follow1(int userID1 , int userID2) throws SQLException{
+
+        String query = "SELECT * FROM follows WHERE followerID='" + userID1 + "' AND followedID='" + userID2 + "'";   
+        
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+        boolean rs = stmt.execute();
+        
+        return rs;
+    }
+        
     public boolean follow2(int userID1 , int userID2) throws SQLException{
 
         String query = "SELECT * FROM follows WHERE followerID='" + userID1 + "' AND followedID='" + userID2 + "'";   
