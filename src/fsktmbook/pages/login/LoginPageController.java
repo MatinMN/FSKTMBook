@@ -7,7 +7,6 @@ package fsktmbook.pages.login;
 
 
 import fsktmbook.FSKTMBook;
-import java.util.logging.LoggingPermission;
 import fsktmbook.helpers.Helper;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Users;
@@ -23,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -68,31 +66,11 @@ public class LoginPageController implements Initializable {
                     password_field.requestFocus();
                     
                 }else{
-
-                        
-                            String username = username_field.getText();
-                            String password = password_field.getText();
-                            boolean validate = validateLoginData(username,password);
-                            if(validate){
-                                // check if username and password
-                                boolean result = false;
-                                try {
-                                    result = database.checkPassword(username, password);
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                if(result){ // username and passwrod is current
-                                    Users users = new Users();
-                                    FSKTMBook.LOGGEDUSER = users.getUserID(username);
-                                    loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
-                                    // close the login page 
-                                    Stage stage =  (Stage) rootPane.getScene().getWindow();
-                                    stage.close();
-                                    return;
-                                }
-                                Helper.openAlert("Wrong username or password.");
-                            }
-                            return;
+                    try {
+                        signin(new ActionEvent());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -163,8 +141,7 @@ public class LoginPageController implements Initializable {
             stage.show();
             
         } catch (IOException ex){ 
-            ex.printStackTrace();
-            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
