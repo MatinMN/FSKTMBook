@@ -49,6 +49,8 @@ public class Database {
         setupPostsTable();
         setupUsersTable();
         setupCommentsTable();
+        setupViewsTable();
+        setupGrabVouhersTable();
     }
 
     public static Database getInstannce(){
@@ -118,7 +120,7 @@ public class Database {
     }
     
     
-    void setupGrabVouhers(){
+    void setupGrabVouhersTable(){
         
         String TABLE_NAME = "grabVouchers";
 
@@ -255,19 +257,6 @@ public class Database {
         return false;
     }
 
-    public int getUserID(String userName){
-        String query = "SELECT id FROM users WHERE username =' " + userName +"'";
-        ResultSet rs = this.execQuery(query);
-        try {
-            while(rs.next()){
-                return rs.getInt("id");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return -1;
-    }
-
     public boolean printUsersTable(String userName){
         String query = "SELECT id,username,password FROM users WHERE username='"+userName+"'";
         ResultSet rs = this.execQuery(query);
@@ -345,7 +334,30 @@ public class Database {
         }
         return false;
     }
+    
+     public int getUserID(String userName) {
+        String query = "SELECT id FROM users WHERE username = ?" ;
 
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, userName);
+            
+                    ResultSet rs = stmt.executeQuery();
+        
+            try{
+                while(rs.next()){
+                     return rs.getInt("id");
+                }
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return -1;
+    }
+    
     public boolean addUser(User user) throws SQLException{
 
         // check if user already excist
