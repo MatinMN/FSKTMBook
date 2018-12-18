@@ -207,7 +207,7 @@ public class Database {
 
     }
     
-     void setupViewsTable(){
+    void setupViewsTable(){
         String TABLE_NAME = "views";
 
         try {
@@ -223,7 +223,7 @@ public class Database {
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "userId Integer,\n" +
                     "viewerId Integer,\n" +
-                    "viewDate VARCHAR(30)" + // when the comment was posted
+                    "viewDate VARCHAR(30)" + 
                     " )");
             }
 
@@ -234,7 +234,32 @@ public class Database {
 
     }
     
-    
+    void setupFollowersTable(){
+        String TABLE_NAME = "follows";
+
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "followerId Integer,\n" +
+                    "followedId Integer,\n" +
+                    "followDate VARCHAR(30)" + 
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+
+    }
     
 
     public boolean printUsersTable(String userName){
