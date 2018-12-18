@@ -52,6 +52,7 @@ public class Database {
         setupViewsTable();
         setupGrabVouhersTable();
         setupNotification();
+        setupImageTable();
     }
 
     public static Database getInstannce(){
@@ -370,5 +371,37 @@ public class Database {
         }finally{
         }
         
+    }
+    
+    //Needs to be changed. Need to update table in users, posts and comments
+    //Sorry for any errors that might show up
+    
+    public void setupImageTable(){
+        String TABLE_NAME = "images";
+
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "userId Integer,\n" +
+                    "postId Integer,\n" +
+                    "postType VARCHAR(255),\n" +
+                    "image blob,\n" +
+                    "postDate VARCHAR(30)" +
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+
     }
 }
