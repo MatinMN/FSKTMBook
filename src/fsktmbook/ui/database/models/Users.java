@@ -98,7 +98,7 @@ public class Users {
         return res;
     }
     
-    public ResultSet searchUser(String searchStatement) throws SQLException{
+    public ResultSet searchUsers(String searchStatement) throws SQLException{
         
         String query = "SELECT FROM users WHERE username LIKE '%?%' OR firstname LIKE '%?%'";
         
