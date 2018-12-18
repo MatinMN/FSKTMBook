@@ -8,6 +8,7 @@ package fsktmbook.pages.register;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
+import fsktmbook.ui.database.models.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -80,7 +81,8 @@ public class RegisterPageController implements Initializable {
              user.setMatricNumber(matricNumber);
              user.setRegisteredDate(Helper.getCurrentTime());
              
-             database.addUser(user);
+             Users users = new Users();
+             users.addUser(user);
              
              Stage stage =  (Stage) rootPane.getScene().getWindow();
              

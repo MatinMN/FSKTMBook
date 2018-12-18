@@ -10,6 +10,7 @@ import fsktmbook.FSKTMBook;
 import java.util.logging.LoggingPermission;
 import fsktmbook.helpers.Helper;
 import fsktmbook.ui.database.Database;
+import fsktmbook.ui.database.models.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -81,7 +82,8 @@ public class LoginPageController implements Initializable {
                                     Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 if(result){ // username and passwrod is current
-                                    FSKTMBook.LOGGEDUSER = database.getUserID(username);
+                                    Users users = new Users();
+                                    FSKTMBook.LOGGEDUSER = users.getUserID(username);
                                     loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
                                     // close the login page 
                                     Stage stage =  (Stage) rootPane.getScene().getWindow();
@@ -110,8 +112,8 @@ public class LoginPageController implements Initializable {
             boolean result = database.checkPassword(username, password);
             
             if(result){ // username and passwrod is current
-                
-                FSKTMBook.LOGGEDUSER = database.getUserID(username);
+                Users users = new Users();
+                FSKTMBook.LOGGEDUSER = users.getUserID(username);
                 
                 loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
                 

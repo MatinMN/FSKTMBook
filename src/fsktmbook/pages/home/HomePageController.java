@@ -14,6 +14,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -118,11 +121,12 @@ public class HomePageController implements Initializable {
     @FXML
     private Button suggest4_follow_btn;
     
-    
+   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         database = Database.getInstannce();
+        
     }    
 
     @FXML
@@ -140,27 +144,23 @@ public class HomePageController implements Initializable {
     @FXML
     private void goSignOut(ActionEvent event) {
         
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirm Signout");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
-                ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-                alert.getButtonTypes().setAll(okButton, noButton);
-                Optional <ButtonType> action = alert.showAndWait();
-                //alert.showAndWait().ifPresent(type -> {
-                    if (action.get() == okButton) {
-                        loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
-                        // close the home page 
-                        Stage stage =  (Stage) rootPane.getScene().getWindow();
-                        stage.close();
-                        return;
-                    }
-                //});
-                
-                
-        
-        
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Confirm Signout");
+      alert.setHeaderText(null);
+      alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
+      ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+               
+      alert.getButtonTypes().setAll(okButton, noButton);
+      Optional <ButtonType> action = alert.showAndWait();
+      if (action.get() == okButton) {
+            loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
+            // close the home page 
+
+            Stage stage =  (Stage) rootPane.getScene().getWindow();
+            stage.close();
+            return;
+      }
     }
 
     @FXML
@@ -194,6 +194,17 @@ public class HomePageController implements Initializable {
         
     }
 
+    
+    public Pane getPostsPaneCopy(){
+        Pane PostsPaneCopy = null;
+        try {
+            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbbook/pages/home/postsTemplate.fxml")); 
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return PostsPaneCopy;
+    }
+    
     @FXML
     private void goReadMoreNews(ActionEvent event) {
     }
