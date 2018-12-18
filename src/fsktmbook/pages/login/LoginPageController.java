@@ -87,10 +87,12 @@ public class LoginPageController implements Initializable {
        
         if(validate){
             // check if username and password
-            boolean result = database.checkPassword(username, password);
+            
+            Users users = new Users();
+            boolean result = users.checkPassword(username, password);
             
             if(result){ // username and passwrod is current
-                Users users = new Users();
+                
                 FSKTMBook.LOGGEDUSER = users.getUserID(username);
                 
                 loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");

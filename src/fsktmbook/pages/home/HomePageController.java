@@ -9,6 +9,7 @@ import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
+import fsktmbook.ui.database.models.Posts;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,13 +28,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -181,10 +179,12 @@ public class HomePageController implements Initializable {
         
         
         database = Database.getInstannce();
-        boolean result;  
+        
         
         if(validatePostData(msg)){
-            result = database.addPost(post);
+            Posts posts = new Posts();
+            
+            posts.addPost(post);
             
             Helper.openAlert("Post added ");    
         }

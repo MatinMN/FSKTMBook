@@ -163,4 +163,27 @@ public class Users {
         }
         return false;
     }
+    
+    public boolean checkPassword(String userName,String password) throws SQLException{
+        String query = "SELECT username,password FROM users WHERE username = ?" ;
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+
+        stmt.setString(1, userName);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        try{
+            while(rs.next()){
+                 String pass = rs.getString("password");
+                 if(pass.equals(password)){
+                     return true;
+                 }
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
 }

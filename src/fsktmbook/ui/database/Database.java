@@ -235,27 +235,7 @@ public class Database {
     }
     
     
-    public boolean checkPassword(String userName,String password) throws SQLException{
-        String query = "SELECT username,password FROM users WHERE username = ?" ;
-        
-        PreparedStatement stmt = conn.prepareStatement(query);
-
-        stmt.setString(1, userName);
-        
-        ResultSet rs = stmt.executeQuery();
-        
-        try{
-            while(rs.next()){
-                 String pass = rs.getString("password");
-                 if(pass.equals(password)){
-                     return true;
-                 }
-            }
-        }catch(SQLException ex){
-            ex.printStackTrace();
-        }
-        return false;
-    }
+    
 
     public boolean printUsersTable(String userName){
         String query = "SELECT id,username,password FROM users WHERE username='"+userName+"'";
@@ -322,58 +302,7 @@ public class Database {
     }
     
     
-    
-     
-    
-    
-    
-    
-    
-    
-    public boolean addPost(Post post) throws SQLException{
 
-        String query = "INSERT INTO posts (userId, title, content, likes, postDate) VALUES (?,?,?,?,?)";   
-                
-        PreparedStatement stmt = conn.prepareStatement(query);
-        
-        stmt.setInt(1, post.getUserID());
-        stmt.setString(2, post.getTitle());
-        stmt.setString(3, post.getContent());
-        stmt.setInt(4, post.getLikes());
-        stmt.setString(5, post.getPostDate());
-        
-        boolean res = stmt.execute();
-        
-        return res;
-        
-    }
-
-    public boolean deletePost(Post post) throws SQLException{
-        String query = "DELETE FROM posts WHERE id  = ? ";
-        
-        PreparedStatement stmt = conn.prepareStatement(query);
-        
-        stmt.setInt(1, post.getId());
-        
-        boolean result = stmt.execute();
-        
-        return result;
-    }
-
-
-    public ResultSet searchPost(String searchStatement) throws SQLException{
-
-        String query = "SELECT FROM posts WHERE title LIKE '%?%' AND content LIKE '%?%'";
-        
-        PreparedStatement stmt = conn.prepareStatement(query);
-        
-        stmt.setString(1, searchStatement);
-        stmt.setString(2, searchStatement);
-        
-        ResultSet rs = stmt.executeQuery();
-
-        return rs;
-    }
     
     public boolean postComment(int postId,int userId,String comment) throws SQLException{
         String query = "INSERT INTO comments (postId,userId,content,postDate) VALUES (?,?,?,?)";
