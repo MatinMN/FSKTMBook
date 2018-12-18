@@ -51,6 +51,7 @@ public class Database {
         setupCommentsTable();
         setupViewsTable();
         setupGrabVouhersTable();
+        setupNotification();
     }
 
     public static Database getInstannce(){
@@ -317,5 +318,32 @@ public class Database {
         return rs;
     }
     
-    
+    public void setupNotification(){
+        
+        String TABLE_NAME = "notifications";
+
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "UserId Integer,\n" +
+                    "status Boolean,\n" +
+                    "content VARCHAR(5000),\n" +
+                    "type VARCHAR(30)" +
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+        
+    }
 }
