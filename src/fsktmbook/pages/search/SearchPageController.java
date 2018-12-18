@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -30,6 +31,22 @@ public class SearchPageController implements Initializable {
     private Button search_btn;
     @FXML
     private Button notif_btn;
+    @FXML
+    private ImageView search_image1;
+    @FXML
+    private ImageView search_image2;
+    @FXML
+    private ImageView search_image3;
+    @FXML
+    private ImageView search_image4;
+    @FXML
+    private ImageView search_image5;
+    @FXML
+    private ImageView search_image6;
+    @FXML
+    private ImageView search_image7;
+    @FXML
+    private ImageView search_image8;
 
     /**
      * Initializes the controller class.
