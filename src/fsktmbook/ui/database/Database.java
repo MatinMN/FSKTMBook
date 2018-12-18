@@ -301,26 +301,6 @@ public class Database {
         return conn.prepareStatement(query);
     }
     
-    
-
-    
-    public boolean postComment(int postId,int userId,String comment) throws SQLException{
-        String query = "INSERT INTO comments (postId,userId,content,postDate) VALUES (?,?,?,?)";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, postId);
-        stmt.setInt(2, userId);
-        stmt.setString(3,comment);
-        stmt.setString(4,Helper.getCurrentTime());
-        return stmt.execute();
-    }
-
-    public boolean deleteComment(int commentId) throws SQLException{
-        String query = "DELETE FROM comments WHERE id = ?";
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, commentId);
-        return stmt.execute();
-    }
-
     public boolean addVoucher(Voucher voucher) throws SQLException{
         
         String query = "INSERT INTO posts (userId, amount, type, releaseDate) values (?,?,?,?)";
