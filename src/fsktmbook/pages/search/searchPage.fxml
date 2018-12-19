@@ -11,10 +11,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutY="8.0" prefHeight="160.0" prefWidth="710.0">
+               <children>
+                  <TextField layoutX="180.0" layoutY="67.0" opacity="0.53" prefHeight="45.0" prefWidth="472.0" promptText="Find Friends........">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </TextField>
+               </children>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="163.0" prefHeight="378.0" prefWidth="863.0">
+               <children>
+                  <ImageView fx:id="search_image1" fitHeight="163.0" fitWidth="136.0" layoutX="58.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="search_image2" fitHeight="163.0" fitWidth="136.0" layoutX="58.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+         </children></Pane>
    </center>
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
