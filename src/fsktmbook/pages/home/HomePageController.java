@@ -66,21 +66,11 @@ public class HomePageController implements Initializable {
     @FXML
     private Button notif_btn;
     @FXML
-    private Button signout_btn;
-    @FXML
     private Button settings_btn;
     @FXML
     private TextArea newpost_text_box;
     @FXML
     private Button publish_btn;
-    @FXML
-    private Text displayed_post_user_name;
-    @FXML
-    private TextArea displayed_post_text_box;
-    @FXML
-    private Text displayed_comment1_user_name;
-    @FXML
-    private TextArea displayed_comment1_text_box;
     @FXML
     private TextArea news_text_box;
     @FXML
@@ -88,11 +78,7 @@ public class HomePageController implements Initializable {
     @FXML
     private Button search_bt;
     @FXML
-    private Pane main_pp_container1;
-    @FXML
-    private Pane main_pp_container11;
-    @FXML
-    private TextArea newpost_text_box1;
+    private VBox postsContainer;
     
    
     
@@ -142,7 +128,6 @@ public class HomePageController implements Initializable {
     private void gonotif(ActionEvent event) {
     }
 
-    @FXML
     private void goSignOut(ActionEvent event) {
         
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -165,6 +150,7 @@ public class HomePageController implements Initializable {
     }
 
 
+    @FXML
     private void publish_post(ActionEvent event) throws SQLException {
         String msg = newpost_text_box.getText().trim();
         
@@ -230,6 +216,10 @@ public class HomePageController implements Initializable {
             ex.printStackTrace();
             //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void goSettings(ActionEvent event) {
     }
     
      
