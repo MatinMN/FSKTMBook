@@ -8,10 +8,13 @@ package fsktmbook.pages.home;
 import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
+import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Posts;
+import fsktmbook.ui.database.models.Users;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -21,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,7 +35,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -47,7 +53,6 @@ public class HomePageController implements Initializable {
     
     private Label label;
     
-    @FXML
     private AnchorPane rootPane;
     
     
@@ -55,91 +60,47 @@ public class HomePageController implements Initializable {
    
     
     @FXML
-    private Button home_btn;
-    @FXML
-    private Button search_btn;
-    @FXML
-    private Button notif_btn;
-    @FXML
-    private Button signout_btn;
-    @FXML
-    private ImageView main_pp;
-    @FXML
-    private ImageView comment1_pp;
-    @FXML
-    private ImageView comment2_pp;
-    @FXML
-    private ImageView suggest1_pp;
-    @FXML
-    private ImageView suggest2_pp;
-    @FXML
-    private ImageView suggest3_pp;
-    @FXML
-    private ImageView suggest4_pp;
-    @FXML
-    private Button settings_btn;
-    @FXML
     private TextArea newpost_text_box;
-    @FXML
-    private ImageView displayed_post_pp;
-    @FXML
-    private Button publish_btn;
-    @FXML
-    private Text displayed_post_user_name;
-    @FXML
-    private TextArea displayed_post_text_box;
-    @FXML
-    private Text displayed_comment1_user_name;
-    @FXML
-    private TextArea displayed_comment1_text_box;
-    @FXML
-    private Text displayed_comment2_user_name;
-    @FXML
-    private TextArea displayed_comment2_text_box;
-    @FXML
-    private ImageView news_pic;
     @FXML
     private TextArea news_text_box;
     @FXML
-    private Button news_readmore_btn;
+    private Pane main_pp_container;
     @FXML
-    private Text suggest1_user_name;
-    @FXML
-    private Text suggest2_user_name;
-    @FXML
-    private Text suggest3_user_name;
-    @FXML
-    private Text suggest4_user_name;
-    @FXML
-    private Button suggest1_follow_btn;
-    @FXML
-    private Button suggest2_follow_btn;
-    @FXML
-    private Button suggest3_follow_btn;
-    @FXML
-    private Button suggest4_follow_btn;
+    private VBox postsContainer;
     
    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        database = Database.getInstannce();
         
+            database = Database.getInstannce();
+            
+            Posts posts = new Posts();
+            Users users = new Users();
+        try {
+            ResultSet rs = posts.getPosts();
+            
+            while(rs.next()){
+                User user = users.getUserInformation(rs.getInt("userId"));
+                GridPane post = (GridPane) getPostsPaneCopy();
+                VBox vBox = (VBox) post.getChildren().get(0);
+                Pane pane = (Pane) vBox.getChildren().get(0);
+
+                Text usernameText = (Text) pane.getChildren().get(0);
+                TextArea postContent = (TextArea) pane.getChildren().get(1);
+                
+                usernameText.setText(user.getFirstName());
+                postContent.setText(rs.getString("content"));
+                
+                postsContainer.getChildren().add(post);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
-
-    @FXML
-    private void goHome(ActionEvent event) {
-    }
-
-    @FXML
-    private void goSearch(ActionEvent event) {
-    }
-
-    @FXML
-    private void gonotif(ActionEvent event) {
-    }
-
-    @FXML
+    
+    
+    
     private void goSignOut(ActionEvent event) {
         
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -161,11 +122,7 @@ public class HomePageController implements Initializable {
       }
     }
 
-    @FXML
-    private void goSettings(ActionEvent event) {
-    }
 
-    @FXML
     private void publish_post(ActionEvent event) throws SQLException {
         String msg = newpost_text_box.getText().trim();
         
@@ -198,32 +155,13 @@ public class HomePageController implements Initializable {
     public Pane getPostsPaneCopy(){
         Pane PostsPaneCopy = null;
         try {
-            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbbook/pages/home/postsTemplate.fxml")); 
+            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbook/helpers/PostsTemplate.fxml")); 
         } catch (IOException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return PostsPaneCopy;
     }
     
-    @FXML
-    private void goReadMoreNews(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest1(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest2(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest3(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest4(ActionEvent event) {
-    }
 
 
     boolean validatePostData(String postContent){

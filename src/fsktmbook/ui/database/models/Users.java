@@ -113,7 +113,7 @@ public class Users {
     }
     
     public User getUserInformation(int id) throws SQLException{
-        String query = "SELECT FROM users WHERE id = ?";
+        String query = "SELECT * FROM users WHERE id = ?";
         
         PreparedStatement stmt = database.prepareStatement(query);
         
@@ -126,6 +126,7 @@ public class Users {
             while(rs.next()){
                 user.setId(rs.getInt("id"));
                 user.setUserName(rs.getString("username"));
+                user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setPassword(rs.getString("password"));
                 user.setMatricNumber(rs.getString("matricNumber"));
@@ -139,7 +140,7 @@ public class Users {
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-
+        
         return user;
     }
     

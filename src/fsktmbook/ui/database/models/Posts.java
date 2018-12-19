@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database.models;
 
+import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
 import java.sql.PreparedStatement;
@@ -58,12 +59,25 @@ public class Posts {
 
     public ResultSet searchPost(String searchStatement) throws SQLException{
 
-        String query = "SELECT FROM posts WHERE title LIKE '%?%' AND content LIKE '%?%'";
+        String query = "SELECT * FROM posts WHERE title LIKE '%?%' AND content LIKE '%?%'";
         
         PreparedStatement stmt = database.prepareStatement(query);
         
         stmt.setString(1, searchStatement);
         stmt.setString(2, searchStatement);
+        
+        ResultSet rs = stmt.executeQuery();
+
+        return rs;
+    }
+    
+    public ResultSet getPosts() throws SQLException{
+
+        String query = "SELECT * FROM posts WHERE id != ?";
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+        
+        stmt.setInt(1, FSKTMBook.LOGGEDUSER);
         
         ResultSet rs = stmt.executeQuery();
 
