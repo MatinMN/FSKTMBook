@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,14 +23,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="main_pp_container" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
             <Pane layoutX="-1.0" layoutY="141.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -42,7 +50,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="204.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="search_bt" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -62,7 +70,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="267.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="notif_btn" mnemonicParsing="false" onAction="#gonotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -82,7 +90,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="330.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="settings_btn" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -155,7 +163,7 @@
                            </image>
                         </ImageView>
                         <TextArea fx:id="newpost_text_box" layoutX="45.0" layoutY="57.0" prefHeight="42.0" prefWidth="365.0" promptText="What's in your mind today?" style="-fx-background-color: white;" stylesheets="@commentarea.css" wrapText="true" />
-                        <Button layoutX="325.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="Publish" textAlignment="JUSTIFY" textFill="WHITE">
+                        <Button fx:id="publish_btn" layoutX="325.0" layoutY="106.0" mnemonicParsing="false" onAction="#publish_post" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="Publish" textAlignment="JUSTIFY" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>

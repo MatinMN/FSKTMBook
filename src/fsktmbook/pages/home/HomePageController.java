@@ -36,6 +36,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -53,20 +54,45 @@ public class HomePageController implements Initializable {
     
     private Label label;
     
-    private AnchorPane rootPane;
+    @FXML
+    private BorderPane rootPane;
     
     
     Database database;
    
     
     @FXML
+    private Button home_btn;
+    @FXML
+    private Button notif_btn;
+    @FXML
+    private Button signout_btn;
+    @FXML
+    private Button settings_btn;
+    @FXML
     private TextArea newpost_text_box;
+    @FXML
+    private Button publish_btn;
+    @FXML
+    private Text displayed_post_user_name;
+    @FXML
+    private TextArea displayed_post_text_box;
+    @FXML
+    private Text displayed_comment1_user_name;
+    @FXML
+    private TextArea displayed_comment1_text_box;
     @FXML
     private TextArea news_text_box;
     @FXML
     private Pane main_pp_container;
     @FXML
-    private VBox postsContainer;
+    private Button search_bt;
+    @FXML
+    private Pane main_pp_container1;
+    @FXML
+    private Pane main_pp_container11;
+    @FXML
+    private TextArea newpost_text_box1;
     
    
     
@@ -98,9 +124,25 @@ public class HomePageController implements Initializable {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
-    
-    
-    
+
+    @FXML
+    private void goHome(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSearch(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
+        
+
+    }
+
+    @FXML
+    private void gonotif(ActionEvent event) {
+    }
+
+    @FXML
     private void goSignOut(ActionEvent event) {
         
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
