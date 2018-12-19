@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -22,31 +23,19 @@ import javafx.scene.image.ImageView;
 public class SearchPageController implements Initializable {
 
     @FXML
-    private TextField search_bar;
-    @FXML
-    private Button search;
-    @FXML
     private Button home_btn;
     @FXML
     private Button search_btn;
     @FXML
     private Button notif_btn;
     @FXML
-    private ImageView search_image1;
+    private Pane main_pp_container;
     @FXML
-    private ImageView search_image2;
+    private Pane main_pp_container1;
     @FXML
-    private ImageView search_image3;
+    private Button settings_btn;
     @FXML
-    private ImageView search_image4;
-    @FXML
-    private ImageView search_image5;
-    @FXML
-    private ImageView search_image6;
-    @FXML
-    private ImageView search_image7;
-    @FXML
-    private ImageView search_image8;
+    private Button signout_btn;
 
     /**
      * Initializes the controller class.
@@ -56,13 +45,6 @@ public class SearchPageController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void searchBar(ActionEvent event) {
-    }
-
-    @FXML
-    private void doSearch(ActionEvent event) {
-    }
 
     @FXML
     private void goHome(ActionEvent event) {
@@ -73,7 +55,15 @@ public class SearchPageController implements Initializable {
     }
 
     @FXML
-    private void goNotif(ActionEvent event) {
+    private void gonotif(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSettings(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSignOut(ActionEvent event) {
     }
     
 }
