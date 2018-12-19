@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
+    <stylesheets>
+        <URL value="@searchpage.css" />
+    </stylesheets>
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@search.png" />
+         </image>
+      </ImageView>
+      <ImageView id="search_image_1" fx:id="search_image1" fitHeight="112.0" fitWidth="89.0" layoutX="114.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <TextField fx:id="search_bar" layoutX="114.0" layoutY="49.0" onAction="#searchBar" opacity="0.55" prefHeight="31.0" prefWidth="393.0" promptText="Find friends">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></TextField>
+      <ImageView fx:id="search_image2" fitHeight="112.0" fitWidth="89.0" layoutX="231.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <Button fx:id="search" layoutX="514.0" layoutY="49.0" mnemonicParsing="false" onAction="#doSearch" opacity="0.0" prefHeight="31.0" prefWidth="30.0" text="Button" />
+      <Button fx:id="home_btn" layoutY="100.0" mnemonicParsing="false" onAction="#goHome" opacity="0.0" prefHeight="45.0" prefWidth="63.0" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="search_btn" layoutY="148.0" mnemonicParsing="false" onAction="#goSearch" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="notif_btn" layoutY="200.0" mnemonicParsing="false" onAction="#goNotif" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutY="340.0" mnemonicParsing="false" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button" />
+      <ImageView fx:id="search_image3" fitHeight="112.0" fitWidth="89.0" layoutX="347.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="search_image4" fitHeight="112.0" fitWidth="89.0" layoutX="463.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="search_image5" fitHeight="112.0" fitWidth="89.0" layoutX="114.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="search_image6" fitHeight="112.0" fitWidth="89.0" layoutX="231.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="search_image7" fitHeight="112.0" fitWidth="89.0" layoutX="347.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <ImageView fx:id="search_image8" fitHeight="112.0" fitWidth="89.0" layoutX="463.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+   </children>
+</AnchorPane>
