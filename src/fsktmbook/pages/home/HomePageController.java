@@ -79,6 +79,8 @@ public class HomePageController implements Initializable {
     private Button search_bt;
     @FXML
     private VBox postsContainer;
+    @FXML
+    private Button signout_btn;
     
    
     
@@ -128,6 +130,7 @@ public class HomePageController implements Initializable {
     private void gonotif(ActionEvent event) {
     }
 
+    @FXML
     private void goSignOut(ActionEvent event) {
         
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
