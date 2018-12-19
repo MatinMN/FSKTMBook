@@ -47,7 +47,6 @@ public class HomePageController implements Initializable {
     
     private Label label;
     
-    @FXML
     private AnchorPane rootPane;
     
     
@@ -57,31 +56,13 @@ public class HomePageController implements Initializable {
     @FXML
     private Button home_btn;
     @FXML
-    private Button search_btn;
-    @FXML
     private Button notif_btn;
     @FXML
     private Button signout_btn;
     @FXML
-    private ImageView main_pp;
-    @FXML
-    private ImageView comment1_pp;
-    @FXML
-    private ImageView comment2_pp;
-    @FXML
-    private ImageView suggest1_pp;
-    @FXML
-    private ImageView suggest2_pp;
-    @FXML
-    private ImageView suggest3_pp;
-    @FXML
-    private ImageView suggest4_pp;
-    @FXML
     private Button settings_btn;
     @FXML
     private TextArea newpost_text_box;
-    @FXML
-    private ImageView displayed_post_pp;
     @FXML
     private Button publish_btn;
     @FXML
@@ -93,31 +74,17 @@ public class HomePageController implements Initializable {
     @FXML
     private TextArea displayed_comment1_text_box;
     @FXML
-    private Text displayed_comment2_user_name;
-    @FXML
-    private TextArea displayed_comment2_text_box;
-    @FXML
-    private ImageView news_pic;
-    @FXML
     private TextArea news_text_box;
     @FXML
-    private Button news_readmore_btn;
+    private Pane main_pp_container;
     @FXML
-    private Text suggest1_user_name;
+    private Button search_bt;
     @FXML
-    private Text suggest2_user_name;
+    private Pane main_pp_container1;
     @FXML
-    private Text suggest3_user_name;
+    private Pane main_pp_container11;
     @FXML
-    private Text suggest4_user_name;
-    @FXML
-    private Button suggest1_follow_btn;
-    @FXML
-    private Button suggest2_follow_btn;
-    @FXML
-    private Button suggest3_follow_btn;
-    @FXML
-    private Button suggest4_follow_btn;
+    private TextArea newpost_text_box1;
     
    
     
@@ -133,6 +100,11 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void goSearch(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
+        
+
     }
 
     @FXML
@@ -205,25 +177,6 @@ public class HomePageController implements Initializable {
         return PostsPaneCopy;
     }
     
-    @FXML
-    private void goReadMoreNews(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest1(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest2(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest3(ActionEvent event) {
-    }
-
-    @FXML
-    private void followSuggest4(ActionEvent event) {
-    }
 
 
     boolean validatePostData(String postContent){
