@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -10,65 +11,102 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
-    <stylesheets>
-        <URL value="@searchpage.css" />
-    </stylesheets>
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
-         <image>
-            <Image url="@search.png" />
-         </image>
-      </ImageView>
-      <ImageView id="search_image_1" fx:id="search_image1" fitHeight="112.0" fitWidth="89.0" layoutX="114.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <TextField fx:id="search_bar" layoutX="114.0" layoutY="49.0" onAction="#searchBar" opacity="0.55" prefHeight="31.0" prefWidth="393.0" promptText="Find friends">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></TextField>
-      <ImageView fx:id="search_image2" fitHeight="112.0" fitWidth="89.0" layoutX="231.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <Button fx:id="search" layoutX="514.0" layoutY="49.0" mnemonicParsing="false" onAction="#doSearch" opacity="0.0" prefHeight="31.0" prefWidth="30.0" text="Button" />
-      <Button fx:id="home_btn" layoutY="100.0" mnemonicParsing="false" onAction="#goHome" opacity="0.0" prefHeight="45.0" prefWidth="63.0" text="Button">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="search_btn" layoutY="148.0" mnemonicParsing="false" onAction="#goSearch" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="notif_btn" layoutY="200.0" mnemonicParsing="false" onAction="#goNotif" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button layoutY="340.0" mnemonicParsing="false" opacity="0.0" prefHeight="52.0" prefWidth="63.0" text="Button" />
-      <ImageView fx:id="search_image3" fitHeight="112.0" fitWidth="89.0" layoutX="347.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="search_image4" fitHeight="112.0" fitWidth="89.0" layoutX="463.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="search_image5" fitHeight="112.0" fitWidth="89.0" layoutX="114.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="search_image6" fitHeight="112.0" fitWidth="89.0" layoutX="231.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="search_image7" fitHeight="112.0" fitWidth="89.0" layoutX="347.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-      <ImageView fx:id="search_image8" fitHeight="112.0" fitWidth="89.0" layoutX="463.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></ImageView>
-   </children>
-</AnchorPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="main_pp_container" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
+            <Pane prefHeight="540.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;">
+               <children>
+                  <Pane fx:id="main_pp_container1" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
+                  <Pane layoutY="141.0">
+                     <children>
+                        <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </Button>
+                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                           <image>
+                              <Image url="@../home/hicon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="-1.0" layoutY="204.0">
+                     <children>
+                        <Button fx:id="search_btn" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </Button>
+                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                           <image>
+                              <Image url="@../home/hicon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="-1.0" layoutY="267.0">
+                     <children>
+                        <Button fx:id="notif_btn" layoutX="1.0" layoutY="11.0" mnemonicParsing="false" onAction="#gonotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </Button>
+                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                           <image>
+                              <Image url="@../home/hicon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="-1.0" layoutY="330.0">
+                     <children>
+                        <Button fx:id="settings_btn" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </Button>
+                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                           <image>
+                              <Image url="@../home/hicon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Button fx:id="signout_btn" layoutX="14.0" layoutY="469.0" mnemonicParsing="false" onAction="#goSignOut" opacity="0.66" text="sign out" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
