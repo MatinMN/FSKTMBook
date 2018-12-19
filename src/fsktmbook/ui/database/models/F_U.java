@@ -20,7 +20,7 @@ public class F_U {
     private Database database;
     
     
-    public void Follows(){
+    public void F_U(){
         database = Database.getInstannce();
     }
     
