@@ -10,6 +10,7 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
+import fsktmbook.ui.database.models.Comments;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -59,7 +62,9 @@ public class HomePageController implements Initializable {
     
     
     Database database;
-   
+    Posts posts;
+    Users users;
+    Comments comments;
     
     @FXML
     private Button home_btn;
@@ -89,30 +94,53 @@ public class HomePageController implements Initializable {
         
             database = Database.getInstannce();
             
-            Posts posts = new Posts();
-            Users users = new Users();
+            posts = new Posts();
+            users = new Users();
+            comments = new Comments();
+            displayPosts();
+    }    
+
+    
+    public void displayPosts(){
+        postsContainer.getChildren().clear();
         try {
             ResultSet rs = posts.getPosts();
             
             while(rs.next()){
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
+                int postId = rs.getInt("id");
                 VBox vBox = (VBox) post.getChildren().get(0);
                 Pane pane = (Pane) vBox.getChildren().get(0);
-
+                Pane commentsPane = (Pane) vBox.getChildren().get(1);
+                VBox commentsBox = (VBox) commentsPane.getChildren().get(0);
+                Pane addCommentPane = (Pane) commentsBox.getChildren().get(1);
+                
                 Text usernameText = (Text) pane.getChildren().get(0);
                 TextArea postContent = (TextArea) pane.getChildren().get(1);
+                Button addCommentButton = (Button) addCommentPane.getChildren().get(1);
+                TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
+                
+                String commentContent = commentInput.getText();
+                
+                
                 
                 usernameText.setText(user.getFirstName());
                 postContent.setText(rs.getString("content"));
                 
                 postsContainer.getChildren().add(post);
+                
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-
+    }
+    
+    
+  
+    
+    
     @FXML
     private void goHome(ActionEvent event) {
     }
@@ -173,7 +201,7 @@ public class HomePageController implements Initializable {
             Posts posts = new Posts();
             
             posts.addPost(post);
-            
+            displayPosts();
             Helper.openAlert("Post added ");    
         }
         else{
@@ -193,6 +221,15 @@ public class HomePageController implements Initializable {
         return PostsPaneCopy;
     }
     
+    public Pane getCommentPaneCopy(){
+        Pane PostsPaneCopy = null;
+        try {
+            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbook/helpers/CommentTemplate.fxml")); 
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return PostsPaneCopy;
+    }
 
 
     boolean validatePostData(String postContent){

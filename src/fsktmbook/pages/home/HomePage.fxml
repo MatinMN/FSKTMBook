@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -23,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
@@ -181,13 +173,16 @@
             </HBox>
             <HBox alignment="CENTER" prefWidth="560.0" style="-fx-background-color: white;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="350.0" prefWidth="480.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 7;">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="363.0" prefWidth="560.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 7;">
                      <content>
-                        <VBox fx:id="postsContainer" fillWidth="false" />
+                        <VBox fx:id="postsContainer" alignment="CENTER" fillWidth="false" />
                      </content>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding>
                   </ScrollPane>
                </children>
             </HBox>
