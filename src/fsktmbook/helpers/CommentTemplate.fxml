@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+
+      <Pane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" layoutX="10.0" layoutY="10.0">
+         <children>
+            <Text fill="#3aaf9f" layoutX="46.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" wrappingWidth="317.4700622558594">
+               <font>
+                  <Font name="Verdana Bold" size="11.0" />
+               </font>
+            </Text>
+            <TextArea editable="false" layoutX="43.0" layoutY="16.05908203125" prefHeight="0.0" prefWidth="330.0" style="-fx-background-color: #f1f1f1;" stylesheets="@../pages/home/commentarea.css" text="Displayed Comment 1 Text" wrapText="true">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextArea>
+            <Pane layoutY="2.05908203125" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: red;" />
+         </children>
+      </Pane>
+

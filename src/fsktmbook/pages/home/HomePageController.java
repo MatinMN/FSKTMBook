@@ -122,7 +122,19 @@ public class HomePageController implements Initializable {
                 TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
                 
                 String commentContent = commentInput.getText();
-                
+                addCommentButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        try {
+                            // add a new comment
+                            comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
+                            System.out.println(commentContent);
+                            Helper.openAlert("Comment added.");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
                 
                 
                 usernameText.setText(user.getFirstName());
