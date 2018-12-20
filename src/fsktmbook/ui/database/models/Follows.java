@@ -42,5 +42,12 @@ public class Follows {
         
     }
     
+     public boolean unfollow(int followedId, int followerId) throws SQLException{
+         
+        String query = "DELETE FROM follows WHERE followerID='" + followerId + "' AND followedId='" + followedId + "'";
+        PreparedStatement stmt = database.prepareStatement(query);
+        
+        return (stmt.execute());
+    }
     
 }
