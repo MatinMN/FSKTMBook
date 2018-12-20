@@ -142,7 +142,7 @@ public class HomePageController implements Initializable {
                 
                 postsContainer.getChildren().add(post);
                 
-                
+                displayComments(postId,(VBox)commentsBox.getChildren().get(0));
             }
         } catch (SQLException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,7 +150,22 @@ public class HomePageController implements Initializable {
     }
     
     
-  
+    public void displayComments(int postId,VBox commentsBox) throws SQLException{
+        ResultSet rs = comments.getComments(postId);
+        User user;
+        commentsBox.getChildren().clear();
+        while(rs.next()){
+            
+             user  = users.getUserInformation(rs.getInt("userId"));
+             Pane post = (Pane) getCommentPaneCopy();
+             Text username = (Text) post.getChildren().get(0);
+             TextArea content = (TextArea) post.getChildren().get(1);
+             username.setText(user.getFirstName());
+             content.setText(rs.getString("content"));
+             System.out.println(rs.getString("content"));
+             commentsBox.getChildren().add(post);
+        }
+    }
     
     
     @FXML
