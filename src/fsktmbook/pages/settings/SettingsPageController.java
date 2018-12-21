@@ -43,6 +43,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -114,10 +115,10 @@ public class SettingsPageController implements Initializable {
     private TextField matric_input;
 
     @FXML
-    private TextField newpass_input;
+    private PasswordField newpass_input;
 
     @FXML
-    private TextField reNewpass_input;
+    private PasswordField reNewpass_input;
 
     @FXML
     private TextField lastname_input;
@@ -131,7 +132,7 @@ public class SettingsPageController implements Initializable {
     @FXML
     private Button cancel_btn;
     @FXML
-    private TextField oldpass_input;
+    private PasswordField oldpass_input;
 
 
 

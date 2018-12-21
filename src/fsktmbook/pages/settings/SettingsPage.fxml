@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -197,31 +198,31 @@
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="oldpass_input" layoutX="22.0" layoutY="328.0" prefHeight="18.0" prefWidth="175.0">
-                           <font>
-                              <Font name="Arial Bold" size="11.0" />
-                           </font>
-                        </TextField>
                         <Text layoutX="23.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password">
                            <font>
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="newpass_input" layoutX="24.0" layoutY="409.0" prefHeight="18.0" prefWidth="175.0">
-                           <font>
-                              <Font name="Arial Bold" size="11.0" />
-                           </font>
-                        </TextField>
                         <Text layoutX="24.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-type New Password">
                            <font>
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="reNewpass_input" layoutX="25.0" layoutY="486.0" prefHeight="18.0" prefWidth="175.0">
+                        <PasswordField fx:id="oldpass_input" layoutX="23.0" layoutY="333.0" prefHeight="25.0" prefWidth="174.0">
                            <font>
                               <Font name="Arial Bold" size="11.0" />
                            </font>
-                        </TextField>
+                        </PasswordField>
+                        <PasswordField fx:id="newpass_input" layoutX="24.0" layoutY="407.0" prefHeight="25.0" prefWidth="174.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </PasswordField>
+                        <PasswordField fx:id="reNewpass_input" layoutX="24.0" layoutY="482.0" prefHeight="25.0" prefWidth="174.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </PasswordField>
                      </children>
                   </Pane>
                   <Pane prefHeight="200.0" prefWidth="260.0" style="-fx-background-color: white;">
