@@ -221,8 +221,10 @@ public class Users {
     public Image getUserImage(int id){
             try {
                 String imagePath = getUserImageDir(id);
-                File file = new File(imagePath);
-
+                
+                
+                File file = new File((imagePath == null) ? "" : imagePath);
+                
                 if(file.exists()){
                     return new Image(file.toURI().toString());
                     
