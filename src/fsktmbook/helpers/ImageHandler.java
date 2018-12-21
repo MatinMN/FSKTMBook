@@ -64,14 +64,14 @@ public class ImageHandler {
         file = fileChooser.showOpenDialog(null);
 
         String imagePath = "";
-
-        imagePath = file.getAbsolutePath();
-
-        int userId = 10;
-        // get the path as a String// call the method...
-        String path = copyImage(imagePath, userId);
-        // show the image in the imageView...
-        setImageDirectory(path);
+        if(file == null){
+            //do nothing.....
+        }
+        else{
+            imagePath = file.getAbsolutePath();
+            String path = copyImage(imagePath, FSKTMBook.LOGGEDUSER);
+            setImageDirectory(path);
+        }
 
     }
 

@@ -334,15 +334,21 @@ public class HomePageController implements Initializable {
         handler.chooseImage();
 
         String imagePath = handler.getImageDirectory();
-        File file = new File(imagePath);
-        if(file.exists()){
-            Image image = new Image(file.toURI().toString());
-            profileImage.setImage(image);
-            handler.updateImageDiectory(imagePath, FSKTMBook.LOGGEDUSER);
+        if(imagePath == null){
+            //do nothing
         }
         else{
-            System.out.println("Image is not found in the database!!");
+            File file = new File(imagePath);
+            if(file.exists()){
+                Image image = new Image(file.toURI().toString());
+                profileImage.setImage(image);
+                handler.updateImageDiectory(imagePath, FSKTMBook.LOGGEDUSER);
+            }
+            else{
+                System.out.println("Image is not found in the database!!");
+            }
         }
+        
 
     }
 
