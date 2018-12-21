@@ -110,6 +110,8 @@ public class HomePageController implements Initializable {
     private int postsNumber = 3;
     @FXML
     private Button loadMoreBtn;
+    @FXML
+    private Button signout_btn;
 
 
     @Override
@@ -227,6 +229,7 @@ public class HomePageController implements Initializable {
     private void gonotif(ActionEvent event) {
     }
 
+    @FXML
     private void goSignOut(ActionEvent event) {
 
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
