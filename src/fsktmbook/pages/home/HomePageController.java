@@ -120,6 +120,9 @@ public class HomePageController implements Initializable {
             posts = new Posts();
             users = new Users();
             comments = new Comments();
+            
+            profileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+            
             displayPosts();
     }
 
@@ -151,6 +154,8 @@ public class HomePageController implements Initializable {
 
                 Text usernameText = (Text) pane.getChildren().get(0);
                 TextArea postContent = (TextArea) pane.getChildren().get(1);
+                ImageView postUserImage = (ImageView) pane.getChildren().get(2);
+                
                 Button addCommentButton = (Button) addCommentPane.getChildren().get(1);
                 TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
 
@@ -176,7 +181,7 @@ public class HomePageController implements Initializable {
 
                 usernameText.setText(user.getFirstName());
                 postContent.setText(rs.getString("content"));
-
+                postUserImage.setImage(users.getUserImage(user.getId()));
                 postsContainer.getChildren().add(post);
 
                 displayComments(postId,(VBox)commentsBox.getChildren().get(0));

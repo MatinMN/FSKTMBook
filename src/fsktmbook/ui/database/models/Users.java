@@ -5,14 +5,18 @@
  */
 package fsktmbook.ui.database.models;
 
+import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
+import fsktmbook.pages.home.HomePageController;
 import fsktmbook.ui.database.Database;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 import javax.swing.JOptionPane;
 
 /**
@@ -145,6 +149,28 @@ public class Users {
         return user;
     }
     
+    public String getUserImageDir(int id) throws SQLException{
+        String query = "SELECT imageDirectory FROM users WHERE id = ?";
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+        
+        stmt.setInt(1, id);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        try{
+            while(rs.next()){
+
+                return rs.getString("imageDirectory");
+
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return "";
+    }
+    
     public boolean updateUser(User user) {
         try {
             String update = "UPDATE users SET name=?, lastname=?, about=? , matricNumber = ? , password = ? , occupation = ? , WHERE id=?";
@@ -191,4 +217,20 @@ public class Users {
         return false;
     }
     
+    
+    public Image getUserImage(int id){
+            try {
+                String imagePath = getUserImageDir(id);
+                File file = new File(imagePath);
+
+                if(file.exists()){
+                    return new Image(file.toURI().toString());
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return new Image(new File("profileImages\\default.png").toURI().toString());
+    }
 }
