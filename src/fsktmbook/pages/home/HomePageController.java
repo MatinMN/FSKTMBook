@@ -121,15 +121,18 @@ public class HomePageController implements Initializable {
                 Button addCommentButton = (Button) addCommentPane.getChildren().get(1);
                 TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
                 
-                String commentContent = commentInput.getText();
+                
                 addCommentButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         try {
                             // add a new comment
+                            String commentContent = commentInput.getText();
                             comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
-                            System.out.println(commentContent);
+                            displayComments(postId,(VBox)commentsBox.getChildren().get(0));
+                            //System.out.println(commentContent);
                             Helper.openAlert("Comment added.");
+                            
                         } catch (SQLException ex) {
                             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -166,7 +169,6 @@ public class HomePageController implements Initializable {
              commentsBox.getChildren().add(post);
         }
     }
-    
     
     @FXML
     private void goHome(ActionEvent event) {

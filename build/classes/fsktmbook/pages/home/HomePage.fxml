@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -23,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
@@ -70,7 +62,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="267.0">
                <children>
-                  <Button fx:id="notif_btn" mnemonicParsing="false" onAction="#gonotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="notif_btn" layoutX="1.0" layoutY="11.0" mnemonicParsing="false" onAction="#gonotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -90,7 +82,7 @@
             </Pane>
             <Pane layoutX="-1.0" layoutY="330.0">
                <children>
-                  <Button fx:id="settings_btn" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                  <Button fx:id="settings_btn" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -108,6 +100,7 @@
                   </ImageView>
                </children>
             </Pane>
+            <Button fx:id="signout_btn" layoutX="14.0" layoutY="469.0" mnemonicParsing="false" onAction="#goSignOut" opacity="0.66" text="sign out" />
          </children>
       </Pane>
    </left>
@@ -180,13 +173,16 @@
             </HBox>
             <HBox alignment="CENTER" prefWidth="560.0" style="-fx-background-color: white;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="350.0" prefWidth="480.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 7;">
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="363.0" prefWidth="560.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 7;">
                      <content>
-                        <VBox fx:id="postsContainer" fillWidth="false" />
+                        <VBox fx:id="postsContainer" alignment="CENTER" fillWidth="false" />
                      </content>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding>
                   </ScrollPane>
                </children>
             </HBox>
