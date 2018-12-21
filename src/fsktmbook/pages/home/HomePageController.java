@@ -131,6 +131,7 @@ public class HomePageController implements Initializable {
                             comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
                             displayComments(postId,(VBox)commentsBox.getChildren().get(0));
                             //System.out.println(commentContent);
+                            commentInput.setText("");
                             Helper.openAlert("Comment added.");
                             
                         } catch (SQLException ex) {
@@ -231,6 +232,7 @@ public class HomePageController implements Initializable {
             
             posts.addPost(post);
             displayPosts();
+            newpost_text_box.setText("");
             Helper.openAlert("Post added ");    
         }
         else{
