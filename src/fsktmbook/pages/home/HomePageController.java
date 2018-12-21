@@ -170,7 +170,6 @@ public class HomePageController implements Initializable {
                             displayComments(postId,(VBox)commentsBox.getChildren().get(0));
                             //System.out.println(commentContent);
                             commentInput.setText("");
-                            Helper.openAlert("Comment added.");
 
                         } catch (SQLException ex) {
                             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,9 +201,10 @@ public class HomePageController implements Initializable {
              Pane post = (Pane) getCommentPaneCopy();
              Text username = (Text) post.getChildren().get(0);
              TextArea content = (TextArea) post.getChildren().get(1);
+             ImageView userImage = (ImageView) post.getChildren().get(2);
              username.setText(user.getFirstName());
              content.setText(rs.getString("content"));
-             System.out.println(rs.getString("content"));
+             userImage.setImage(users.getUserImage(user.getId()));
              commentsBox.getChildren().add(post);
         }
     }
