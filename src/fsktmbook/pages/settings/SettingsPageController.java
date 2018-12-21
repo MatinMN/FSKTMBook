@@ -44,6 +44,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -129,6 +130,8 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private Button cancel_btn;
+    @FXML
+    private TextField oldpass_input;
 
 
 
@@ -140,7 +143,43 @@ public class SettingsPageController implements Initializable {
             posts = new Posts();
             users = new Users();
             comments = new Comments();
-            displayPosts();
+           
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSearch(ActionEvent event) {
+    }
+
+    @FXML
+    private void goNotif(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSettings(ActionEvent event) {
+    }
+
+    @FXML
+    private void goSignOut(ActionEvent event) {
+    }
+
+    @FXML
+    private void doUpload(ActionEvent event) {
+    }
+
+    @FXML
+    private void doDeleteImage(ActionEvent event) {
+    }
+
+    @FXML
+    private void doSave(ActionEvent event) {
+    }
+
+    @FXML
+    private void doCancel(ActionEvent event) {
     }
 
 
