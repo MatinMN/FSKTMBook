@@ -12,11 +12,19 @@ import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +41,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -40,8 +49,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -74,11 +85,15 @@ public class HomePageController implements Initializable {
     @FXML
     private TextArea news_text_box;
     @FXML
-    private Pane main_pp_container;
-    @FXML
     private Button search_bt;
     @FXML
     private VBox postsContainer;
+    @FXML
+    private VBox profile_image;
+    @FXML
+    private Button upload_image_button;
+    @FXML
+    private ImageView profileImage;
     
    
     
@@ -222,5 +237,167 @@ public class HomePageController implements Initializable {
     private void goSettings(ActionEvent event) {
     }
     
+    @FXML
+    private void uploadImage(ActionEvent event) throws IOException {
+        
+        chooseImage();
+    }
+    
+    void chooseImage() throws IOException{
+        
+        // this function is to choose an image by using FileChooser..
+        File file; 
+        
+        
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG & JPG", "*png*","*jpg*");
+        fileChooser.getExtensionFilters().add(extFilter);
+        
+        file = fileChooser.showOpenDialog(null);
+        
+        String imagePath = "";
+        
+        imagePath = file.getAbsolutePath();
+        
+        int userId = 10;
+        // get the path as a String// call the method...
+        String path = copyImage(imagePath, userId);
+        // show the image in the imageView...
+        uploadImage(path);
+
+    }
+    
+    String copyImage(String sourceImage, int userId) throws IOException{
+        
+        File source = new File(sourceImage);
+        
+        String imageName = randomString() + Integer.toString(userId);
+        
+        
+        if(imageExists() != null && imageExists().length() != 0 ){
+            File deleteFile = new File(imageExists());
+            System.out.println("I got here");
+            if(deleteFile.delete()){
+                System.out.println(imageExists() + " // is deleted");
+            }
+            else{
+                System.out.println("No such file to deltet");
+            }
+            
+        }
+        
+        File dest = new File("profileImages\\" + imageName +  ".png");
+        
+        //addImage(dest.toString());
+        
+        
+        
+        //System.out.println(dest.getAbsolutePath());
+        //System.out.println(imageName + userId);
+        
+        roundedImage(source.toString(), dest.toString());
+        
+        
+        System.out.println(dest.toString());
+        return dest.toString();
+        // return the new director of the user's image, in oreder to store in the database and show automatically next time....
+        
+        
+    }
+    
+    void uploadImage(String imagePath) throws IOException{
+        // such a function accepts a string to, which is the path to an image in order to show in the profile....
+        File file = new File(imagePath);
+        if(file.exists()){
+            Image image = new Image(file.toURI().toString());
+            profileImage.setImage(image);
+        }
+        else{
+            System.out.println("Image is not found in the database!!");
+        }
+        
+    }
+    
+    void roundedImage(String sourcePath, String destPath) throws IOException{
+        
+        // Get the BufferedImage object for the image file
+        BufferedImage originalImg=ImageIO.read(new File(sourcePath));
+        
+        // Get the width,height of the image
+        int width=originalImg.getWidth();
+        int height=originalImg.getHeight();
+        
+        if(height > width){
+            height = width;
+        }
+        else{
+            width = height;
+        }
+        
+        System.out.println(width + " // " + height);
+        
+        // Create a new BufferedImage object with the width,height
+        // equal to that of the image file
+        BufferedImage bim=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+        
+        // Create a Graphics2D object by using
+        // createGraphics() method. This object is 
+        // used to perform the operation!
+        Graphics2D g2=bim.createGraphics();
+        
+        // You can also use rendering hints
+        // to smooth the edges or the rounded rectangle
+        RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        qualityHints.put(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHints(qualityHints);
+        
+        // This method does it all!. You can clip the
+        // image into the shape you wish, play it as you like!
+        
+        g2.setBackground(Color.white);
+        g2.setClip(new RoundRectangle2D.Double(0, 0, width/1, height/1, width/1, height/1));
+        //g2.setClip(new RoundRectangle2D.Double(0,0,width,height,width/1,height/1));
+        
+        // Now, draw the image. The image is now
+        // in the 'clipped' shape, the shape in the setClip()
+        g2.drawImage(originalImg,0,0,null);
+        
+        // Dispose it, we no longer need it.
+        g2.dispose();
+        
+        // Write to a new image file
+        ImageIO.write(bim,"PNG",new File(destPath));
+        
+        
+    }
      
+    String randomString(){
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+    }
+    
+    public String imageExists(){
+        
+        Users users = new Users();
+        
+        User user;
+        try {
+            user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+            System.out.println(user.getImageDirectory());
+            return user.getImageDirectory();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 }

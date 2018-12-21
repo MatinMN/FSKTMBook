@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -23,11 +15,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="main_pp_container" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
+            <Pane layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0">
+               <children>
+                  <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
             <Pane layoutX="-1.0" layoutY="141.0">
                <children>
                   <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
@@ -108,6 +103,7 @@
                   </ImageView>
                </children>
             </Pane>
+            <Button fx:id="upload_image_button" layoutX="2.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="25.0" prefWidth="96.0" text="Upload image" />
          </children>
       </Pane>
    </left>
@@ -151,7 +147,7 @@
       </Pane>
    </right>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox fx:id="profile_image" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="155.0" prefWidth="563.0" style="-fx-background-color: white;">
                <children>

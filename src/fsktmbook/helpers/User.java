@@ -22,11 +22,12 @@ public class User {
     private int following;
     private String occupation;
     private int id;
+    private String imageDirectory;
     public User(){
         
     }
     
-    public User(String username,String firstName, String lastName, String password, String matricNumber, String registeredDate, String about,String occupation){
+    public User(String username,String firstName, String lastName, String password, String matricNumber, String registeredDate, String about, String occupation, String imageDirectory){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
@@ -37,6 +38,16 @@ public class User {
         this.followers =0;
         this.following =0;
         this.occupation = occupation;
+        this.imageDirectory = imageDirectory;
+        
+    }
+
+    public String getImageDirectory() {
+        return imageDirectory;
+    }
+
+    public void setImageDirectory(String imageDirectory) {
+        this.imageDirectory = imageDirectory;
     }
 
     public String getOccupation() {

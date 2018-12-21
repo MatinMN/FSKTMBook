@@ -132,6 +132,7 @@ public class Users {
                 user.setMatricNumber(rs.getString("matricNumber"));
                 user.setRegisteredDate(rs.getString("registeredDate"));
                 user.setFollowers(rs.getInt("followers"));
+                user.setImageDirectory(rs.getString("imageDirectory"));
                 user.setFollowing(rs.getInt("following"));
                 user.setOccupation(rs.getString("occupation"));
                 user.setAbout(rs.getString("about"));
@@ -164,6 +165,9 @@ public class Users {
         }
         return false;
     }
+    
+    
+    
     
     public boolean checkPassword(String userName,String password) throws SQLException{
         String query = "SELECT username,password FROM users WHERE username = ?" ;

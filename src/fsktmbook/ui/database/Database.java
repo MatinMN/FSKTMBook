@@ -110,6 +110,7 @@ public class Database {
                     "followers Integer,\n" +
                     "following Integer, \n" +
                     "occupation VARCHAR(20), \n" +
+                    "imageDirectory VARCHAR(50), \n" +
                     "about VARCHAR(1000)" +
                     " )");
             }
