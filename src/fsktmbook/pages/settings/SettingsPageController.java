@@ -149,10 +149,16 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private void goHome(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/home/HomePage.fxml","home1");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void goSearch(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -165,6 +171,25 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private void goSignOut(ActionEvent event) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Confirm Signout");
+      alert.setHeaderText(null);
+      alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
+      ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+               
+      alert.getButtonTypes().setAll(okButton, noButton);
+      Optional <ButtonType> action = alert.showAndWait();
+      if (action.get() == okButton) {
+            loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
+            // close the home page 
+
+            Stage stage =  (Stage) rootPane.getScene().getWindow();
+            stage.close();
+            return;
+      }
+        
+        
     }
 
     @FXML
@@ -181,6 +206,21 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private void doCancel(ActionEvent event) {
+    }
+    
+    void loadWindow(String location,String title){
+
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(location));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+
+        } catch (IOException ex){
+            ex.printStackTrace();
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
