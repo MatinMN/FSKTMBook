@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.settings.SettingsPageController">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #4bbe97;">
+               <children>
+                  <ImageView fx:id="profileImage_leftTop" fitHeight="65.0" fitWidth="65.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="35.0" top="35.0" />
+               </VBox.margin>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@home.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="search_btn" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="209.0">
+               <children>
+                  <Button fx:id="notif_btn" mnemonicParsing="false" onAction="#goNotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@notfications.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="273.0">
+               <children>
+                  <Button fx:id="settings_btn" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@setting.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <Pane prefHeight="11.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutY="-51.0">
+               <children>
+                  <Button fx:id="signout_btn" layoutY="-1.0" mnemonicParsing="false" onAction="#goSignOut" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SIGN OUT" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="37.0" layoutY="3.0">
+                     <image>
+                        <Image url="@sign%20out.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="530.0" prefWidth="860.0" style="-fx-background-color: WHITE;">
+               <children>
+                  <Pane prefHeight="529.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Text layoutX="4.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile Settings">
+                           <font>
+                              <Font name="Arial Bold" size="22.0" />
+                           </font>
+                        </Text>
+                        <Pane layoutX="29.0" layoutY="158.0" prefHeight="145.0" prefWidth="145.0" style="-fx-background-color: white;">
+                           <children>
+                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </Pane>
+                        <Button fx:id="upload_btn" layoutX="51.0" layoutY="345.0" mnemonicParsing="false" onAction="#doUpload" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="UPLOAD" textAlignment="JUSTIFY" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="deleteImage_btn" layoutX="50.0" layoutY="398.0" mnemonicParsing="false" onAction="#doDeleteImage" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="DELETE" textAlignment="JUSTIFY" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white;">
+                     <children>
+                        <Text layoutX="20.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="firstname_input" layoutX="21.0" layoutY="172.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="20.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matric Number">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="matric_input" layoutX="21.0" layoutY="249.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="21.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old Password">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="oldpass_input" layoutX="22.0" layoutY="328.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="23.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="newpass_input" layoutX="24.0" layoutY="409.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="24.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-type New Password">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="reNewpass_input" layoutX="25.0" layoutY="486.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="260.0" style="-fx-background-color: white;">
+                     <children>
+                        <Text layoutX="22.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="lastname_input" layoutX="23.0" layoutY="172.0" prefHeight="18.0" prefWidth="175.0">
+                           <font>
+                              <Font name="Arial Bold" size="11.0" />
+                           </font>
+                        </TextField>
+                        <Text layoutX="22.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About me">
+                           <font>
+                              <Font name="Arial Bold" size="13.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="aboutme_input" layoutX="22.0" layoutY="247.0" prefHeight="152.0" prefWidth="228.0" wrapText="true" />
+                        <Button fx:id="save_btn" layoutX="24.0" layoutY="422.0" mnemonicParsing="false" onAction="#doSave" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="SAVE" textAlignment="JUSTIFY" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="cancel_btn" layoutX="147.0" layoutY="420.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="CANCEL" textAlignment="JUSTIFY" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
