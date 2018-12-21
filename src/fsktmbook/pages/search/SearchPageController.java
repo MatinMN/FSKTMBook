@@ -80,6 +80,9 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private void goSettings(ActionEvent event) {
+         loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
