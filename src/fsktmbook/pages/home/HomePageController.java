@@ -101,17 +101,17 @@ public class HomePageController implements Initializable {
     @FXML
     private ImageView profileImage;
 
+    private int offset;
+    private int postsNumber = 3;
     @FXML
-    private Button signout_btn;
-
-
+    private Button loadMoreBtn;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
             database = Database.getInstannce();
-
+            offset = 0;
             posts = new Posts();
             users = new Users();
             comments = new Comments();
@@ -119,12 +119,22 @@ public class HomePageController implements Initializable {
     }
 
 
-    public void displayPosts(){
+    public void clearPosts(){
         postsContainer.getChildren().clear();
+        offset = 0;
+    }
+        
+    public void displayPosts(){
+        int postCount = 0;
+        loadMoreBtn.setDisable(true);
         try {
-            ResultSet rs = posts.getPosts();
-
+            ResultSet rs = posts.getPosts(offset,postsNumber+1);
             while(rs.next()){
+                postCount++;
+                if(postCount > postsNumber){
+                    loadMoreBtn.setDisable(false);
+                    return;
+                }
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
                 int postId = rs.getInt("id");
@@ -191,6 +201,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void goHome(ActionEvent event) {
+        
     }
 
     @FXML
@@ -206,7 +217,6 @@ public class HomePageController implements Initializable {
     private void gonotif(ActionEvent event) {
     }
 
-    @FXML
     private void goSignOut(ActionEvent event) {
 
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -249,6 +259,7 @@ public class HomePageController implements Initializable {
             Posts posts = new Posts();
 
             posts.addPost(post);
+            clearPosts();
             displayPosts();
             newpost_text_box.setText("");
             Helper.openAlert("Post added ");
@@ -471,6 +482,12 @@ public class HomePageController implements Initializable {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @FXML
+    private void loadMore(ActionEvent event) {
+        offset+= postsNumber;
+        displayPosts();
     }
 
 

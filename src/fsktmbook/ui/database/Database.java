@@ -52,7 +52,6 @@ public class Database {
         setupViewsTable();
         setupGrabVouhersTable();
         setupNotification();
-        setupImageTable();
     }
 
     public static Database getInstannce(){
