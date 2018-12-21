@@ -198,6 +198,7 @@ public class Database {
                 sql.execute("CREATE TABLE " + TABLE_NAME + "("
                     + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
                     "postId Integer,\n" +
+                    "userId Integer,\n" +
                     "content VARCHAR(1000),\n" +
                     "postDate VARCHAR(30)" + // when the comment was posted
                     " )");

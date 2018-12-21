@@ -73,11 +73,10 @@ public class Posts {
     
     public ResultSet getPosts() throws SQLException{
 
-        String query = "SELECT * FROM posts WHERE id != ?";
+        String query = "SELECT * FROM posts ORDER BY id DESC fetch first 10 rows only";
         
         PreparedStatement stmt = database.prepareStatement(query);
         
-        stmt.setInt(1, FSKTMBook.LOGGEDUSER);
         
         ResultSet rs = stmt.executeQuery();
 
