@@ -104,11 +104,7 @@ public class ImageHandler {
 
         File dest = new File("profileImages\\" + imageName +  ".png");
 
-        //addImage(dest.toString());
-
-
-        //System.out.println(dest.getAbsolutePath());
-        //System.out.println(imageName + userId);
+        
 
         roundedImage(source.toString(), dest.toString());
 
@@ -202,5 +198,19 @@ public class ImageHandler {
         String saltStr = salt.toString();
         return saltStr;
         
+    }
+    
+    public void deleteImage() throws SQLException{
+        
+        Users users = new Users();
+        String imagePath = users.getUserImageDir(FSKTMBook.LOGGEDUSER);
+        ImageHandler handler = new ImageHandler();
+        File file = null;
+        if(imagePath != null){
+            file = new File(imagePath);
+            if(((imagePath.substring(0, imagePath.length()-4)) != "default") && file.exists()){
+                file.delete();
+            }
+        }
     }
 }

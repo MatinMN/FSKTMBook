@@ -60,7 +60,7 @@ public class SearchPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
 
     @FXML
@@ -80,9 +80,6 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private void goSettings(ActionEvent event) {
-         loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","");
-        Stage stage =  (Stage) rootPane.getScene().getWindow();
-        stage.close();
     }
 
     @FXML
@@ -94,29 +91,29 @@ public class SearchPageController implements Initializable {
       alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
       ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
       ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-               
+
       alert.getButtonTypes().setAll(okButton, noButton);
       Optional <ButtonType> action = alert.showAndWait();
       if (action.get() == okButton) {
             loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
-            // close the home page 
+            // close the home page
 
             Stage stage =  (Stage) rootPane.getScene().getWindow();
             stage.close();
             return;
       }
     }
-    
+
     void loadWindow(String location,String title){
-        
+
         try {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
             stage.setScene(new Scene(parent));
             stage.show();
-            
-        } catch (IOException ex){ 
+
+        } catch (IOException ex){
             ex.printStackTrace();
             //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }

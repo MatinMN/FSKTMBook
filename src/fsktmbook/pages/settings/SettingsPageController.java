@@ -7,6 +7,7 @@ package fsktmbook.pages.settings;
 
 import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
+import fsktmbook.helpers.ImageHandler;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.User;
 import fsktmbook.ui.database.Database;
@@ -74,13 +75,8 @@ public class SettingsPageController implements Initializable {
     private BorderPane rootPane;
 
 
-    Database database;
-    Posts posts;
     Users users;
-    Comments comments;
 
-
-	
     @FXML
     private ImageView profileImage_leftTop;
 
@@ -100,25 +96,10 @@ public class SettingsPageController implements Initializable {
     private Button signout_btn;
 
     @FXML
-    private ImageView profileImage_center;
-
-    @FXML
-    private Button upload_btn;
-
-    @FXML
-    private Button deleteImage_btn;
-
-    @FXML
     private TextField firstname_input;
 
     @FXML
     private TextField matric_input;
-
-    @FXML
-    private PasswordField newpass_input;
-
-    @FXML
-    private PasswordField reNewpass_input;
 
     @FXML
     private TextField lastname_input;
@@ -131,29 +112,64 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private Button cancel_btn;
+
+    
     @FXML
+    private ImageView ProfileImage;
+    
+    @FXML
+    private Button Upload_Image_Btn;
+    
+    @FXML
+    private Button Delete_Image_Btn;
+    
+    @FXML
+    private TextField oldPassword_input;
+    
+    @FXML
+
     private PasswordField oldpass_input;
     @FXML
     private Button profile_btn;
+
+    private TextField newPassword_input;
+    
+    @FXML
+    private TextField renewPassword_input;
+
+    private User user;
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-            database = Database.getInstannce();
-
-            posts = new Posts();
             users = new Users();
-            comments = new Comments();
-           
-    }
+        try {
+            
 
+            user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+            Image profileImg = users.getUserImage(FSKTMBook.LOGGEDUSER);
+            ProfileImage.setImage(profileImg);
+            profileImage_leftTop.setImage(profileImg);
+            
+            aboutme_input.setText(user.getAbout());
+            firstname_input.setText(user.getFirstName());
+            lastname_input.setText(user.getLastName());
+            matric_input.setText(user.getMatricNumber());
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingsPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+    }
+    
     @FXML
     private void goHome(ActionEvent event) {
-        loadWindow("/fsktmbook/pages/home/HomePage.fxml","home1");
+        loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
-        stage.close();
+        stage.close();   
     }
 
     @FXML
@@ -210,6 +226,143 @@ public class SettingsPageController implements Initializable {
     private void doCancel(ActionEvent event) {
     }
     
+    public void UploadImage(ActionEvent event) throws SQLException, IOException {
+        
+        ImageHandler handler = new ImageHandler();
+        
+        handler.chooseImage();
+
+        String imagePath = handler.getImageDirectory();
+        
+        if(imagePath == null){
+            //do nothing
+        }
+        else{
+            File file = new File(imagePath);
+            if(file.exists()){
+                Image image = new Image(file.toURI().toString());
+                ProfileImage.setImage(image);
+                profileImage_leftTop.setImage(image);
+                
+                handler.updateImageDiectory(imagePath, FSKTMBook.LOGGEDUSER);
+            }
+            else{
+                System.out.println("Image is not found in the database!!");
+            }
+        }
+        
+    }
+
+    @FXML
+    private void DeleteImage(ActionEvent event) throws SQLException {
+        ImageHandler handler = new ImageHandler();
+        handler.deleteImage();
+        File file = new File("profileImages\\default.png");
+        Image image = new Image(file.toURI().toString());
+        profileImage_leftTop.setImage(image);
+        ProfileImage.setImage(image);
+        
+    }
+
+    @FXML
+    private void SaveInformation(ActionEvent event) throws SQLException {
+        changeUserInformation();
+    }
+
+    @FXML
+    private void CancelSavingInformation(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
+    }
+
+    
+    
+    public void changeUserInformation() throws SQLException{
+        
+        
+        Users users = new Users();
+        User user = new User();
+        user = setUserInformation();
+        if(validateInputData()){
+            if(checkNewPassword(user)){
+                // we will store the new password in the database.......
+                users.updateUser(user);
+            }
+        }
+    }
+    
+    public boolean checkNewPassword(User user) throws SQLException{
+        Users users = new Users();
+        String oldPassword = oldPassword_input.getText();
+        user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+        
+        if(user.getPassword().length() < 8){
+            Helper.openAlert("Password length cannot be less than 8 characters!");
+            return false;
+        }
+        if(!((newPassword_input.getText()).equals(renewPassword_input.getText()))){
+            Helper.openAlert("Both passwords must match!");
+            return false;
+        }
+        if(!(user.getPassword().equals(oldPassword))){
+            Helper.openAlert("Old password is not the same as the user's password!");
+            return false;
+        }
+        if(((oldPassword).equals(newPassword_input.getText()))){
+            Helper.openAlert("New password cannot be the same as old password!!");
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean validateInputData() throws SQLException{
+        
+        if((firstname_input.getText().isEmpty()) || (lastname_input.getText().isEmpty()) || (matric_input.getText().isEmpty()) || (aboutme_input.getText().isEmpty())){
+            Helper.openAlert("All fields are required");
+            return false;
+        }
+        if((newPassword_input.getText().isEmpty()) || (renewPassword_input.getText().isEmpty()) || (oldPassword_input.getText().isEmpty())){
+            Helper.openAlert("All fields are required!!");
+            return false;
+        }
+        
+        if(firstname_input.getText().length() < 6){
+            Helper.openAlert("First name length cannot be less than 6 characters!");
+            return false;
+        }
+        if(lastname_input.getText().length() < 6){
+            Helper.openAlert("Last name length cannot be less than 6 characters!");
+            return false;
+        }
+        
+        if((users.doesUserExist(firstname_input.getText()))){
+            if((user.getUserName()).equals(firstname_input.getText())){
+                return true;
+            }
+            else{
+                Helper.openAlert("User name already Exists!!");
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    public User setUserInformation(){
+        User user = new User();
+        user.setFirstName(firstname_input.getText());
+        user.setLastName(lastname_input.getText());
+        ///user.setUserName();
+        user.setPassword(newPassword_input.getText());
+        user.setMatricNumber(matric_input.getText());
+        //user.setOccupation();
+        user.setAbout(aboutme_input.getText());
+        
+        return user;
+    }
+    
     void loadWindow(String location,String title){
 
         try {
@@ -225,9 +378,11 @@ public class SettingsPageController implements Initializable {
         }
     }
 
+
     @FXML
     private void goProfile(ActionEvent event) {
     }
+
 
 
 
