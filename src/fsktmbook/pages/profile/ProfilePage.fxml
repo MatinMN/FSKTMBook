@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -198,25 +199,14 @@
                               <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text layoutX="-16.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECENT VISITORS">
+                        <Text layoutX="-16.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About me">
                            <font>
                               <Font name="Arial" size="11.0" />
                            </font>
                         </Text>
                         <Pane layoutX="-16.0" layoutY="208.0" prefHeight="119.0" prefWidth="192.0">
                            <children>
-                              <ScrollPane hbarPolicy="NEVER" prefHeight="118.0" prefWidth="190.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
-                                 <padding>
-                                    <Insets left="30.0" right="30.0" />
-                                 </padding>
-                                 <content>
-                                    <VBox fx:id="recentVisitorsContainer" alignment="CENTER" prefWidth="150.0" style="-fx-background-color: red;">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </VBox>
-                                 </content>
-                              </ScrollPane>
+                              <TextArea fx:id="aboutArea" editable="false" prefHeight="121.0" prefWidth="191.0" style="-fx-background-color: white;" />
                            </children>
                         </Pane>
                      </children>

@@ -107,8 +107,6 @@ public class ProfilePageController implements Initializable {
     @FXML
     private Text numFollowing;
     @FXML
-    private VBox recentVisitorsContainer;
-    @FXML
     private VBox postsContainer;
 
     
@@ -122,6 +120,8 @@ public class ProfilePageController implements Initializable {
    private Posts posts;
    private Comments comments;
    private User user;
+    @FXML
+    private TextArea aboutArea;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -259,6 +259,7 @@ public class ProfilePageController implements Initializable {
         coverImage.setImage(users.getUserImage(user.getId()));
         username_center.setText(user.getUserName());
         occupation_center.setText(user.getOccupation());
+        aboutArea.setText(user.getAbout());
         profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
         displayPosts();
     }

@@ -15,6 +15,7 @@ import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
+import fsktmbook.ui.database.models.Views;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -232,7 +233,8 @@ public class HomePageController implements Initializable {
     @FXML
     private void gonotif(ActionEvent event) {
     }
-
+    
+    @FXML
     private void goSignOut(ActionEvent event) {
 
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -392,9 +394,16 @@ public class HomePageController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
 
+            //add view
+            Views views = new Views();
+            if (FSKTMBook.LOGGEDUSER != userId){
+                views.addView(FSKTMBook.LOGGEDUSER, userId);
+            }
             Stage currentStage =  (Stage) rootPane.getScene().getWindow();
             currentStage.close();
         } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
