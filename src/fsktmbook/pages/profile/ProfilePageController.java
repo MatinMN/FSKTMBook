@@ -110,13 +110,20 @@ public class ProfilePageController implements Initializable {
     @FXML
     private VBox postsContainer;
 
-   
+   private Users users;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        users = new Users();
+        
+         profileImage_center.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+         coverImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+         
     }
+    
 
     
     @FXML

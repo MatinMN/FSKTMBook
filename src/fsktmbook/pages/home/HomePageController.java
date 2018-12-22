@@ -47,6 +47,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
@@ -98,8 +99,6 @@ public class HomePageController implements Initializable {
     @FXML
     private VBox profile_image;
     @FXML
-    private Button upload_image_button;
-    @FXML
     private ImageView profileImage;
 
 
@@ -110,10 +109,6 @@ public class HomePageController implements Initializable {
     private int postsNumber = 3;
     @FXML
     private Button loadMoreBtn;
-    @FXML
-    private Button signout_btn;
-    @FXML
-    private Button profile_btn;
 
 
     @Override
@@ -223,15 +218,12 @@ public class HomePageController implements Initializable {
         loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
         stage.close();
-
-
     }
 
     @FXML
     private void gonotif(ActionEvent event) {
     }
 
-    @FXML
     private void goSignOut(ActionEvent event) {
 
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -340,7 +332,6 @@ public class HomePageController implements Initializable {
         stage.close();
     }
 
-    @FXML
     public void viewImage() throws IOException, SQLException{
         ImageHandler handler = new ImageHandler();
 
@@ -371,7 +362,11 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void goProfile(ActionEvent event) {
+    private void goProfile(MouseEvent event) {
+                loadWindow("/fsktmbook/pages/profile/ProfilePage.fxml","Profile Page");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
+
     }
 
 

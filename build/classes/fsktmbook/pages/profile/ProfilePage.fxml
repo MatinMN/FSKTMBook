@@ -160,12 +160,9 @@
                <children>
                   <Pane prefHeight="329.0" prefWidth="186.0" style="-fx-background-color: white;">
                      <children>
-                        <Pane layoutY="-76.0" prefHeight="145.0" prefWidth="145.0">
+                        <Pane layoutY="-76.0" prefHeight="145.0" prefWidth="145.0" style="-fx-background-color: white;">
                            <children>
-                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../profileImages/default.png" />
-                                 </image></ImageView>
+                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                         <Text fx:id="username_center" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" textAlignment="CENTER" wrappingWidth="146.50196075439453">
