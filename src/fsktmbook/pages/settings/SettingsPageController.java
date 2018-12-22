@@ -75,13 +75,8 @@ public class SettingsPageController implements Initializable {
     private BorderPane rootPane;
 
 
-    Database database;
-    Posts posts;
     Users users;
-    Comments comments;
 
-
-	
     @FXML
     private ImageView profileImage_leftTop;
 
@@ -137,23 +132,31 @@ public class SettingsPageController implements Initializable {
     @FXML
     private TextField renewPassword_input;
 
-
+    private User user;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-            database = Database.getInstannce();
-            
-            posts = new Posts();
             users = new Users();
-            comments = new Comments();
-
+        try {
             
-            ProfileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-            profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-            //displayPosts();
+
+            user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+            Image profileImg = users.getUserImage(FSKTMBook.LOGGEDUSER);
+            ProfileImage.setImage(profileImg);
+            profileImage_leftTop.setImage(profileImg);
+            
+            aboutme_input.setText(user.getAbout());
+            firstname_input.setText(user.getFirstName());
+            lastname_input.setText(user.getLastName());
+            matric_input.setText(user.getMatricNumber());
+        } catch (SQLException ex) {
+            Logger.getLogger(SettingsPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
     }
     
     @FXML
@@ -279,7 +282,6 @@ public class SettingsPageController implements Initializable {
             if(checkNewPassword(user)){
                 // we will store the new password in the database.......
                 users.updateUser(user);
-                database.printUsersTable();
             }
         }
     }
@@ -309,8 +311,7 @@ public class SettingsPageController implements Initializable {
     }
     
     public boolean validateInputData() throws SQLException{
-        Users users = new Users();
-        User user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+        
         if((firstname_input.getText().isEmpty()) || (lastname_input.getText().isEmpty()) || (matric_input.getText().isEmpty()) || (aboutme_input.getText().isEmpty())){
             Helper.openAlert("All fields are required");
             return false;
