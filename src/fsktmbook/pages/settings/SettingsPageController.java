@@ -107,13 +107,6 @@ public class SettingsPageController implements Initializable {
     private TextField matric_input;
 
     @FXML
-
-    private TextField newpass_input;
-
-    @FXML
-    private TextField reNewpass_input;
-
-    @FXML
     private TextField lastname_input;
 
     @FXML
@@ -144,8 +137,6 @@ public class SettingsPageController implements Initializable {
     @FXML
     private TextField renewPassword_input;
 
-    @FXML
-    private PasswordField oldpass_input;
 
 
 
@@ -154,7 +145,7 @@ public class SettingsPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
             database = Database.getInstannce();
-
+            
             posts = new Posts();
             users = new Users();
             comments = new Comments();
@@ -226,7 +217,7 @@ public class SettingsPageController implements Initializable {
     private void doCancel(ActionEvent event) {
     }
     
-    private void UploadImage(ActionEvent event) throws SQLException, IOException {
+    public void UploadImage(ActionEvent event) throws SQLException, IOException {
         
         ImageHandler handler = new ImageHandler();
         
