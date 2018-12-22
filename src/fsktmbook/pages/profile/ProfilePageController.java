@@ -121,20 +121,11 @@ public class ProfilePageController implements Initializable {
    private Users users;
    private Posts posts;
    private Comments comments;
-
+   private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        posts = new Posts();
-        users = new Users();
-        comments = new Comments();
-        
-        profileImage_center.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-        coverImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-        
-        
-        displayPosts();
     }
     
 
@@ -142,7 +133,7 @@ public class ProfilePageController implements Initializable {
         int postCount = 0;
         loadMoreBtn.setDisable(true);
         try {
-            ResultSet rs = posts.getPosts(offset,postsNumber+1);
+            ResultSet rs = posts.getPostsFromUser(offset,postsNumber+1,user.getId());
             while(rs.next()){
                 postCount++;
                 if(postCount > postsNumber){
@@ -225,13 +216,14 @@ public class ProfilePageController implements Initializable {
             stage.show();
 
         } catch (IOException ex){
-            ex.printStackTrace();
-            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
     
       public Pane getPostsPaneCopy(){
+          
         Pane PostsPaneCopy = null;
+        
         try {
             PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbook/helpers/PostsTemplate.fxml"));
         } catch (IOException ex) {
@@ -250,29 +242,61 @@ public class ProfilePageController implements Initializable {
         return PostsPaneCopy;
     }
      
+    
+    public void getData(int userId){
+        
+        posts = new Posts();
+        users = new Users();
+        comments = new Comments();
+        
+        try {
+            user = users.getUserInformation(userId);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfilePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        profileImage_center.setImage(users.getUserImage(user.getId()));
+        coverImage.setImage(users.getUserImage(user.getId()));
+        username_center.setText(user.getUserName());
+        occupation_center.setText(user.getOccupation());
+        
+        displayPosts();
+    }
+    
     @FXML
     private void goProfile(ActionEvent event) {
+        
+        
     }
     
     
     @FXML
     private void goHome(ActionEvent event) {
+        
+        
     }
 
     @FXML
     private void goSearch(ActionEvent event) {
+        
+        
     }
 
     @FXML
     private void goNotif(ActionEvent event) {
+        
+        
     }
 
     @FXML
     private void goSettings(ActionEvent event) {
+        
+        
     }
 
     @FXML
     private void goSignOut(ActionEvent event) { 
+        
     }
 
     

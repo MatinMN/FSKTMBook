@@ -96,5 +96,19 @@ public class Posts {
 
         return rs;
     }
+     
+     public ResultSet getPostsFromUser(int offset,int limit,int userId) throws SQLException{
+
+        String query = "SELECT * FROM posts WHERE userId = ? ORDER BY id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+        stmt.setInt(1, userId);
+        stmt.setInt(2, offset);
+        stmt.setInt(3, limit);
+        
+        ResultSet rs = stmt.executeQuery();
+
+        return rs;
+    }
     
 }

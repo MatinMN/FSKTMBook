@@ -10,6 +10,7 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.ImageHandler;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.User;
+import fsktmbook.pages.profile.ProfilePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
 import fsktmbook.ui.database.models.Posts;
@@ -175,8 +176,16 @@ public class HomePageController implements Initializable {
                         }
                     }
                 });
-
-
+                
+                postUserImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    
+                    @Override
+                    public void handle(MouseEvent event) {
+                        openProfile(user.getId());
+                            System.out.println(user.getId());
+                    }
+                });
+                
                 usernameText.setText(user.getFirstName());
                 postContent.setText(rs.getString("content"));
                 postUserImage.setImage(users.getUserImage(user.getId()));
@@ -362,12 +371,32 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void goProfile(MouseEvent event) {
-                loadWindow("/fsktmbook/pages/profile/ProfilePage.fxml","Profile Page");
-        Stage stage =  (Stage) rootPane.getScene().getWindow();
-        stage.close();
-
+    private void goProfile(MouseEvent event) throws IOException {
+        
+        openProfile(FSKTMBook.LOGGEDUSER);
     }
 
+    public void openProfile(int userId){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fsktmbook/pages/profile/ProfilePage.fxml"));
+            Parent parent;
+        try {
+            parent = loader.load();
+        
+            
+            ProfilePageController controller = (ProfilePageController) loader.getController();
+            
+            controller.getData(0);
+            
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Edit book");
+            stage.setScene(new Scene(parent));
+            stage.show();
 
+            Stage currentStage =  (Stage) rootPane.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
