@@ -149,10 +149,10 @@
                         </Text>
                         <Pane layoutX="29.0" layoutY="158.0" prefHeight="145.0" prefWidth="145.0" style="-fx-background-color: white;">
                            <children>
-                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ProfileImage" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
-                        <Button fx:id="upload_btn" layoutX="51.0" layoutY="345.0" mnemonicParsing="false" onAction="#doUpload" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="UPLOAD" textAlignment="JUSTIFY" textFill="WHITE">
+                        <Button fx:id="Upload_Image_Btn" layoutX="51.0" layoutY="345.0" mnemonicParsing="false" onAction="#UploadImage" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="UPLOAD" textAlignment="JUSTIFY" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -160,7 +160,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="deleteImage_btn" layoutX="50.0" layoutY="398.0" mnemonicParsing="false" onAction="#doDeleteImage" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="DELETE" textAlignment="JUSTIFY" textFill="WHITE">
+                        <Button fx:id="Delete_Image_Btn" layoutX="50.0" layoutY="398.0" mnemonicParsing="false" onAction="#DeleteImage" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="DELETE" textAlignment="JUSTIFY" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -197,7 +197,7 @@
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="oldpass_input" layoutX="22.0" layoutY="328.0" prefHeight="18.0" prefWidth="175.0">
+                        <TextField fx:id="oldPassword_input" layoutX="22.0" layoutY="328.0" prefHeight="18.0" prefWidth="175.0">
                            <font>
                               <Font name="Arial Bold" size="11.0" />
                            </font>
@@ -207,7 +207,7 @@
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="newpass_input" layoutX="24.0" layoutY="409.0" prefHeight="18.0" prefWidth="175.0">
+                        <TextField fx:id="newPassword_input" layoutX="24.0" layoutY="409.0" prefHeight="18.0" prefWidth="175.0">
                            <font>
                               <Font name="Arial Bold" size="11.0" />
                            </font>
@@ -217,7 +217,7 @@
                               <Font name="Arial Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="reNewpass_input" layoutX="25.0" layoutY="486.0" prefHeight="18.0" prefWidth="175.0">
+                        <TextField fx:id="renewPassword_input" layoutX="25.0" layoutY="486.0" prefHeight="18.0" prefWidth="175.0">
                            <font>
                               <Font name="Arial Bold" size="11.0" />
                            </font>
@@ -242,7 +242,7 @@
                            </font>
                         </Text>
                         <TextArea fx:id="aboutme_input" layoutX="22.0" layoutY="247.0" prefHeight="152.0" prefWidth="228.0" wrapText="true" />
-                        <Button fx:id="save_btn" layoutX="24.0" layoutY="422.0" mnemonicParsing="false" onAction="#doSave" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="SAVE" textAlignment="JUSTIFY" textFill="WHITE">
+                        <Button fx:id="save_btn" layoutX="24.0" layoutY="422.0" mnemonicParsing="false" onAction="#SaveInformation" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="SAVE" textAlignment="JUSTIFY" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
@@ -250,7 +250,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="cancel_btn" layoutX="147.0" layoutY="420.0" mnemonicParsing="false" onAction="#doCancel" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="CANCEL" textAlignment="JUSTIFY" textFill="WHITE">
+                        <Button fx:id="cancel_btn" layoutX="147.0" layoutY="420.0" mnemonicParsing="false" onAction="#CancelSavingInformation" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #636363; -fx-background-radius: 50;" text="CANCEL" textAlignment="JUSTIFY" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>

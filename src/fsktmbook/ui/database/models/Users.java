@@ -173,15 +173,15 @@ public class Users {
     
     public boolean updateUser(User user) {
         try {
-            String update = "UPDATE users SET name=?, lastname=?, about=? , matricNumber = ? , password = ? , occupation = ? , WHERE id=?";
+            String update = "UPDATE users SET username=?, lastname=?, about=? , matricNumber = ? , password = ? , occupation = ?  WHERE id=?";
             PreparedStatement stmt = database.prepareStatement(update);
             stmt.setString(1, user.getFirstName());           
             stmt.setString(2, user.getLastName()); 
             stmt.setString(3, user.getAbout());
             stmt.setString(4, user.getMatricNumber());
             stmt.setString(5, user.getPassword());
-            stmt.setInt(6, user.getId());
-            stmt.setString(7, user.getOccupation());
+            stmt.setString(6, user.getOccupation());
+            stmt.setInt(7, FSKTMBook.LOGGEDUSER);
             int res = stmt.executeUpdate();
             return (res > 0);
         } catch (SQLException ex) {

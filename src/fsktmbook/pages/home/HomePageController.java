@@ -330,10 +330,13 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void goSettings(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","Settings");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
     @FXML
-    public void uploadImage() throws IOException, SQLException{
+    public void viewImage() throws IOException, SQLException{
         ImageHandler handler = new ImageHandler();
         
         handler.chooseImage();
@@ -354,12 +357,7 @@ public class HomePageController implements Initializable {
             }
         }
         
-
     }
-
-
-
-    
 
     @FXML
     private void loadMore(ActionEvent event) {
