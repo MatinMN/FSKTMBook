@@ -226,16 +226,12 @@
                   </Pane>
                   <Pane prefHeight="329.0" prefWidth="472.0" style="-fx-background-color: white;">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="469.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
+                        <ScrollPane hbarPolicy="NEVER" layoutX="-18.0" prefHeight="300.0" prefWidth="534.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
                            <padding>
-                              <Insets left="30.0" right="30.0" />
+                              <Insets left="5.0" right="5.0" />
                            </padding>
                            <content>
-                              <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="415.0" style="-fx-background-color: red;">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </VBox>
+                              <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="491.0" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -243,7 +239,10 @@
                         <Insets top="30.0" />
                      </HBox.margin>
                   </Pane>
-                  <Pane prefHeight="329.0" prefWidth="169.0" style="-fx-background-color: white;" />
+                  <Pane prefHeight="329.0" prefWidth="155.0" style="-fx-background-color: white;">
+                     <children>
+                        <Button fx:id="loadMoreBtn" layoutX="57.0" layoutY="268.0" mnemonicParsing="false" onAction="#loadMore" text="Load More" />
+                     </children></Pane>
                </children>
             </HBox>
          </children>

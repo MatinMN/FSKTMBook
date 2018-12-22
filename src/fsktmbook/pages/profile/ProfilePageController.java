@@ -9,6 +9,7 @@ import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.User;
+import fsktmbook.pages.home.HomePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
 import fsktmbook.ui.database.models.Posts;
@@ -110,22 +111,145 @@ public class ProfilePageController implements Initializable {
     @FXML
     private VBox postsContainer;
 
+    
+     private int offset;
+    private int postsNumber = 3;
+    
+    @FXML
+    private Button loadMoreBtn;
+    
    private Users users;
-
+   private Posts posts;
+   private Comments comments;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        posts = new Posts();
         users = new Users();
+        comments = new Comments();
         
-         profileImage_center.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-         coverImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-         
+        profileImage_center.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+        coverImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+        
+        
+        displayPosts();
     }
     
 
+    public void displayPosts(){
+        int postCount = 0;
+        loadMoreBtn.setDisable(true);
+        try {
+            ResultSet rs = posts.getPosts(offset,postsNumber+1);
+            while(rs.next()){
+                postCount++;
+                if(postCount > postsNumber){
+                    loadMoreBtn.setDisable(false);
+                    return;
+                }
+                User user = users.getUserInformation(rs.getInt("userId"));
+                GridPane post = (GridPane) getPostsPaneCopy();
+                int postId = rs.getInt("id");
+                VBox vBox = (VBox) post.getChildren().get(0);
+                Pane pane = (Pane) vBox.getChildren().get(0);
+                Pane commentsPane = (Pane) vBox.getChildren().get(1);
+                VBox commentsBox = (VBox) commentsPane.getChildren().get(0);
+                Pane addCommentPane = (Pane) commentsBox.getChildren().get(1);
+
+                Text usernameText = (Text) pane.getChildren().get(0);
+                TextArea postContent = (TextArea) pane.getChildren().get(1);
+                ImageView postUserImage = (ImageView) pane.getChildren().get(2);
+
+                Button addCommentButton = (Button) addCommentPane.getChildren().get(1);
+                TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
+
+
+                addCommentButton.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        try {
+                            // add a new comment
+                            String commentContent = commentInput.getText();
+                            comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
+                            displayComments(postId,(VBox)commentsBox.getChildren().get(0));
+                            //System.out.println(commentContent);
+                            commentInput.setText("");
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+
+
+                usernameText.setText(user.getFirstName());
+                postContent.setText(rs.getString("content"));
+                postUserImage.setImage(users.getUserImage(user.getId()));
+                postsContainer.getChildren().add(post);
+
+                displayComments(postId,(VBox)commentsBox.getChildren().get(0));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    public void displayComments(int postId,VBox commentsBox) throws SQLException{
+        ResultSet rs = comments.getComments(postId);
+        User user;
+        commentsBox.getChildren().clear();
+        while(rs.next()){
+
+             user  = users.getUserInformation(rs.getInt("userId"));
+             Pane post = (Pane) getCommentPaneCopy();
+             Text username = (Text) post.getChildren().get(0);
+             TextArea content = (TextArea) post.getChildren().get(1);
+             ImageView userImage = (ImageView) post.getChildren().get(2);
+             username.setText(user.getFirstName());
+             content.setText(rs.getString("content"));
+             userImage.setImage(users.getUserImage(user.getId()));
+             commentsBox.getChildren().add(post);
+        }
+    }
     
+     void loadWindow(String location,String title){
+
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource(location));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle(title);
+            stage.setScene(new Scene(parent));
+            stage.show();
+
+        } catch (IOException ex){
+            ex.printStackTrace();
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+      public Pane getPostsPaneCopy(){
+        Pane PostsPaneCopy = null;
+        try {
+            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbook/helpers/PostsTemplate.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return PostsPaneCopy;
+    }
+
+    public Pane getCommentPaneCopy(){
+        Pane PostsPaneCopy = null;
+        try {
+            PostsPaneCopy = FXMLLoader.load(getClass().getResource("/fsktmbook/helpers/CommentTemplate.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return PostsPaneCopy;
+    }
+     
     @FXML
     private void goProfile(ActionEvent event) {
     }
@@ -152,7 +276,11 @@ public class ProfilePageController implements Initializable {
     }
 
     
-
+     @FXML
+    private void loadMore(ActionEvent event) {
+        offset+= postsNumber;
+        displayPosts();
+    }
     
     
     
