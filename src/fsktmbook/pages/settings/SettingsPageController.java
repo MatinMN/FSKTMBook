@@ -133,6 +133,8 @@ public class SettingsPageController implements Initializable {
     private Button cancel_btn;
     @FXML
     private PasswordField oldpass_input;
+    @FXML
+    private Button profile_btn;
 
 
 
@@ -221,6 +223,10 @@ public class SettingsPageController implements Initializable {
             ex.printStackTrace();
             //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void goProfile(ActionEvent event) {
     }
 
 

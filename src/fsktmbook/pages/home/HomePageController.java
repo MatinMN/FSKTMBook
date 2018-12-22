@@ -112,6 +112,8 @@ public class HomePageController implements Initializable {
     private Button loadMoreBtn;
     @FXML
     private Button signout_btn;
+    @FXML
+    private Button profile_btn;
 
 
     @Override
@@ -371,6 +373,10 @@ public class HomePageController implements Initializable {
     private void loadMore(ActionEvent event) {
         offset+= postsNumber;
         displayPosts();
+    }
+
+    @FXML
+    private void goProfile(ActionEvent event) {
     }
 
 

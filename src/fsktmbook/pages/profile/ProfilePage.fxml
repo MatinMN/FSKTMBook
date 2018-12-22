@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.profile.ProfilePageController">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #317e67;" />
+            <Pane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #317e67;">
+               <children>
+                  <ImageView fx:id="profileImage_leftTop" fitHeight="65.0" fitWidth="65.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="profile_btn" mnemonicParsing="false" onAction="#goProfile" opacity="0.0" prefHeight="62.0" prefWidth="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Pane>
+            <Pane prefHeight="20.0" prefWidth="100.0" style="-fx-background-color: #317e67;">
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@home.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="search_btn" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="209.0">
+               <children>
+                  <Button fx:id="notif_btn" mnemonicParsing="false" onAction="#goNotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@notfications.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="10.0" layoutY="273.0">
+               <children>
+                  <Button fx:id="settings_btn" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@setting.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <Pane prefHeight="11.0" prefWidth="960.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutY="-51.0">
+               <children>
+                  <Button fx:id="signout_btn" layoutY="-1.0" mnemonicParsing="false" onAction="#goSignOut" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SIGN OUT" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="37.0" layoutY="3.0">
+                     <image>
+                        <Image url="@sign%20out.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="860.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fx:id="coverImage" fitHeight="200.0" fitWidth="860.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+            <HBox alignment="CENTER" prefHeight="530.0" prefWidth="860.0" style="-fx-background-color: WHITE;">
+               <children>
+                  <Pane prefHeight="329.0" prefWidth="186.0" style="-fx-background-color: white;">
+                     <children>
+                        <Pane layoutY="-76.0" prefHeight="145.0" prefWidth="145.0" style="-fx-background-color: white;">
+                           <children>
+                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </Pane>
+                        <Text fx:id="username_center" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" textAlignment="CENTER" wrappingWidth="146.50196075439453">
+                           <font>
+                              <Font name="Arial Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="occupation_center" layoutX="-6.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Occupation" textAlignment="CENTER" wrappingWidth="157.85660552978516">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="-16.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOLLOWERS">
+                           <font>
+                              <Font name="Arial" size="11.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="numFollowers" fill="#4bbe97" layoutX="-16.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="94.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FOLLOWING">
+                           <font>
+                              <Font name="Arial" size="11.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="numFollowing" fill="#4bbe97" layoutX="94.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="-16.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECENT VISITORS">
+                           <font>
+                              <Font name="Arial" size="11.0" />
+                           </font>
+                        </Text>
+                        <Pane layoutX="-16.0" layoutY="208.0" prefHeight="119.0" prefWidth="192.0">
+                           <children>
+                              <ScrollPane hbarPolicy="NEVER" prefHeight="118.0" prefWidth="190.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
+                                 <padding>
+                                    <Insets left="30.0" right="30.0" />
+                                 </padding>
+                                 <content>
+                                    <VBox fx:id="recentVisitorsContainer" alignment="CENTER" prefWidth="150.0" style="-fx-background-color: red;">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </Pane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Pane>
+                  <Pane prefHeight="329.0" prefWidth="472.0" style="-fx-background-color: white;">
+                     <children>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="469.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
+                           <padding>
+                              <Insets left="30.0" right="30.0" />
+                           </padding>
+                           <content>
+                              <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="415.0" style="-fx-background-color: red;">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </Pane>
+                  <Pane prefHeight="329.0" prefWidth="169.0" style="-fx-background-color: white;" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
