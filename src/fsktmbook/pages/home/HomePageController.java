@@ -385,7 +385,7 @@ public class HomePageController implements Initializable {
             
             ProfilePageController controller = (ProfilePageController) loader.getController();
             
-            controller.getData(0);
+            controller.getData(userId);
             
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Edit book");

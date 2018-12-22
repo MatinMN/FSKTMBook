@@ -259,27 +259,28 @@ public class ProfilePageController implements Initializable {
         coverImage.setImage(users.getUserImage(user.getId()));
         username_center.setText(user.getUserName());
         occupation_center.setText(user.getOccupation());
-        
+        profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
         displayPosts();
     }
     
     @FXML
     private void goProfile(ActionEvent event) {
-        
-        
+        openProfile(FSKTMBook.LOGGEDUSER);
     }
     
     
     @FXML
     private void goHome(ActionEvent event) {
-        
-        
+         loadWindow("/fsktmbook/pages/home/HomePage.fxml","home1");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void goSearch(ActionEvent event) {
-        
-        
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -290,13 +291,31 @@ public class ProfilePageController implements Initializable {
 
     @FXML
     private void goSettings(ActionEvent event) {
-        
-        
+         loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","Settings");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
-    private void goSignOut(ActionEvent event) { 
-        
+    private void goSignOut(ActionEvent event) {
+           
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Confirm Signout");
+      alert.setHeaderText(null);
+      alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
+      ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+      alert.getButtonTypes().setAll(okButton, noButton);
+      Optional <ButtonType> action = alert.showAndWait();
+      if (action.get() == okButton) {
+            loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
+            // close the home page
+
+            Stage stage =  (Stage) rootPane.getScene().getWindow();
+            stage.close();
+            return;
+      }
     }
 
     
@@ -306,7 +325,28 @@ public class ProfilePageController implements Initializable {
         displayPosts();
     }
     
-    
+    public void openProfile(int userId){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fsktmbook/pages/profile/ProfilePage.fxml"));
+            Parent parent;
+        try {
+            parent = loader.load();
+        
+            
+            ProfilePageController controller = (ProfilePageController) loader.getController();
+            
+            controller.getData(userId);
+            
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Edit book");
+            stage.setScene(new Scene(parent));
+            stage.show();
+
+            Stage currentStage =  (Stage) rootPane.getScene().getWindow();
+            //currentStage.close();
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 
 
