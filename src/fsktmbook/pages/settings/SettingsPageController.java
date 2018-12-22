@@ -44,6 +44,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -106,6 +107,13 @@ public class SettingsPageController implements Initializable {
     private TextField matric_input;
 
     @FXML
+
+    private TextField newpass_input;
+
+    @FXML
+    private TextField reNewpass_input;
+
+    @FXML
     private TextField lastname_input;
 
     @FXML
@@ -116,6 +124,7 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private Button cancel_btn;
+
     
     @FXML
     private ImageView ProfileImage;
@@ -135,6 +144,10 @@ public class SettingsPageController implements Initializable {
     @FXML
     private TextField renewPassword_input;
 
+    @FXML
+    private PasswordField oldpass_input;
+
+
 
 
     @Override
@@ -145,6 +158,7 @@ public class SettingsPageController implements Initializable {
             posts = new Posts();
             users = new Users();
             comments = new Comments();
+
             
             ProfileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
             profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
@@ -155,32 +169,63 @@ public class SettingsPageController implements Initializable {
     private void goHome(ActionEvent event) {
         loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home Page");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
-        stage.close();
+        stage.close();   
     }
 
     @FXML
     private void goSearch(ActionEvent event) {
-        loadWindow("/fsktmbook/pages/search/searchPage.fxml","Home Page");
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","search");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     private void goNotif(ActionEvent event) {
-        
     }
 
     @FXML
     private void goSettings(ActionEvent event) {
-        
     }
-    
+
     @FXML
     private void goSignOut(ActionEvent event) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Confirm Signout");
+      alert.setHeaderText(null);
+      alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
+      ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+               
+      alert.getButtonTypes().setAll(okButton, noButton);
+      Optional <ButtonType> action = alert.showAndWait();
+      if (action.get() == okButton) {
+            loadWindow("/fsktmbook/pages/login/LoginPage.fxml","Login Page");
+            // close the home page 
+
+            Stage stage =  (Stage) rootPane.getScene().getWindow();
+            stage.close();
+            return;
+      }
+        
         
     }
 
     @FXML
+    private void doUpload(ActionEvent event) {
+    }
+
+    @FXML
+    private void doDeleteImage(ActionEvent event) {
+    }
+
+    @FXML
+    private void doSave(ActionEvent event) {
+    }
+
+    @FXML
+    private void doCancel(ActionEvent event) {
+    }
+    
     private void UploadImage(ActionEvent event) throws SQLException, IOException {
         
         ImageHandler handler = new ImageHandler();

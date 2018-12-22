@@ -101,8 +101,8 @@ public class HomePageController implements Initializable {
     private Button upload_image_button;
     @FXML
     private ImageView profileImage;
-    
-    
+
+
 
 
 
@@ -110,6 +110,8 @@ public class HomePageController implements Initializable {
     private int postsNumber = 3;
     @FXML
     private Button loadMoreBtn;
+    @FXML
+    private Button signout_btn;
 
 
     @Override
@@ -120,9 +122,9 @@ public class HomePageController implements Initializable {
             posts = new Posts();
             users = new Users();
             comments = new Comments();
-            
+
             profileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
-            
+
             displayPosts();
     }
 
@@ -131,7 +133,7 @@ public class HomePageController implements Initializable {
         postsContainer.getChildren().clear();
         offset = 0;
     }
-        
+
     public void displayPosts(){
         int postCount = 0;
         loadMoreBtn.setDisable(true);
@@ -155,7 +157,7 @@ public class HomePageController implements Initializable {
                 Text usernameText = (Text) pane.getChildren().get(0);
                 TextArea postContent = (TextArea) pane.getChildren().get(1);
                 ImageView postUserImage = (ImageView) pane.getChildren().get(2);
-                
+
                 Button addCommentButton = (Button) addCommentPane.getChildren().get(1);
                 TextArea commentInput = (TextArea) addCommentPane.getChildren().get(0);
 
@@ -211,7 +213,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void goHome(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -227,6 +229,7 @@ public class HomePageController implements Initializable {
     private void gonotif(ActionEvent event) {
     }
 
+    @FXML
     private void goSignOut(ActionEvent event) {
 
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -334,11 +337,11 @@ public class HomePageController implements Initializable {
         Stage stage =  (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
     public void viewImage() throws IOException, SQLException{
         ImageHandler handler = new ImageHandler();
-        
+
         handler.chooseImage();
 
         String imagePath = handler.getImageDirectory();
@@ -356,7 +359,7 @@ public class HomePageController implements Initializable {
                 System.out.println("Image is not found in the database!!");
             }
         }
-        
+
     }
 
     @FXML
