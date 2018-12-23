@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database;
 
+import fsktmbook.ui.database.models.Users;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
@@ -43,7 +44,7 @@ public class Database {
 
     public void debugTables(){
         printUsersTable();
-        printPostsTable();
+        //printPostsTable();
     }
     public void setupTables(){
         setupPostsTable();
@@ -111,6 +112,7 @@ public class Database {
                     "following Integer, \n" +
                     "occupation VARCHAR(20), \n" +
                     "imageDirectory VARCHAR(50), \n" +
+                    "postsNumber Integer, \n" +
                     "about VARCHAR(1000)" +
                     " )");
             }
@@ -282,12 +284,14 @@ public class Database {
     }
 
     public boolean printUsersTable(){
-        String query = "SELECT id,username,lastname,password,matricNumber,registeredDate FROM users";
+        String query = "SELECT id,username,lastname,password,matricNumber,registeredDate,postsNumber FROM users";
         ResultSet rs = this.execQuery(query);
         String msg = "";
         try{
             while(rs.next()){
-                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|"+rs.getString("matricNumber")+"|"+rs.getString("registeredDate");
+                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("lastname")+
+                          "|"+rs.getString("password")+"|"+rs.getString("matricNumber")+
+                          "|"+rs.getString("registeredDate") + "|" + "posts --> " + rs.getInt("postsNumber");
                  System.out.println(msg);
             }
         }catch(SQLException ex){
