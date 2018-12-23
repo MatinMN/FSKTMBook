@@ -11,6 +11,7 @@ import fsktmbook.helpers.User;
 import fsktmbook.pages.home.HomePageController;
 import fsktmbook.ui.database.Database;
 import java.io.File;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,6 +101,67 @@ public class Users {
         boolean res = stmt.execute();
 
         return res;
+    }
+    
+    public void addCurrentDay(){
+
+
+        try {
+            String query = "INSERT INTO settings (date) values (?)";
+            
+            PreparedStatement stmt = database.prepareStatement(query);
+            
+            stmt.setString(1, Helper.getCurrentTime());
+            
+            
+            boolean res = stmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String getCurrentDay(){
+
+
+        try {
+            String query = "SELECT date from settings";
+            
+            PreparedStatement stmt = database.prepareStatement(query);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                return rs.getString("date");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+     public String UpdateCurrentDay(){
+
+
+        try {
+            String query = "UPDATE settings SET date = ?";
+            
+            PreparedStatement stmt = database.prepareStatement(query);
+            
+            stmt.setString(1, Helper.getCurrentTime());
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                return rs.getString("date");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public ResultSet searchUsers(String searchStatement) throws SQLException{
@@ -260,18 +322,18 @@ public class Users {
         //System.out.println(postsCounter);   
     }
     
-    public String getMostActiveUser() throws SQLException{
+    public int getMostActiveUser() throws SQLException{
         String query = "SELECT id, username, postsNumber FROM users";
         PreparedStatement stmt = database.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
         
-        int id=0, max=0, postsNumber=0; String activeUserName="";
+        int id=0, max=0, postsNumber=0; int activeUserName = -1;
         while(rs.next()){
             postsNumber = rs.getInt("postsNumber");
             if(postsNumber > max){
                max = postsNumber;
                id = rs.getInt("id");
-               activeUserName = rs.getString("username");
+               activeUserName = rs.getInt("id");
             }
         }
         

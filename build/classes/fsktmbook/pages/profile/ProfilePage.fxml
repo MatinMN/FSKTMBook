@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -160,9 +161,12 @@
                <children>
                   <Pane prefHeight="329.0" prefWidth="186.0" style="-fx-background-color: white;">
                      <children>
-                        <Pane layoutY="-76.0" prefHeight="145.0" prefWidth="145.0" style="-fx-background-color: white;">
+                        <Pane layoutY="-76.0" prefHeight="145.0" prefWidth="145.0">
                            <children>
-                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="profileImage_center" fitHeight="145.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../profileImages/default.png" />
+                                 </image></ImageView>
                            </children>
                         </Pane>
                         <Text fx:id="username_center" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" textAlignment="CENTER" wrappingWidth="146.50196075439453">
@@ -195,25 +199,14 @@
                               <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text layoutX="-16.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECENT VISITORS">
+                        <Text layoutX="-16.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About me">
                            <font>
                               <Font name="Arial" size="11.0" />
                            </font>
                         </Text>
                         <Pane layoutX="-16.0" layoutY="208.0" prefHeight="119.0" prefWidth="192.0">
                            <children>
-                              <ScrollPane hbarPolicy="NEVER" prefHeight="118.0" prefWidth="190.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
-                                 <padding>
-                                    <Insets left="30.0" right="30.0" />
-                                 </padding>
-                                 <content>
-                                    <VBox fx:id="recentVisitorsContainer" alignment="CENTER" prefWidth="150.0" style="-fx-background-color: red;">
-                                       <padding>
-                                          <Insets left="10.0" />
-                                       </padding>
-                                    </VBox>
-                                 </content>
-                              </ScrollPane>
+                              <TextArea fx:id="aboutArea" editable="false" prefHeight="121.0" prefWidth="191.0" style="-fx-background-color: white;" />
                            </children>
                         </Pane>
                      </children>
@@ -223,16 +216,12 @@
                   </Pane>
                   <Pane prefHeight="329.0" prefWidth="472.0" style="-fx-background-color: white;">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="300.0" prefWidth="469.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
+                        <ScrollPane hbarPolicy="NEVER" layoutX="-18.0" prefHeight="300.0" prefWidth="534.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
                            <padding>
-                              <Insets left="30.0" right="30.0" />
+                              <Insets left="5.0" right="5.0" />
                            </padding>
                            <content>
-                              <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="415.0" style="-fx-background-color: red;">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </VBox>
+                              <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="491.0" />
                            </content>
                         </ScrollPane>
                      </children>
@@ -240,7 +229,25 @@
                         <Insets top="30.0" />
                      </HBox.margin>
                   </Pane>
-                  <Pane prefHeight="329.0" prefWidth="169.0" style="-fx-background-color: white;" />
+                  <Pane prefHeight="329.0" prefWidth="155.0" style="-fx-background-color: white;">
+                     <children>
+                        <Button id="signin-button" fx:id="followBtn" mnemonicParsing="false" onAction="#follow" prefHeight="59.0" prefWidth="154.0" style="-fx-background-color: #4cbf97; -fx-border-color: #4cbf97; -fx-border-radius: 100; -fx-background-radius: 100;" text="Follow" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                        <Button id="signin-button" fx:id="loadMoreBtn" defaultButton="true" disable="true" layoutX="-1.0" layoutY="270.0" mnemonicParsing="false" onAction="#loadMore" prefHeight="59.0" prefWidth="157.0" style="-fx-background-color: #4cbf97; -fx-border-color: #4cbf97; -fx-border-radius: 100; -fx-background-radius: 100;" text="Load More" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
                </children>
             </HBox>
          </children>

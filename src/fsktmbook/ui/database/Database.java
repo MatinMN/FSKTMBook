@@ -52,6 +52,7 @@ public class Database {
         setupCommentsTable();
         setupFollowersTable();
         setupViewsTable();
+        setupSettingsTable();
         setupGrabVouhersTable();
         setupNotification();
     }
@@ -182,9 +183,34 @@ public class Database {
             System.err.println(e.getMessage());
         }finally{
         }
-
     }
+    
+    // 
+    void setupSettingsTable(){
+        String TABLE_NAME = "settings";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "date varchar(40)\n" +
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+    }
+    
+    
     void setupCommentsTable(){
         String TABLE_NAME = "comments";
 

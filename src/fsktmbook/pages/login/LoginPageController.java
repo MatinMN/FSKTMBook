@@ -9,6 +9,7 @@ package fsktmbook.pages.login;
 import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.ui.database.Database;
+import fsktmbook.ui.database.models.Notifications;
 import fsktmbook.ui.database.models.Users;
 import java.io.IOException;
 import java.net.URL;
@@ -53,12 +54,12 @@ public class LoginPageController implements Initializable {
     private AnchorPane rootPane;
     
     
-    Database database;
-    
+    Users users;
+    Notifications notifications;
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        database = Database.getInstannce();
-        
+        users = new Users();
+        notifications = new Notifications();
         
         rootPane.setOnKeyPressed(e -> {
    
@@ -76,6 +77,22 @@ public class LoginPageController implements Initializable {
                 }
             }
         });
+        
+        
+        String currentDate = users.getCurrentDay();
+        if(currentDate == null){
+            users.addCurrentDay();
+        }else{
+            if(!Helper.getCurrentTime().equals(currentDate)){
+                try {
+                    int mostActiveUser = users.getMostActiveUser();
+                    notifications.addNotification(mostActiveUser, "You got a free Grab Voucher! code : " + Helper.getRandomString(), "Grub");
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginPageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                users.UpdateCurrentDay();//
+            }
+        }
     }    
 
     @FXML
@@ -90,7 +107,6 @@ public class LoginPageController implements Initializable {
         if(validate){
             // check if username and password
             
-            Users users = new Users();
             boolean result = users.checkPassword(username, password);
             
             if(result){ // username and passwrod is current
