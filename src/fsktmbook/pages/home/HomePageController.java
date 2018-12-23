@@ -13,32 +13,24 @@ import fsktmbook.helpers.User;
 import fsktmbook.pages.profile.ProfilePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
+import fsktmbook.ui.database.models.Notifications;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
 import fsktmbook.ui.database.models.Views;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -50,16 +42,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -112,6 +101,7 @@ public class HomePageController implements Initializable {
     @FXML
     private Button loadMoreBtn;
 
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,6 +112,12 @@ public class HomePageController implements Initializable {
             users = new Users();
             comments = new Comments();
 
+        try {
+            user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
             profileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
 
             displayPosts();
@@ -404,9 +400,13 @@ public class HomePageController implements Initializable {
             Views views = new Views();
             if (FSKTMBook.LOGGEDUSER != userId){
                 views.addView(FSKTMBook.LOGGEDUSER, userId);
+                Notifications not = new Notifications();
+                not.addNotification(FSKTMBook.LOGGEDUSER,user.getFirstName() + " viewed your profile" ,"View");
             }
+            
             Stage currentStage =  (Stage) rootPane.getScene().getWindow();
             currentStage.close();
+            
         } catch (IOException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

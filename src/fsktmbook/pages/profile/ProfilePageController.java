@@ -386,7 +386,8 @@ public class ProfilePageController implements Initializable {
             // follow
             follows.follow(FSKTMBook.LOGGEDUSER, user.getId());
             followBtn.setText("Unfollow");
-            notifications.addNotification(user.getId(),"Started following you" ,"Follow");
+            User u = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+            notifications.addNotification(user.getId(),u.getFirstName() + " Started following you" ,"Follow");
             Helper.openAlert("You Followed " + user.getFirstName());
         }
     }
