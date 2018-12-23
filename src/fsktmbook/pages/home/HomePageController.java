@@ -280,7 +280,7 @@ public class HomePageController implements Initializable {
     @FXML
     private void publish_post(ActionEvent event) throws SQLException {
         String msg = newpost_text_box.getText().trim();
-
+        
         Post post = new Post();
 
         post.setContent(msg);
@@ -288,8 +288,8 @@ public class HomePageController implements Initializable {
         post.setPostDate(Helper.getCurrentTime());
         post.setTitle(msg);
         post.setUserID(FSKTMBook.LOGGEDUSER);
-
-
+        
+        
         database = Database.getInstannce();
 
 
@@ -300,12 +300,15 @@ public class HomePageController implements Initializable {
             clearPosts();
             displayPosts();
             newpost_text_box.setText("");
+            users.getPostsNumber(FSKTMBook.LOGGEDUSER);
+            
            
         }
         else{
             Helper.openAlert("Post can not be empty OR exceed 5000 characters!");
         }
-
+        
+        
     }
 
 
@@ -419,6 +422,7 @@ public class HomePageController implements Initializable {
             if (FSKTMBook.LOGGEDUSER != userId){
                 views.addView(FSKTMBook.LOGGEDUSER, userId);
                 Notifications not = new Notifications();
+                
                 not.addNotification(userId,user.getFirstName() + " viewed your profile" ,"View");
             }
             

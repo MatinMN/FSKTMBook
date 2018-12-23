@@ -5,6 +5,7 @@
  */
 package fsktmbook.ui.database;
 
+import fsktmbook.ui.database.models.Users;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.User;
@@ -43,7 +44,7 @@ public class Database {
 
     public void debugTables(){
         printUsersTable();
-        printPostsTable();
+        //printPostsTable();
     }
     public void setupTables(){
         setupPostsTable();
@@ -51,6 +52,7 @@ public class Database {
         setupCommentsTable();
         setupFollowersTable();
         setupViewsTable();
+        setupSettingsTable();
         setupGrabVouhersTable();
         setupNotification();
     }
@@ -111,6 +113,7 @@ public class Database {
                     "following Integer, \n" +
                     "occupation VARCHAR(20), \n" +
                     "imageDirectory VARCHAR(50), \n" +
+                    "postsNumber Integer, \n" +
                     "about VARCHAR(1000)" +
                     " )");
             }
@@ -180,9 +183,34 @@ public class Database {
             System.err.println(e.getMessage());
         }finally{
         }
-
     }
+    
+    // 
+    void setupSettingsTable(){
+        String TABLE_NAME = "settings";
 
+        try {
+            sql = conn.createStatement();
+
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet tables = dbm.getTables(null,null,TABLE_NAME,null);
+
+            if(tables.next()){
+                System.out.println("Table " + TABLE_NAME + " already exists");
+            }else{
+                sql.execute("CREATE TABLE " + TABLE_NAME + "("
+                    + "id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY(START WITH 0, INCREMENT BY 1),\n" +
+                    "date varchar(40)\n" +
+                    " )");
+            }
+
+        }catch(SQLException e){
+            System.err.println(e.getMessage());
+        }finally{
+        }
+    }
+    
+    
     void setupCommentsTable(){
         String TABLE_NAME = "comments";
 
@@ -282,12 +310,14 @@ public class Database {
     }
 
     public boolean printUsersTable(){
-        String query = "SELECT id,username,lastname,password,matricNumber,registeredDate FROM users";
+        String query = "SELECT id,username,lastname,password,matricNumber,registeredDate,postsNumber FROM users";
         ResultSet rs = this.execQuery(query);
         String msg = "";
         try{
             while(rs.next()){
-                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("lastname")+"|"+rs.getString("password")+"|"+rs.getString("matricNumber")+"|"+rs.getString("registeredDate");
+                  msg=rs.getInt("id")+"|"+rs.getString("username")+"|"+rs.getString("lastname")+
+                          "|"+rs.getString("password")+"|"+rs.getString("matricNumber")+
+                          "|"+rs.getString("registeredDate") + "|" + "posts --> " + rs.getInt("postsNumber");
                  System.out.println(msg);
             }
         }catch(SQLException ex){

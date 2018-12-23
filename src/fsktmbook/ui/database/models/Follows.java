@@ -11,6 +11,10 @@ import fsktmbook.ui.database.Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -71,8 +75,49 @@ public class Follows {
          }
          return false;
      }
-    
+    public int getNumberFollowing(int userId){
+        String query = "SELECT COUNT(*) as count FROM follows WHERE followerId = ?";
+         
+         PreparedStatement stmt;
+        try {
+            stmt = database.prepareStatement(query);
+        
+         
+         stmt.setInt(1,userId);
+         
+         
+         ResultSet rs = stmt.executeQuery();
+         
+         rs.next();
+         return rs.getInt("count");
+         
+         } catch (SQLException ex) {
+            Logger.getLogger(Follows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
      
+     public int getNumberFollowers(int userId){
+        String query = "SELECT COUNT(*) as count FROM follows WHERE followedId = ?";
+         
+         PreparedStatement stmt;
+        try {
+            stmt = database.prepareStatement(query);
+        
+         
+         stmt.setInt(1,userId);
+         
+         
+         ResultSet rs = stmt.executeQuery();
+         
+         rs.next();
+         return rs.getInt("count");
+         
+         } catch (SQLException ex) {
+            Logger.getLogger(Follows.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
      public boolean DoFollowBack(int user1,int user2) throws SQLException{
          return (user1 == user2)? true : isFollowing(user1,user2) && isFollowing(user2,user1);
     }

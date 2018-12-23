@@ -15,11 +15,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="main_pp_container" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
+            <Pane layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0">
+               <children>
+                  <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#goProfile" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
             <Pane layoutX="-1.0" layoutY="141.0">
                <children>
                   <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
@@ -55,7 +58,7 @@
                   </Button>
                   <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
                      <image>
-                        <Image url="@hicon.png" />
+                        <Image url="@../settings/search.png" />
                      </image>
                   </ImageView>
                </children>
@@ -75,7 +78,7 @@
                   </Button>
                   <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
                      <image>
-                        <Image url="@hicon.png" />
+                        <Image url="@../settings/notfications.png" />
                      </image>
                   </ImageView>
                </children>
@@ -95,12 +98,31 @@
                   </Button>
                   <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
                      <image>
-                        <Image url="@hicon.png" />
+                        <Image url="@../settings/setting.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Button fx:id="signout_btn" layoutX="14.0" layoutY="469.0" mnemonicParsing="false" onAction="#goSignOut" opacity="0.66" text="sign out" />
+            <Pane layoutX="-1.0" layoutY="477.0">
+               <children>
+                  <Button fx:id="signout_btn" layoutY="-1.0" mnemonicParsing="false" onAction="#goSignOut" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SIGN OUT" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="37.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../profile/sign%20out.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </left>
@@ -140,11 +162,12 @@
                   </Button>
                </children>
             </Pane>
+            <Button fx:id="loadMoreBtn" layoutX="14.0" layoutY="495.0" mnemonicParsing="false" onAction="#loadMore" text="Load More" />
          </children>
       </Pane>
    </right>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox fx:id="profile_image" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="155.0" prefWidth="563.0" style="-fx-background-color: white;">
                <children>
@@ -173,18 +196,24 @@
             </HBox>
             <HBox alignment="CENTER" prefWidth="560.0" style="-fx-background-color: white;">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="363.0" prefWidth="560.0" style="-fx-background-color: white; -fx-border-color: white; -fx-background-radius: 7;">
-                     <content>
-                        <VBox fx:id="postsContainer" alignment="CENTER" fillWidth="false" />
-                     </content>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="363.0" prefWidth="580.0" style="-fx-background-color: white; -fx-background: white; -fx-border-color: white; -fx-background-radius: 7;">
                      <HBox.margin>
-                        <Insets />
+                        <Insets top="20.0" />
                      </HBox.margin>
                      <padding>
                         <Insets left="30.0" right="30.0" />
                      </padding>
+                     <content>
+                        <VBox fx:id="postsContainer" alignment="CENTER" prefWidth="491.0">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></VBox>
+                     </content>
                   </ScrollPane>
                </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

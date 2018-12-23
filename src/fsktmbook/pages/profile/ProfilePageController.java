@@ -280,6 +280,10 @@ public class ProfilePageController implements Initializable {
                 followBtn.setVisible(false);
             }
             
+            
+            numFollowing.setText(""+follows.getNumberFollowing(user.getId()));
+            numFollowers.setText(""+follows.getNumberFollowers(user.getId()));
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProfilePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
