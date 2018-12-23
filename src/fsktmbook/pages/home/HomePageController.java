@@ -13,6 +13,7 @@ import fsktmbook.helpers.User;
 import fsktmbook.pages.profile.ProfilePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
+import fsktmbook.ui.database.models.Follows;
 import fsktmbook.ui.database.models.Notifications;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
@@ -68,6 +69,7 @@ public class HomePageController implements Initializable {
     Database database;
     Posts posts;
     Users users;
+    Follows follows;
     Comments comments;
 
     @FXML
@@ -111,7 +113,7 @@ public class HomePageController implements Initializable {
             posts = new Posts();
             users = new Users();
             comments = new Comments();
-
+            follows = new Follows();
         try {
             user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
         } catch (SQLException ex) {
@@ -163,11 +165,15 @@ public class HomePageController implements Initializable {
                     public void handle(ActionEvent actionEvent) {
                         try {
                             // add a new comment
-                            String commentContent = commentInput.getText();
-                            comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
-                            displayComments(postId,(VBox)commentsBox.getChildren().get(0));
-                            //System.out.println(commentContent);
-                            commentInput.setText("");
+                            if(follows.DoFollowBack(FSKTMBook.LOGGEDUSER, user.getId())){
+                                String commentContent = commentInput.getText();
+                                comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
+                                displayComments(postId,(VBox)commentsBox.getChildren().get(0));
+                                //System.out.println(commentContent);
+                                commentInput.setText("");
+                            }else{
+                                Helper.openAlert("You can only comment on this post if " + user.getFirstName() +" and you follow each other");
+                            }
 
                         } catch (SQLException ex) {
                             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
