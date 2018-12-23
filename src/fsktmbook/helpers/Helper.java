@@ -33,6 +33,12 @@ public class Helper {
         return currentDate.toString();
     }
     
+     public static String getCurrentDay(){
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Singapore"));
+        int currentDate = calendar.get(Calendar.DAY_OF_YEAR);
+        return currentDate+"";
+    }
+    
     public static String getRandomString(){
         
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

@@ -111,7 +111,7 @@ public class Users {
             
             PreparedStatement stmt = database.prepareStatement(query);
             
-            stmt.setString(1, Helper.getCurrentTime());
+            stmt.setString(1, Helper.getCurrentDay());
             
             
             boolean res = stmt.execute();
@@ -149,13 +149,10 @@ public class Users {
             
             PreparedStatement stmt = database.prepareStatement(query);
             
-            stmt.setString(1, Helper.getCurrentTime());
+            stmt.setString(1, Helper.getCurrentDay());
             
-            ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()){
-                return rs.getString("date");
-            }
+            stmt.executeUpdate();
+
             
             
         } catch (SQLException ex) {

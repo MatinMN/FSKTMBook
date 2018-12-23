@@ -83,7 +83,7 @@ public class LoginPageController implements Initializable {
         if(currentDate == null){
             users.addCurrentDay();
         }else{
-            if(!Helper.getCurrentTime().equals(currentDate)){
+            if(!Helper.getCurrentDay().equals(currentDate)){
                 try {
                     int mostActiveUser = users.getMostActiveUser();
                     notifications.addNotification(mostActiveUser, "You got a free Grab Voucher! code : " + Helper.getRandomString(), "Grub");
