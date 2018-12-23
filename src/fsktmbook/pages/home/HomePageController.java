@@ -401,7 +401,7 @@ public class HomePageController implements Initializable {
             if (FSKTMBook.LOGGEDUSER != userId){
                 views.addView(FSKTMBook.LOGGEDUSER, userId);
                 Notifications not = new Notifications();
-                not.addNotification(FSKTMBook.LOGGEDUSER,user.getFirstName() + " viewed your profile" ,"View");
+                not.addNotification(userId,user.getFirstName() + " viewed your profile" ,"View");
             }
             
             Stage currentStage =  (Stage) rootPane.getScene().getWindow();
