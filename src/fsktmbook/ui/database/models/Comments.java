@@ -43,7 +43,7 @@ public class Comments {
     
     public ResultSet getComments(int postId) throws SQLException{
 
-        String query = "SELECT * FROM comments WHERE postId = ? ORDER BY id DESC fetch first 3 rows only";
+        String query = "SELECT * FROM comments WHERE postId = ? ORDER BY id fetch first 3 rows only";
         
         PreparedStatement stmt = database.prepareStatement(query);
         

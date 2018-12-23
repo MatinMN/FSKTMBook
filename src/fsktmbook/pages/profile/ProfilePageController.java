@@ -13,6 +13,7 @@ import fsktmbook.pages.home.HomePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
 import fsktmbook.ui.database.models.Follows;
+import fsktmbook.ui.database.models.Notifications;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
 import java.awt.Color;
@@ -121,6 +122,8 @@ public class ProfilePageController implements Initializable {
    private Posts posts;
    private Comments comments;
    private Follows follows;
+   private Notifications notifications;
+   
    
    private User user;
     @FXML
@@ -253,6 +256,7 @@ public class ProfilePageController implements Initializable {
         posts = new Posts();
         users = new Users();
         comments = new Comments();
+        notifications = new Notifications();
         
         follows = new Follows();
         
@@ -375,11 +379,14 @@ public class ProfilePageController implements Initializable {
             // unfollow
             follows.unfollow(FSKTMBook.LOGGEDUSER, user.getId());
             followBtn.setText("Follow");
+            
             Helper.openAlert("You unfollowed " + user.getFirstName());
+            
         }else{
             // follow
             follows.follow(FSKTMBook.LOGGEDUSER, user.getId());
             followBtn.setText("Unfollow");
+            notifications.addNotification(user.getId(),"Started following you" ,"Follow");
             Helper.openAlert("You Followed " + user.getFirstName());
         }
     }

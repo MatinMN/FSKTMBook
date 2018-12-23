@@ -147,6 +147,7 @@ public class HomePageController implements Initializable {
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
                 int postId = rs.getInt("id");
+                
                 VBox vBox = (VBox) post.getChildren().get(0);
                 Pane pane = (Pane) vBox.getChildren().get(0);
                 Pane commentsPane = (Pane) vBox.getChildren().get(1);
@@ -211,9 +212,11 @@ public class HomePageController implements Initializable {
              Text username = (Text) post.getChildren().get(0);
              TextArea content = (TextArea) post.getChildren().get(1);
              ImageView userImage = (ImageView) post.getChildren().get(2);
+             
              username.setText(user.getFirstName());
              content.setText(rs.getString("content"));
              userImage.setImage(users.getUserImage(user.getId()));
+             
              commentsBox.getChildren().add(post);
         }
     }
@@ -232,6 +235,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void gonotif(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/notifications/NotificationsPage.fxml","Notifications");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
     @FXML
@@ -280,7 +286,7 @@ public class HomePageController implements Initializable {
             clearPosts();
             displayPosts();
             newpost_text_box.setText("");
-            Helper.openAlert("Post added ");
+           
         }
         else{
             Helper.openAlert("Post can not be empty OR exceed 5000 characters!");
@@ -390,7 +396,7 @@ public class HomePageController implements Initializable {
             controller.getData(userId);
             
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle("Edit book");
+            stage.setTitle("Profile Page");
             stage.setScene(new Scene(parent));
             stage.show();
 

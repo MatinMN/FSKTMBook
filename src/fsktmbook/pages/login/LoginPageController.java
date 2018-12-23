@@ -58,6 +58,8 @@ public class LoginPageController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         database = Database.getInstannce();
+        
+        
         rootPane.setOnKeyPressed(e -> {
    
             if(e.getCode()  == KeyCode.ENTER){
