@@ -235,4 +235,48 @@ public class Users {
             
             return new Image(new File("profileImages\\default.png").toURI().toString());
     }
+    
+    public boolean getPostsNumber(int userId) throws SQLException{
+        
+        String query = "SELECT COUNT(*) FROM posts WHERE userId = ?";
+        
+        PreparedStatement stmt = database.prepareStatement(query);
+        
+        stmt.setInt(1, FSKTMBook.LOGGEDUSER);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        int postsCounter = 0;
+        while(rs.next()){
+            postsCounter = rs.getInt(1);
+        }
+        
+        String update = "UPDATE users SET postsNumber = ?  WHERE id=?";
+        stmt = database.prepareStatement(update);
+        stmt.setInt(1, postsCounter);
+        stmt.setInt(2, FSKTMBook.LOGGEDUSER);
+        int rs2 = stmt.executeUpdate();
+        return true;
+        //System.out.println(postsCounter);   
+    }
+    
+    public String getMostActiveUser() throws SQLException{
+        String query = "SELECT id, username, postsNumber FROM users";
+        PreparedStatement stmt = database.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        
+        int id=0, max=0, postsNumber=0; String activeUserName="";
+        while(rs.next()){
+            postsNumber = rs.getInt("postsNumber");
+            if(postsNumber > max){
+               max = postsNumber;
+               id = rs.getInt("id");
+               activeUserName = rs.getString("username");
+            }
+        }
+        
+        return activeUserName;
+    }
+    
+    
 }
