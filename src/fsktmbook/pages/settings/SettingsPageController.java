@@ -127,11 +127,9 @@ public class SettingsPageController implements Initializable {
     private TextField oldPassword_input;
     
     @FXML
-
-    private PasswordField oldpass_input;
-    @FXML
     private Button profile_btn;
 
+    @FXML
     private TextField newPassword_input;
     
     @FXML
@@ -210,22 +208,8 @@ public class SettingsPageController implements Initializable {
         
     }
 
-    @FXML
-    private void doUpload(ActionEvent event) {
-    }
-
-    @FXML
-    private void doDeleteImage(ActionEvent event) {
-    }
-
-    @FXML
-    private void doSave(ActionEvent event) {
-    }
-
-    @FXML
-    private void doCancel(ActionEvent event) {
-    }
     
+    @FXML
     public void UploadImage(ActionEvent event) throws SQLException, IOException {
         
         ImageHandler handler = new ImageHandler();

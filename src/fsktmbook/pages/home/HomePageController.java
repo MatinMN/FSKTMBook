@@ -232,6 +232,9 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void gonotif(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/notifications/NotificationsPage.fxml","Notifications");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
     @FXML
@@ -390,7 +393,7 @@ public class HomePageController implements Initializable {
             controller.getData(userId);
             
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle("Edit book");
+            stage.setTitle("Profile Page");
             stage.setScene(new Scene(parent));
             stage.show();
 
