@@ -4,7 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -12,138 +11,155 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
-   <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutY="8.0" prefHeight="160.0" prefWidth="710.0">
+            <Pane prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: #4bbe97;">
                <children>
-                  <TextField fx:id="searchBox" layoutX="180.0" layoutY="67.0" onInputMethodTextChanged="#searchUser" onKeyPressed="#searchUser" opacity="0.53" prefHeight="45.0" prefWidth="472.0" promptText="Find Friends........">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
+                  <ImageView fx:id="profileImage_leftTop" fitHeight="65.0" fitWidth="65.0" layoutX="18.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button fx:id="profile_btn" mnemonicParsing="false" onAction="#goProfile" opacity="0.0" prefHeight="62.0" prefWidth="100.0">
                      <cursor>
-                        <Cursor fx:constant="TEXT" />
+                        <Cursor fx:constant="HAND" />
                      </cursor>
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </TextField>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="35.0" top="35.0" />
+               </VBox.margin>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../settings/home.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <VBox fx:id="searchContainer" layoutX="-3.0" layoutY="172.0" prefHeight="366.0" prefWidth="752.0" />
-         </children></Pane>
-   </center>
-   <left>
-      <Pane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane fx:id="main_pp_container" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
-            <Pane prefHeight="540.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;">
+            <Pane>
                <children>
-                  <Pane fx:id="main_pp_container1" layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: red;" />
-                  <Pane layoutY="141.0">
-                     <children>
-                        <Button fx:id="home_btn" mnemonicParsing="false" onAction="#goHome" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="HOME" textAlignment="JUSTIFY" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Button>
-                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
-                           <image>
-                              <Image url="@../home/hicon.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="-1.0" layoutY="204.0">
-                     <children>
-                        <Button fx:id="search_btn" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Button>
-                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
-                           <image>
-                              <Image url="@../settings/search.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="-1.0" layoutY="267.0">
-                     <children>
-                        <Button fx:id="notif_btn" layoutX="1.0" layoutY="11.0" mnemonicParsing="false" onAction="#gonotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Button>
-                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
-                           <image>
-                              <Image url="@../settings/notfications.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="-1.0" layoutY="330.0">
-                     <children>
-                        <Button fx:id="settings_btn" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Button>
-                        <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
-                           <image>
-                              <Image url="@../settings/setting.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="-1.0" layoutY="477.0">
-                     <children>
-                        <Button fx:id="signout_btn" layoutX="4.0" layoutY="-1.0" mnemonicParsing="false" onAction="#goSignOut" prefHeight="63.0" prefWidth="96.0" style="-fx-background-color: #4bbe97;" text="SIGN OUT" textAlignment="JUSTIFY" textFill="WHITE">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Button>
-                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="37.0" layoutY="3.0">
-                           <image>
-                              <Image url="@../settings/sign%20out.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <Button fx:id="search_btn" mnemonicParsing="false" onAction="#goSearch" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #317e67;" text="SEARCH" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../settings/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="notif_btn" mnemonicParsing="false" onAction="#goNotif" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="NOTIFICATIONS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../settings/notfications.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <Button fx:id="settings_btn" mnemonicParsing="false" onAction="#goSettings" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SETTINGS" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="31.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../settings/setting.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <Pane prefHeight="6.0" prefWidth="960.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutY="-53.0">
+               <children>
+                  <Button fx:id="signout_btn" layoutY="-1.0" mnemonicParsing="false" onAction="#goSignOut" prefHeight="63.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" text="SIGN OUT" textAlignment="JUSTIFY" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="37.0" layoutY="3.0">
+                     <image>
+                        <Image url="@../settings/sign%20out.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>
       </Pane>
-   </left>
+   </bottom>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#searchUser" onKeyPressed="#searchUser" prefHeight="50.0" prefWidth="500.0" promptText="Find Friends........" style="-fx-background-radius: 50; -fx-background-color: #4bbe97; -fx-prompt-text-fill: #596964; -fx-text-fill: white;" styleClass="fieldimg" stylesheets="@img.css" VBox.vgrow="NEVER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="50.0" top="50.0" />
+               </VBox.margin>
+            </TextField>
+            <VBox fx:id="searchContainer" prefHeight="366.0" prefWidth="752.0" style="-fx-background-color: white;">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </center>
 </BorderPane>

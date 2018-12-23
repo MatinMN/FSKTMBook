@@ -57,10 +57,6 @@ public class SearchPageController implements Initializable {
     @FXML
     private Button notif_btn;
     @FXML
-    private Pane main_pp_container;
-    @FXML
-    private Pane main_pp_container1;
-    @FXML
     private Button settings_btn;
     @FXML
     private Button signout_btn;
@@ -74,6 +70,10 @@ public class SearchPageController implements Initializable {
     
     private Users users;
     private User user;
+    @FXML
+    private ImageView profileImage_leftTop;
+    @FXML
+    private Button profile_btn;
     /**
      * Initializes the controller class.
      */
@@ -133,9 +133,6 @@ public class SearchPageController implements Initializable {
     private void goSearch(ActionEvent event) {
     }
 
-    @FXML
-    private void gonotif(ActionEvent event) {
-    }
 
     @FXML
     private void goSettings(ActionEvent event) {
@@ -236,5 +233,13 @@ public class SearchPageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(SearchPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void goProfile(ActionEvent event) {
+    }
+
+    @FXML
+    private void goNotif(ActionEvent event) {
     }
 }

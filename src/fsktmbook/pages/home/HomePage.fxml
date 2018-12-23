@@ -20,7 +20,10 @@
          <children>
             <Pane layoutX="18.0" layoutY="40.0" prefHeight="65.0" prefWidth="65.0">
                <children>
-                  <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#goProfile" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" onMouseClicked="#goProfile" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ImageView>
                </children></Pane>
             <Pane layoutX="-1.0" layoutY="141.0">
                <children>

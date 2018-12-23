@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane layoutX="10.0" layoutY="10.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<Pane layoutX="10.0" layoutY="10.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
          <children>
-            <Text fill="#3aaf9f" layoutX="46.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" wrappingWidth="317.4700622558594">
+            <Text fill="#3aaf9f" layoutX="51.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" wrappingWidth="317.4700622558594">
                <font>
-                  <Font name="Verdana Bold" size="11.0" />
+                  <Font name="Arial Bold" size="19.0" />
                </font>
             </Text>
-      <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
          </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" />
+   </padding>
       </Pane>

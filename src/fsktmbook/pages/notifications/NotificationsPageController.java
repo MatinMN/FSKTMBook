@@ -49,12 +49,9 @@ public class NotificationsPageController implements Initializable {
 
     @FXML
     private BorderPane rootPane;
-    @FXML
-    private ImageView profileImage;
+    
     @FXML
     private Button home_btn;
-    @FXML
-    private Button search_bt;
     @FXML
     private Button notif_btn;
     @FXML
@@ -66,6 +63,12 @@ public class NotificationsPageController implements Initializable {
 
     Users users;
     Notifications notifications;
+    @FXML
+    private ImageView profileImage_leftTop;
+    @FXML
+    private Button profile_btn;
+    @FXML
+    private Button search_btn;
     /**
      * Initializes the controller class.
      */
@@ -74,7 +77,7 @@ public class NotificationsPageController implements Initializable {
         
             users = new Users();
             notifications = new Notifications();
-            profileImage.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+            profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
             try {
                 displayNotifications();
             } catch (SQLException ex) {
@@ -126,9 +129,6 @@ public class NotificationsPageController implements Initializable {
         stage.close();
     }
 
-    @FXML
-    private void gonotif(ActionEvent event) {
-    }
 
      void loadWindow(String location,String title){
 
@@ -175,7 +175,6 @@ public class NotificationsPageController implements Initializable {
         
     }
     
-     @FXML
     private void goProfile(MouseEvent event) throws IOException {
         
         openProfile(FSKTMBook.LOGGEDUSER);
@@ -209,6 +208,14 @@ public class NotificationsPageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void goProfile(ActionEvent event) {
+    }
+
+    @FXML
+    private void goNotif(ActionEvent event) {
     }
     
 }

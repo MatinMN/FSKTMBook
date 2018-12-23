@@ -265,7 +265,6 @@ public class ProfilePageController implements Initializable {
         
         
             profileImage_center.setImage(users.getUserImage(user.getId()));
-            coverImage.setImage(users.getUserImage(user.getId()));
             username_center.setText(user.getUserName());
             occupation_center.setText(user.getOccupation());
             aboutArea.setText(user.getAbout());
