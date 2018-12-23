@@ -49,6 +49,7 @@ public class Database {
         setupPostsTable();
         setupUsersTable();
         setupCommentsTable();
+        setupFollowersTable();
         setupViewsTable();
         setupGrabVouhersTable();
         setupNotification();
