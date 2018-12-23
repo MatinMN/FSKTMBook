@@ -9,6 +9,7 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.Post;
 import fsktmbook.ui.database.Database;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -20,13 +21,13 @@ public class Follows {
     private Database database;
     
     
-    public void Follows(){
+    public Follows(){
         database = Database.getInstannce();
     }
     
     
         
-    public boolean follow(int followedId , int followerId) throws SQLException{
+    public boolean follow(int followerId , int followedId) throws SQLException{
 
         String query = "INSERT INTO follows (followerId,followedId,followDate) VALUES (?,?,?)";   
                 
@@ -42,12 +43,32 @@ public class Follows {
         
     }
     
-     public boolean unfollow(int followedId, int followerId) throws SQLException{
+     public boolean unfollow(int followerId, int followedId) throws SQLException{
          
-        String query = "DELETE FROM follows WHERE followerID='" + followerId + "' AND followedId='" + followedId + "'";
+        String query = "DELETE FROM follows WHERE followerId = ? AND followedId = ?";
         PreparedStatement stmt = database.prepareStatement(query);
+        
+        stmt.setInt(1,followerId);
+        stmt.setInt(2,followedId);
         
         return (stmt.execute());
     }
+     
+     public boolean isFollowing(int followerId,int followedId) throws SQLException{
+     
+         String query = "SELECT id FROM follows WHERE followerId = ? AND followedId = ?";
+         
+         PreparedStatement stmt = database.prepareStatement(query);
+         
+         stmt.setInt(1,followerId);
+         stmt.setInt(2,followedId);
+         
+         ResultSet rs = stmt.executeQuery();
+         
+         while(rs.next()){
+             return true;
+         }
+         return false;
+     }
     
 }

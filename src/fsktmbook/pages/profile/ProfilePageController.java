@@ -12,6 +12,7 @@ import fsktmbook.helpers.User;
 import fsktmbook.pages.home.HomePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
+import fsktmbook.ui.database.models.Follows;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
 import java.awt.Color;
@@ -119,9 +120,13 @@ public class ProfilePageController implements Initializable {
    private Users users;
    private Posts posts;
    private Comments comments;
+   private Follows follows;
+   
    private User user;
     @FXML
     private TextArea aboutArea;
+    @FXML
+    private Button followBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -249,24 +254,39 @@ public class ProfilePageController implements Initializable {
         users = new Users();
         comments = new Comments();
         
+        follows = new Follows();
+        
         try {
             user = users.getUserInformation(userId);
+        
+        
+            profileImage_center.setImage(users.getUserImage(user.getId()));
+            coverImage.setImage(users.getUserImage(user.getId()));
+            username_center.setText(user.getUserName());
+            occupation_center.setText(user.getOccupation());
+            aboutArea.setText(user.getAbout());
+            profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+            
+            if(FSKTMBook.LOGGEDUSER != user.getId()){
+                boolean isFollowing = follows.isFollowing(FSKTMBook.LOGGEDUSER, user.getId());
+                if(isFollowing == true){
+                    followBtn.setText("Unfollow");
+                }
+            }else{
+                followBtn.setVisible(false);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProfilePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        profileImage_center.setImage(users.getUserImage(user.getId()));
-        coverImage.setImage(users.getUserImage(user.getId()));
-        username_center.setText(user.getUserName());
-        occupation_center.setText(user.getOccupation());
-        aboutArea.setText(user.getAbout());
-        profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
         displayPosts();
     }
     
     @FXML
     private void goProfile(ActionEvent event) {
         openProfile(FSKTMBook.LOGGEDUSER);
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
     
@@ -346,6 +366,21 @@ public class ProfilePageController implements Initializable {
             //currentStage.close();
         } catch (IOException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void follow(ActionEvent event) throws SQLException {
+        if(follows.isFollowing(FSKTMBook.LOGGEDUSER, user.getId())){
+            // unfollow
+            follows.unfollow(FSKTMBook.LOGGEDUSER, user.getId());
+            followBtn.setText("Follow");
+            Helper.openAlert("You unfollowed " + user.getFirstName());
+        }else{
+            // follow
+            follows.follow(FSKTMBook.LOGGEDUSER, user.getId());
+            followBtn.setText("Unfollow");
+            Helper.openAlert("You Followed " + user.getFirstName());
         }
     }
     

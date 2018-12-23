@@ -231,7 +231,22 @@
                   </Pane>
                   <Pane prefHeight="329.0" prefWidth="155.0" style="-fx-background-color: white;">
                      <children>
-                        <Button fx:id="loadMoreBtn" layoutX="57.0" layoutY="268.0" mnemonicParsing="false" onAction="#loadMore" text="Load More" />
+                        <Button id="signin-button" fx:id="followBtn" mnemonicParsing="false" onAction="#follow" prefHeight="59.0" prefWidth="154.0" style="-fx-background-color: #4cbf97; -fx-border-color: #4cbf97; -fx-border-radius: 100; -fx-background-radius: 100;" text="Follow" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
+                        <Button id="signin-button" fx:id="loadMoreBtn" defaultButton="true" disable="true" layoutX="-1.0" layoutY="270.0" mnemonicParsing="false" onAction="#loadMore" prefHeight="59.0" prefWidth="157.0" style="-fx-background-color: #4cbf97; -fx-border-color: #4cbf97; -fx-border-radius: 100; -fx-background-radius: 100;" text="Load More" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Button>
                      </children></Pane>
                </children>
             </HBox>

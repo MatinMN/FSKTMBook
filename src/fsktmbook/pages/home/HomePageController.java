@@ -246,7 +246,7 @@ public class HomePageController implements Initializable {
       alert.setContentText("Are you sure you want to sign out?\n\nWe have more features for you to try out...");
       ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
       ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-
+      
       alert.getButtonTypes().setAll(okButton, noButton);
       Optional <ButtonType> action = alert.showAndWait();
       if (action.get() == okButton) {
