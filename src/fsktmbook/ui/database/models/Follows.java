@@ -72,4 +72,8 @@ public class Follows {
          return false;
      }
     
+     
+     public boolean DoFollowBack(int user1,int user2) throws SQLException{
+         return (user1 == user2)? true : isFollowing(user1,user2) && isFollowing(user2,user1);
+    }
 }

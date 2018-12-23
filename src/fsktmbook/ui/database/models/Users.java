@@ -104,12 +104,12 @@ public class Users {
     
     public ResultSet searchUsers(String searchStatement) throws SQLException{
         
-        String query = "SELECT FROM users WHERE username LIKE '%?%' OR firstname LIKE '%?%'";
+        String query = "SELECT * FROM users WHERE username LIKE ? OR firstname LIKE ? ";
         
         PreparedStatement stmt = database.prepareStatement(query);
         
-        stmt.setString(1, searchStatement);
-        stmt.setString(2, searchStatement);
+        stmt.setString(1, "%"+searchStatement+"%");
+        stmt.setString(2, "%"+searchStatement+"%");
         
         ResultSet rs = stmt.executeQuery();
         
