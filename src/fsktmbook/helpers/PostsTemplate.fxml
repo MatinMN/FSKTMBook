@@ -42,7 +42,7 @@
                   <DropShadow color="#00000066" height="10.0" radius="4.5" width="10.0" />
                </effect>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Pane>
             <Pane maxWidth="-Infinity" prefWidth="458.0" style="-fx-background-color: #f1f1f1; -fx-border-color: #f1f1f1; -fx-border-radius: 10;" styleClass="bo" stylesheets="@border.css">

@@ -20,6 +20,8 @@ import fsktmbook.ui.database.models.Users;
 import fsktmbook.ui.database.models.Views;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,6 +41,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -83,8 +87,6 @@ public class HomePageController implements Initializable {
     @FXML
     private Button publish_btn;
     @FXML
-    private TextArea news_text_box;
-    @FXML
     private Button search_bt;
     @FXML
     private VBox postsContainer;
@@ -94,7 +96,8 @@ public class HomePageController implements Initializable {
     @FXML
     private ImageView profileImage;
 
-
+    @FXML
+    private ScrollPane scroll_container;
 
 
 
@@ -104,7 +107,15 @@ public class HomePageController implements Initializable {
     private Button loadMoreBtn;
 
     private User user;
+    @FXML
+    private Button signout_btn;
+    @FXML
+    private Button buynow_btn1;
+    @FXML
+    private Button buynow_btn2;
 
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -114,6 +125,7 @@ public class HomePageController implements Initializable {
             users = new Users();
             comments = new Comments();
             follows = new Follows();
+                   
         try {
             user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
         } catch (SQLException ex) {
@@ -418,6 +430,27 @@ public class HomePageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void goAd1(ActionEvent event) {
+        
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI("https://www.mcdonalds.com.my/?gclid=Cj0KCQiAgf3gBRDtARIsABgdL3lPdW1_Pr51NmDeXzYHK3_au7mLpjUdtArFbZ7Ed40UWsDj4eJeJd0aAs3qEALw_wcB"));
+        } catch (IOException | URISyntaxException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void goAd2(ActionEvent event) {
+        
+        try {
+            java.awt.Desktop.getDesktop().browse(new URI("https://www.lazada.com.my/?exlaz=d_1:mm_150050845_51350203_2010350203::11:124182683!12032563043!%2Blazada!b!aud-279437839081:kwd-31300663887!c&utm_source=google&utm_medium=sem_brand&utm_content=%2Blazada_b&utm_campaign=124182683&utm_term=12032563043_c_aud-279437839081:kwd-31300663887&adjust_tracker=t2v78t_5n20iw&adjust_campaign=124182683&adjust_adgroup=12032563043_c_aud-279437839081:kwd-31300663887&adjust_creative=%2Blazada_b&tracker_limit=1000000&gclid=Cj0KCQiAgf3gBRDtARIsABgdL3kJEIFJXMpHvsXJ9rBQblwCUVSEh4qJmS8zsGuV-UGuQ1z8QLRKofMaAsTKEALw_wcB"));
+        } catch (IOException | URISyntaxException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }

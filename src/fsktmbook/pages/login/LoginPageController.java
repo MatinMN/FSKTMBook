@@ -26,8 +26,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -50,12 +52,12 @@ public class LoginPageController implements Initializable {
     @FXML
     private Button signup_btn;
     @FXML
-    private AnchorPane rootPane;
+    private BorderPane rootPane;
     
     
     Database database;
     
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         database = Database.getInstannce();
         
@@ -141,6 +143,7 @@ public class LoginPageController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
             
