@@ -5,6 +5,7 @@
  */
 package fsktmbook.pages.settings;
 
+import fsktmbook.ui.database.Database;
 import fsktmbook.FSKTMBook;
 import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.ImageHandler;
@@ -126,9 +127,9 @@ public class SettingsPageController implements Initializable {
     @FXML
     private TextField oldPassword_input;
     
+    
     @FXML
     private Button profile_btn;
-
     @FXML
     private TextField newPassword_input;
     
@@ -136,13 +137,13 @@ public class SettingsPageController implements Initializable {
     private TextField renewPassword_input;
 
     private User user;
-
+    private Database database;
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+            
             users = new Users();
         try {
             
@@ -153,9 +154,10 @@ public class SettingsPageController implements Initializable {
             profileImage_leftTop.setImage(profileImg);
             
             aboutme_input.setText(user.getAbout());
-            firstname_input.setText(user.getFirstName());
+            firstname_input.setText(user.getUserName());
             lastname_input.setText(user.getLastName());
             matric_input.setText(user.getMatricNumber());
+            System.out.println(user.getPassword());
         } catch (SQLException ex) {
             Logger.getLogger(SettingsPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -264,50 +266,57 @@ public class SettingsPageController implements Initializable {
     
     public void changeUserInformation() throws SQLException{
         
-        
-        Users users = new Users();
-        User user = new User();
-        user = setUserInformation();
+       
         if(validateInputData()){
-            if(checkNewPassword(user)){
+            if(checkNewPassword()){
                 // we will store the new password in the database.......
+                setUserInformation(1);
                 users.updateUser(user);
+                //database.printUsersTable();
+            }
+            else{
+                setUserInformation(0);
+                users.updateUser(user);
+                //database.printUsersTable();
             }
         }
     }
     
-    public boolean checkNewPassword(User user) throws SQLException{
-        Users users = new Users();
+    public boolean checkNewPassword() throws SQLException{
         String oldPassword = oldPassword_input.getText();
-        user = users.getUserInformation(FSKTMBook.LOGGEDUSER);
+
         
-        if(user.getPassword().length() < 8){
+        if(!(oldPassword.isEmpty())){
+            if(newPassword_input.getText().length() < 8){
             Helper.openAlert("Password length cannot be less than 8 characters!");
+                return false;
+            }
+            if(!((newPassword_input.getText()).equals(renewPassword_input.getText()))){
+                Helper.openAlert("Both passwords must match!");
+                return false;
+            }
+            if(!(user.getPassword().equals(oldPassword))){
+                Helper.openAlert("Old password is not the same as the user's password!");
+                return false;
+            }
+            if(((oldPassword).equals(newPassword_input.getText()))){
+                Helper.openAlert("New password cannot be the same as old password!!");
+                return false;
+            }
+        }
+        else{
+            
+            System.out.println(user.getPassword());
             return false;
         }
-        if(!((newPassword_input.getText()).equals(renewPassword_input.getText()))){
-            Helper.openAlert("Both passwords must match!");
-            return false;
-        }
-        if(!(user.getPassword().equals(oldPassword))){
-            Helper.openAlert("Old password is not the same as the user's password!");
-            return false;
-        }
-        if(((oldPassword).equals(newPassword_input.getText()))){
-            Helper.openAlert("New password cannot be the same as old password!!");
-            return false;
-        }
+
         return true;
     }
     
     public boolean validateInputData() throws SQLException{
         
-        if((firstname_input.getText().isEmpty()) || (lastname_input.getText().isEmpty()) || (matric_input.getText().isEmpty()) || (aboutme_input.getText().isEmpty())){
-            Helper.openAlert("All fields are required");
-            return false;
-        }
-        if((newPassword_input.getText().isEmpty()) || (renewPassword_input.getText().isEmpty()) || (oldPassword_input.getText().isEmpty())){
-            Helper.openAlert("All fields are required!!");
+        if((firstname_input.getText().isEmpty()) || (lastname_input.getText().isEmpty()) || (matric_input.getText().isEmpty())){
+            Helper.openAlert("First name, Last name and Matric number fields are required");
             return false;
         }
         
@@ -320,6 +329,9 @@ public class SettingsPageController implements Initializable {
             return false;
         }
         
+        
+
+        
         if((users.doesUserExist(firstname_input.getText()))){
             if((user.getUserName()).equals(firstname_input.getText())){
                 return true;
@@ -328,18 +340,17 @@ public class SettingsPageController implements Initializable {
                 Helper.openAlert("User name already Exists!!");
                 return false;
             }
-            
         }
         
         return true;
     }
     
-    public User setUserInformation(){
-        User user = new User();
+    public User setUserInformation(int type){
+
         user.setFirstName(firstname_input.getText());
         user.setLastName(lastname_input.getText());
         ///user.setUserName();
-        user.setPassword(newPassword_input.getText());
+        if (type == 1) user.setPassword(newPassword_input.getText());
         user.setMatricNumber(matric_input.getText());
         //user.setOccupation();
         user.setAbout(aboutme_input.getText());
