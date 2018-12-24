@@ -51,6 +51,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
@@ -137,20 +138,26 @@ public class ProfilePageController implements Initializable {
     }
     
 
-    public void displayPosts(){
+  public void displayPosts(){
         int postCount = 0;
+        
         loadMoreBtn.setDisable(true);
         try {
             ResultSet rs = posts.getPostsFromUser(offset,postsNumber+1,user.getId());
+            
             while(rs.next()){
                 postCount++;
+                
                 if(postCount > postsNumber){
                     loadMoreBtn.setDisable(false);
                     return;
                 }
+                
+                
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
                 int postId = rs.getInt("id");
+                
                 VBox vBox = (VBox) post.getChildren().get(0);
                 Pane pane = (Pane) vBox.getChildren().get(0);
                 Pane commentsPane = (Pane) vBox.getChildren().get(1);
@@ -170,19 +177,31 @@ public class ProfilePageController implements Initializable {
                     public void handle(ActionEvent actionEvent) {
                         try {
                             // add a new comment
-                            String commentContent = commentInput.getText();
-                            comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
-                            displayComments(postId,(VBox)commentsBox.getChildren().get(0));
-                            //System.out.println(commentContent);
-                            commentInput.setText("");
+                            if(follows.DoFollowBack(FSKTMBook.LOGGEDUSER, user.getId())){
+                                String commentContent = commentInput.getText();
+                                comments.postComment(postId, FSKTMBook.LOGGEDUSER, commentContent);
+                                displayComments(postId,(VBox)commentsBox.getChildren().get(0));
+                                //System.out.println(commentContent);
+                                commentInput.setText("");
+                            }else{
+                                Helper.openAlert("You can only comment on this post if " + user.getFirstName() +" and you follow each other");
+                            }
 
                         } catch (SQLException ex) {
                             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 });
-
-
+                
+                postUserImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    
+                    @Override
+                    public void handle(MouseEvent event) {
+                        openProfile(user.getId());
+                            System.out.println(user.getId());
+                    }
+                });
+                
                 usernameText.setText(user.getFirstName());
                 postContent.setText(rs.getString("content"));
                 postUserImage.setImage(users.getUserImage(user.getId()));
@@ -262,6 +281,7 @@ public class ProfilePageController implements Initializable {
         follows = new Follows();
         
         try {
+            
             user = users.getUserInformation(userId);
         
         
@@ -287,6 +307,7 @@ public class ProfilePageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ProfilePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         displayPosts();
     }
     

@@ -153,13 +153,13 @@ public class HomePageController implements Initializable {
             
             while(rs.next()){
                 postCount++;
-                System.out.println("Here");
+                
                 if(postCount > postsNumber){
                     loadMoreBtn.setDisable(false);
                     return;
                 }
                 
-                System.out.println("Over here");
+                
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
                 int postId = rs.getInt("id");
@@ -399,7 +399,6 @@ public class HomePageController implements Initializable {
     @FXML
     private void loadMore(ActionEvent event) {
         offset+= postsNumber;
-        System.out.println("here" + offset);
         displayPosts();
     }
 
@@ -466,11 +465,5 @@ public class HomePageController implements Initializable {
         
     }
 
-    @FXML
-    private void loadMore(MouseEvent event) {
-        offset+= postsNumber;
-        System.out.println("here" + offset);
-        displayPosts();
-    }
     
 }
