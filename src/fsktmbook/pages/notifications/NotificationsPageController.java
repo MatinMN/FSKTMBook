@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -117,14 +118,14 @@ public class NotificationsPageController implements Initializable {
     
     @FXML
     private void goHome(ActionEvent event) {
-         loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home");
+        loadWindow("/fsktmbook/pages/home/HomePage.fxml","Home");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     private void goSearch(ActionEvent event) {
-         loadWindow("/fsktmbook/pages/search/searchPage.fxml","Search");
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","Search");
         Stage stage =  (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
@@ -136,6 +137,7 @@ public class NotificationsPageController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -193,6 +195,7 @@ public class NotificationsPageController implements Initializable {
             
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Profile Page");
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -212,8 +215,11 @@ public class NotificationsPageController implements Initializable {
 
     @FXML
     private void goProfile(ActionEvent event) {
+        openProfile(FSKTMBook.LOGGEDUSER);
     }
-
+    
+    
+    
     @FXML
     private void goNotif(ActionEvent event) {
     }

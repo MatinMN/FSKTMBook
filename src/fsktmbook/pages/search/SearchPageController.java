@@ -32,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
@@ -87,6 +88,9 @@ public class SearchPageController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(SearchPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        profileImage_leftTop.setImage(users.getUserImage(FSKTMBook.LOGGEDUSER));
+        
     }
 
     public void displaySearchUser(String s) throws SQLException{
@@ -131,11 +135,17 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private void goSearch(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/search/searchPage.fxml","Search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
 
     @FXML
     private void goSettings(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","Settings");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -166,6 +176,7 @@ public class SearchPageController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -202,6 +213,7 @@ public class SearchPageController implements Initializable {
             
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Profile Page");
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -237,9 +249,13 @@ public class SearchPageController implements Initializable {
 
     @FXML
     private void goProfile(ActionEvent event) {
+        openProfile(FSKTMBook.LOGGEDUSER);
     }
 
     @FXML
     private void goNotif(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/notifications/NotificationsPage.fxml","Notification");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 }

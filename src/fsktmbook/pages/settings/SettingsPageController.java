@@ -11,10 +11,14 @@ import fsktmbook.helpers.Helper;
 import fsktmbook.helpers.ImageHandler;
 import fsktmbook.helpers.Post;
 import fsktmbook.helpers.User;
+import fsktmbook.pages.home.HomePageController;
+import fsktmbook.pages.profile.ProfilePageController;
 import fsktmbook.ui.database.Database;
 import fsktmbook.ui.database.models.Comments;
+import fsktmbook.ui.database.models.Notifications;
 import fsktmbook.ui.database.models.Posts;
 import fsktmbook.ui.database.models.Users;
+import fsktmbook.ui.database.models.Views;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -181,10 +185,16 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private void goNotif(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/notifications/NotificationsPage.fxml","Notifications");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void goSettings(ActionEvent event) {
+        loadWindow("/fsktmbook/pages/settings/SettingsPage.fxml","Settings");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -364,6 +374,7 @@ public class SettingsPageController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -376,8 +387,43 @@ public class SettingsPageController implements Initializable {
 
     @FXML
     private void goProfile(ActionEvent event) {
+        openProfile(FSKTMBook.LOGGEDUSER);
     }
+    
+    public void openProfile(int userId){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fsktmbook/pages/profile/ProfilePage.fxml"));
+            Parent parent;
+        try {
+            parent = loader.load();
+        
+            
+            ProfilePageController controller = (ProfilePageController) loader.getController();
+            
+            controller.getData(userId);
+            
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Profile Page");
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
+            stage.setScene(new Scene(parent));
+            stage.show();
 
+            //add view
+            Views views = new Views();
+            if (FSKTMBook.LOGGEDUSER != userId){
+                views.addView(FSKTMBook.LOGGEDUSER, userId);
+                Notifications not = new Notifications();
+                not.addNotification(userId,user.getFirstName() + " viewed your profile" ,"View");
+            }
+            
+            Stage currentStage =  (Stage) rootPane.getScene().getWindow();
+            currentStage.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
 

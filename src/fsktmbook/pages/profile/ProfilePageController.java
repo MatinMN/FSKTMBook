@@ -220,6 +220,7 @@ public class ProfilePageController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource(location));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle(title);
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
@@ -313,7 +314,9 @@ public class ProfilePageController implements Initializable {
 
     @FXML
     private void goNotif(ActionEvent event) {
-        
+        loadWindow("/fsktmbook/pages/notifications/NotificationsPage.fxml","search");
+        Stage stage =  (Stage) rootPane.getScene().getWindow();
+        stage.close();
         
     }
 
@@ -366,6 +369,7 @@ public class ProfilePageController implements Initializable {
             
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Edit book");
+            stage.getIcons().add(new Image("/fsktmbook/images/1.png"));
             stage.setScene(new Scene(parent));
             stage.show();
 
