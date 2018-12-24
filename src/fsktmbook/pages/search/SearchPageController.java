@@ -188,7 +188,6 @@ public class SearchPageController implements Initializable {
 
 
 
-    @FXML
     private void searchUser(InputMethodEvent event) {
         String search = "";
         search +=searchBox.getText();

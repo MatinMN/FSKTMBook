@@ -103,6 +103,7 @@ public class HomePageController implements Initializable {
 
     private int offset;
     private int postsNumber = 3;
+    
     @FXML
     private Button loadMoreBtn;
 
@@ -145,15 +146,20 @@ public class HomePageController implements Initializable {
 
     public void displayPosts(){
         int postCount = 0;
+        
         loadMoreBtn.setDisable(true);
         try {
             ResultSet rs = posts.getPosts(offset,postsNumber+1);
+            
             while(rs.next()){
                 postCount++;
+                System.out.println("Here");
                 if(postCount > postsNumber){
                     loadMoreBtn.setDisable(false);
                     return;
                 }
+                
+                System.out.println("Over here");
                 User user = users.getUserInformation(rs.getInt("userId"));
                 GridPane post = (GridPane) getPostsPaneCopy();
                 int postId = rs.getInt("id");
@@ -201,7 +207,7 @@ public class HomePageController implements Initializable {
                             System.out.println(user.getId());
                     }
                 });
-                
+                System.out.println("tsest");
                 usernameText.setText(user.getFirstName());
                 postContent.setText(rs.getString("content"));
                 postUserImage.setImage(users.getUserImage(user.getId()));
@@ -393,6 +399,7 @@ public class HomePageController implements Initializable {
     @FXML
     private void loadMore(ActionEvent event) {
         offset+= postsNumber;
+        System.out.println("here" + offset);
         displayPosts();
     }
 
@@ -457,6 +464,13 @@ public class HomePageController implements Initializable {
             Logger.getLogger(HomePageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    @FXML
+    private void loadMore(MouseEvent event) {
+        offset+= postsNumber;
+        System.out.println("here" + offset);
+        displayPosts();
     }
     
 }

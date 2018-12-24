@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.home.HomePageController">
    <left>
       <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
@@ -151,7 +151,7 @@
                   </Button>
                </children>
             </Pane>
-            <Button fx:id="loadMoreBtn" layoutX="25.0" layoutY="492.0" mnemonicParsing="false" onAction="#loadMore" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="Load More" textFill="WHITE">
+            <Button fx:id="loadMoreBtn" disable="true" layoutX="25.0" layoutY="492.0" mnemonicParsing="false" onAction="#loadMore" onMouseClicked="#loadMore" style="-fx-background-color: #4bbe97; -fx-background-radius: 50;" text="Load More" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="11.0" />
                </font>

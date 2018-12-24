@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fsktmbook.pages.search.SearchPageController">
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4bbe97;" BorderPane.alignment="CENTER">
          <children>
@@ -140,7 +140,7 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="searchBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#searchUser" onKeyPressed="#searchUser" prefHeight="50.0" prefWidth="500.0" promptText="Find Friends........" style="-fx-background-radius: 50; -fx-background-color: #4bbe97; -fx-prompt-text-fill: #596964; -fx-text-fill: white;" styleClass="fieldimg" stylesheets="@img.css" VBox.vgrow="NEVER">
+            <TextField fx:id="searchBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#searchUser" prefHeight="50.0" prefWidth="500.0" promptText="Find Friends........" style="-fx-background-radius: 50; -fx-background-color: #4bbe97; -fx-prompt-text-fill: #596964; -fx-text-fill: white;" styleClass="fieldimg" stylesheets="@img.css" VBox.vgrow="NEVER">
                <font>
                   <Font size="24.0" />
                </font>
